@@ -39,8 +39,8 @@ To run the project on your **STM32F746G-DISCO** board, connect it to your PC (as
 
 ## Authors
 
-- Jakub Łukaszewski (@JAC0BIAN)
-- Artur Michna (@Artur-Michna)
+- Jakub Łukaszewski ([@JAC0BIAN](https://github.com/JAC0BIAN))
+- Artur Michna ([@Artur-Michna](https://github.com/Artur-Michna))
 
 ## Licenses
 
