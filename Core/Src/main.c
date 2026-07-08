@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "tusb.h"
+#include "MIDI_handling.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,9 +101,7 @@ static void MX_USB_OTG_FS_HCD_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
-void tuh_midi_mount_cb(uint8_t idx, const tuh_midi_mount_cb_t *mount_cb_data);
-void tuh_midi_umount_cb(uint8_t idx);
-void tuh_midi_rx_cb(uint8_t idx, uint32_t xferred_bytes);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -199,7 +197,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  tuh_task();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -1523,48 +1520,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-uint32_t tusb_time_millis_api(void)
-{
-  return HAL_GetTick();
-}
 
-void tuh_midi_mount_cb(uint8_t idx, const tuh_midi_mount_cb_t *mount_cb_data)
-{
-  (void) idx;
-  (void) mount_cb_data;
-
-  //turn on LED when device is connected
-  HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_SET);
-}
-
-void tuh_midi_umount_cb(uint8_t idx)
-{
-  (void) idx;
-  //turn off LED when device is disconnected
-  HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_RESET);
-}
-
-void tuh_midi_rx_cb(uint8_t idx, uint32_t xferred_bytes)
-{
-  (void) xferred_bytes;
-  uint8_t packet[4];
-
-  while (tuh_midi_packet_read(idx, packet))
-  {
-    uint8_t status   = packet[1] & 0xF0;
-    //uint8_t note     = packet[2]; //unused for now
-    uint8_t velocity = packet[3];
-
-    if (status == 0x90 && velocity > 0)
-    {
-    	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
-    }
-    else if (status == 0x80 || (status == 0x90 && velocity == 0))
-    {
-    	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
-    }
-  }
-}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -1577,11 +1533,11 @@ void tuh_midi_rx_cb(uint8_t idx, uint32_t xferred_bytes)
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
-  tusb_init(BOARD_TUH_RHPORT);
+  MIDI_Init();
   /* Infinite loop */
   for(;;)
   {
-	tuh_task();
+	MIDI_Process();
     osDelay(1);
   }
   /* USER CODE END 5 */
