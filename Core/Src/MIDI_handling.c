@@ -1,4 +1,5 @@
 #include "MIDI_handling.h"
+#include "audio_handling.h"
 #include "main.h"       
 #include "tusb.h"       
 
@@ -40,17 +41,21 @@ void tuh_midi_rx_cb(uint8_t idx, uint32_t xferred_bytes)
 
   while (tuh_midi_packet_read(idx, packet))
   {
-    uint8_t status   = packet[1] & 0xF0; // apply mask to ignore channel number (only one device is connected)
-    //uint8_t note     = packet[2]; //unused for now
+    uint8_t status   = packet[1];
+    uint8_t note     = packet[2];
     uint8_t velocity = packet[3];
 
     if (status == 0x90 && velocity > 0) // Note-On event (0x90 = 1001nnn status byte)
     {
-    	//HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_SET);
+    	audio_note_on(note, velocity);
     }
     else if (status == 0x80 || (status == 0x90 && velocity == 0)) // Note-Off event (0x80 = 1000nnn status byte)
     {
-    	//HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_RESET);
+    	audio_note_off(note);
+    }
+    else
+    {
+    	continue;
     }
   }
 }
