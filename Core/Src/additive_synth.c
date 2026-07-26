@@ -1,119 +1,141 @@
-#include "additive_synth.h"
+/*Simple DDS based synth*/
+
+#include <stdint.h>
+#include <stddef.h>
 #include <math.h>
+#include "additive_synth.h"
 
-#define PI 3.14159265358979323846f
-
-static float clampf(float x, float lo, float hi) {
-    if (x < lo) return lo;
-    if (x > hi) return hi;
+static float clampf(float x, float lo, float hi){
+    // Normalize x to set parameter range
+    if(x < lo) return lo;
+    if(x > hi) return hi;
     return x;
 }
 
-static int16_t float_to_int16(float x) {
+static int32_t clampint32(int32_t x, int32_t lo, int32_t hi){
+	if(x < lo) return lo;
+	if(x > hi) return hi;
+	return x;
+}
+
+
+static int16_t float_to_int16(float x){
+    // Float to int conversion (shocking)
     x = clampf(x, -1.0f, 1.0f);
     int32_t v = (int32_t)(x * 32767.0f);
-    if (v > 32767)  v = 32767;
-    if (v < -32767) v = -32767;
+    v = clampint32(v,-32767, 32767);
     return (int16_t)v;
 }
 
-static float midi_to_hz(int midi_note) {
-    return 440.0f * powf(2.0f, ((float)midi_note - 69.0f) / 12.0f);
-}
 
-static uint32_t freq_to_phase_inc(float f, float fs) {
+static uint32_t freq_to_phase_inc(float f, float fs){
+    // Increments phase based on the frequency
     double v = ((double)f * 4294967296.0) / (double)fs;
+    // Faza inc = 2^32/ częstotliwość --> bo jeden okres to pełen zakres fazy czylli 2^32
     if (v < 0.0) v = 0.0;
     if (v > 4294967295.0) v = 4294967295.0;
-    return (uint32_t)(v + 0.5);
+    return (uint32_t)(v + 0.5);                         // Float to int cuts .xxx so +0.5 forces correct approximation
 }
 
-static float lut_sine_linear(const int16_t *lut, uint32_t phase) {
-    uint32_t i0 = phase >> (32u - LUT_BITS);
-    uint32_t i1 = (i0 + 1u) & LUT_MASK;
-    uint32_t frac_u16 = (phase >> (32u - LUT_BITS - 16u)) & 0xFFFFu;
-    float frac = (float)frac_u16 / 65536.0f;
-    float y0 = (float)lut[i0] / 32768.0f;
-    float y1 = (float)lut[i1] / 32768.0f;
-    return y0 + frac * (y1 - y0);
+static float lut_sine_direct(const int16_t *lut, uint32_t phase){
+	// Return proper value from the look up table
+	uint32_t index = phase >> (32u - LUT_BITS);
+	return (float)lut[index]/32768.0f;
 }
 
-void synth_init(Synth *s) {
-    s->sample_rate = SAMPLE_RATE_HZ;
-    s->master_gain = 0.2f;
-    s->num_harmonics = 0;
-    s->midi_note = -1;
-    s->f0_hz = 440.0f;
+static void generate_sine_lut(int16_t *lut, uint32_t size){
+	//
+	for (uint32_t i = 0; i < size; i++){
+		float angle = 2.0f * PI * (float)i / (float)size;
+		float s = sinf(angle);
+		int32_t v = (int32_t)(s * 32767.0f + (s >= 0.0f ? 0.5f : -0.5f));
+		lut[i] = (int16_t)v;
+	}
+}
 
-    for (uint32_t i = 0; i < LUT_SIZE; i++) {
-        float ph = (2.0f * PI * (float)i) / (float)LUT_SIZE;
-        float v = sinf(ph);
-        s->sine_lut[i] = (int16_t)(v * 32767.0f);
+
+// =================================== Synth ============================================
+
+void synth_init(Synth *s, Voice *v){
+    //
+    s -> sample_rate = SAMPLE_RATE_HZ;
+    s -> master_gain = 0.8f;
+    v -> num_harmonics = 0;
+    v -> midi_note = 69;
+    v -> f0_hz = 420.0f;
+
+    generate_sine_lut(s -> sine_lut, LUT_SIZE);
+
+    // MIDI note to frequency
+    for (uint32_t i = 21; i < 128; i++){
+    	float f = 440.0f * powf(2.0f, ((float)i - 69.0f) / 12.0f);
+    	s->midi_freakyuency[i] = (uint16_t)(f+0.5);
     }
 
+    // Harmonics setup
     for (uint32_t i = 0; i < MAX_HARMONICS; ++i) {
-        s->harmonics[i].phase = 0;
-        s->harmonics[i].phase_inc = 0;
-        s->harmonics[i].amp = 0.0f;
+        v -> harmonics[i].phase = 0;
+        v -> harmonics[i].phase_inc = 0;
+        v -> harmonics[i].amp = 00.0f;
     }
+
 }
 
-void synth_note_on(Synth *s, int midi_note, uint32_t requested_harmonics) {
-    if (midi_note < 0) midi_note = 0;
-    if (midi_note > 127) midi_note = 127;
 
-    float f0 = midi_to_hz(midi_note);
+void synth_note_on(Synth *s, Voice *v, int midi_note, uint32_t requested_harmonics){
+    //
 
-    float nyquist = s->sample_rate * 0.5f;
-    uint32_t max_nyquist = (uint32_t)(nyquist / f0);
+    v -> midi_note = midi_note;
+    v -> f0_hz = s -> midi_freakyuency[midi_note];
+
+    float nyquist = s -> sample_rate * 0.5f;                // Antialiasing filter
+    uint32_t max_nyquist = (uint32_t)(nyquist/ (v -> f0_hz));
     if (max_nyquist < 1u) max_nyquist = 1u;
 
     uint32_t n = requested_harmonics;
-    if (n > MAX_HARMONICS) n = MAX_HARMONICS;
-    if (n > max_nyquist) n = max_nyquist;
+    if (n > MAX_HARMONICS) n = MAX_HARMONICS;               // Reduce to permited max harmonics
+    if (n > max_nyquist) n = max_nyquist;                   // Reduce to max without aliasing
+    v -> num_harmonics = n;
 
     float amp_sum = 0.0f;
-    for (uint32_t k = 1; k <= n; k++) {
-        Harmonic *h = &s->harmonics[k - 1];
-        h->phase_inc = freq_to_phase_inc(f0 * (float)k, s->sample_rate);
-        h->amp = 1.0f / (float)k;
-        amp_sum += h->amp;
+    for (uint32_t k = 1; k <= n; k++){
+        Harmonic * h = &v -> harmonics[k - 1];
+        h -> phase = 0;
+        h -> phase_inc = freq_to_phase_inc(v -> f0_hz * (float)k, s -> sample_rate);
+        h -> amp = 1.0f / (float)k;
+        amp_sum = amp_sum + h -> amp;
     }
 
-    if (amp_sum > 0.0f) {
+    if (amp_sum > 0.0f){
         float norm = 1.0f / amp_sum;
         for (uint32_t i = 0; i < n; i++) {
-            s->harmonics[i].amp *= norm;
-        }
+            v->harmonics[i].amp *= norm;
+    	}
+	}
+    for (uint32_t i = n; i < MAX_HARMONICS; i++){
+            v -> harmonics[i].phase_inc = 0;
+            v -> harmonics[i].amp = 0.0f;
     }
-    for (uint32_t i = n; i < MAX_HARMONICS; i++) {
-        s->harmonics[i].phase_inc = 0;
-        s->harmonics[i].amp = 0.0f;
-    }
-
-    s->midi_note = midi_note;
-    s->f0_hz = f0;
-    s->num_harmonics = n;
 }
 
-float synth_process_one(Synth *s) {
-    if (s->num_harmonics == 0) {
-        return 0.0f;
-    }
 
+float synth_process_one(Synth *s, Voice *v){
+    //
     float y = 0.0f;
-    for (uint32_t i = 0; i < s->num_harmonics; i++) {
-        Harmonic *h = &s->harmonics[i];
-        y += h->amp * lut_sine_linear(s->sine_lut, h->phase);
-        h->phase += h->phase_inc;
+
+    for (uint32_t i = 0; i < v -> num_harmonics; i++){
+        Harmonic *h = &v -> harmonics[i];
+        y += h -> amp * lut_sine_direct(s -> sine_lut, h -> phase);
+        h -> phase += h -> phase_inc;
     }
-    return y * s->master_gain;
+
+    y *= s -> master_gain;
+    return y;
 }
 
-void synth_generate_block_stereo_i16(Synth *s, int16_t *out_stereo, size_t frames) {
-    for (size_t n = 0; n < frames; n++) {
-        int16_t sample = float_to_int16(synth_process_one(s));
-        out_stereo[2 * n]     = sample; // Kanał lewy
-        out_stereo[2 * n + 1] = sample; // Kanał prawy
+
+void synth_generate_block_i16(Synth *s,Voice *v, int16_t *out, size_t frames){
+    for (size_t n = 0; n <frames; n++){
+        out[n] = float_to_int16(synth_process_one(s,v));
     }
 }
