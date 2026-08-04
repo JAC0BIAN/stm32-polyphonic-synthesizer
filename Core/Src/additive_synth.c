@@ -69,7 +69,7 @@ static void voice_reset(Voice *v){
 void synth_init(Synth *s, Voice *v){
     //
     s -> sample_rate = SAMPLE_RATE_HZ;
-    s -> master_gain = 0.8f;
+    s -> master_gain = 0.4f;
     v -> num_harmonics = 0;
     v -> midi_note = 69;
     v -> f0_hz = 420.0f;

@@ -1,7 +1,12 @@
 #include "MIDI_handling.h"
 #include "audio_handling.h"
 #include "main.h"       
-#include "tusb.h"       
+#include "tusb.h"
+
+// - debug attempt -
+//volatile uint8_t dbg_usb_irq_active = 0;
+//volatile uint32_t dbg_dma_during_usb = 0;
+// -----------------
 
 void MIDI_Init(void)
 {

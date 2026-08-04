@@ -102,6 +102,7 @@ static void MX_USART6_UART_Init(void);
 static void MX_USB_OTG_FS_HCD_Init(void);
 static void MX_SAI2_Init(void);
 void StartDefaultTask(void const * argument);
+extern void audio_debug_print(UART_HandleTypeDef *huart);
 
 /* USER CODE BEGIN PFP */
 
@@ -1159,7 +1160,7 @@ static void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA2_Stream4_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 5, 0);
+  HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 3, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream4_IRQn);
 
 }
@@ -1537,16 +1538,22 @@ static void MX_GPIO_Init(void)
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void const * argument)
 {
-  /* USER CODE BEGIN 5 */
   MIDI_Init();
   audio_init();
-  /* Infinite loop */
+
+  static uint32_t print_counter = 0;
   for(;;)
   {
-	MIDI_Process();
+    MIDI_Process();
+    // - debug attempt -
+    print_counter++;
+    if (print_counter >= 1000) {
+        print_counter = 0;
+        audio_debug_print(&huart1);
+    }
+    // - ARTUR --------
     osDelay(1);
   }
-  /* USER CODE END 5 */
 }
 
 /**
