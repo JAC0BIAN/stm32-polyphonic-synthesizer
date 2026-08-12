@@ -12,7 +12,7 @@
 #include "stm32746g_discovery_audio.h"
 #include "additive_synth.h"
 
-#define AUDIO_BLOCK_SIZE    256
+#define AUDIO_BLOCK_SIZE    64
 #define AUDIO_BUFFER_SIZE   (AUDIO_BLOCK_SIZE * 2 * 2)
 
 void audio_init(void);
