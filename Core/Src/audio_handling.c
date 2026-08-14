@@ -29,6 +29,7 @@ static int16_t mono_cache[AUDIO_BUFFER_SIZE];
 typedef struct{
 	uint8_t note;
 	uint8_t note_on;		// 1 - on , 0 - off
+	uint8_t velocity;		// pressed key dynamics
 } MIDI_event;
 
 static volatile MIDI_event	midi_queue[MIDI_QUEUE_LENGHT];
@@ -36,7 +37,7 @@ static volatile uint32_t	midi_queue_head = 0;
 static volatile uint32_t	midi_queue_tail = 0;
 //static volatile uint8_t		midi_queue_count = 0;
 
-static void midi_queue_push(uint8_t note, uint8_t note_on){
+static void midi_queue_push(uint8_t note, uint8_t velocity, uint8_t note_on){
 	uint32_t head = midi_queue_head;
 	uint32_t next = (head+1u)%(MIDI_QUEUE_LENGHT);
 
@@ -47,6 +48,7 @@ static void midi_queue_push(uint8_t note, uint8_t note_on){
 
 	// Assign values and pass into queue
 	midi_queue[head].note = note;
+	midi_queue[head].velocity = velocity;
 	midi_queue[head].note_on = note_on;
 	__DMB();		// Force memory order (snippet z stackOverflow)
 	midi_queue_head = next;
@@ -60,14 +62,14 @@ static void midi_queue_pop(void){
 		midi_queue_tail = (midi_queue_tail+1u)%(MIDI_QUEUE_LENGHT);
 
 		if (temp.note_on){
-			synth_note_on(&synth, voice, temp.note, 1);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, 4);
 		}
 		else{
 			synth_note_off(&synth, voice, temp.note);
 		}
 		//midi_queue_count--;
 	}
-}
+}// queuo
 
 //----------------------------------------------
 
@@ -125,14 +127,17 @@ void audio_init(void)
 
 void audio_note_on(uint8_t note, uint8_t velocity)
 {
-    (void)velocity;
+	if (velocity == 0) { // velocity 0 is note-off in MIDI standard
+	    audio_note_off(note);
+	    return;
+	}
 
-    midi_queue_push(note, 1);
+    midi_queue_push(note, velocity, 1);
 }
 
 void audio_note_off(uint8_t note)
 {
-    midi_queue_push(note, 0);
+    midi_queue_push(note, 0, 0);
 }
 
 // - debug attempt -
