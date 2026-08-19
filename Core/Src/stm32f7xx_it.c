@@ -57,6 +57,7 @@
 
 /* External variables --------------------------------------------------------*/
 extern DMA2D_HandleTypeDef hdma2d;
+extern LTDC_HandleTypeDef hltdc;
 extern DMA_HandleTypeDef hdma_sai2_a;
 extern SAI_HandleTypeDef hsai_BlockA2;
 extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
@@ -201,9 +202,24 @@ void OTG_FS_IRQHandler(void)
   tuh_int_handler(0);
   tuh_int_handler(BOARD_TUH_RHPORT);
   /* USER CODE END OTG_FS_IRQn 0 */
+  //HAL_HCD_IRQHandler(&hhcd_USB_OTG_FS);
   /* USER CODE BEGIN OTG_FS_IRQn 1 */
 
   /* USER CODE END OTG_FS_IRQn 1 */
+}
+
+/**
+  * @brief This function handles LTDC global interrupt.
+  */
+void LTDC_IRQHandler(void)
+{
+  /* USER CODE BEGIN LTDC_IRQn 0 */
+
+  /* USER CODE END LTDC_IRQn 0 */
+  HAL_LTDC_IRQHandler(&hltdc);
+  /* USER CODE BEGIN LTDC_IRQn 1 */
+
+  /* USER CODE END LTDC_IRQn 1 */
 }
 
 /**

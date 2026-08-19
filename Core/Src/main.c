@@ -20,6 +20,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
+#include "app_touchgfx.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -52,6 +53,8 @@ DMA2D_HandleTypeDef hdma2d;
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c3;
 
+LTDC_HandleTypeDef hltdc;
+
 QSPI_HandleTypeDef hqspi;
 
 RTC_HandleTypeDef hrtc;
@@ -73,9 +76,22 @@ UART_HandleTypeDef huart6;
 
 HCD_HandleTypeDef hhcd_USB_OTG_FS;
 
-osThreadId defaultTaskHandle;
-/* USER CODE BEGIN PV */
+SDRAM_HandleTypeDef hsdram1;
 
+/* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
+  .stack_size = 4096 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* USER CODE BEGIN PV */
+osThreadId_t TouchGFXTaskHandle;
+const osThreadAttr_t TouchGFXTask_attributes = {
+  .name = "TouchGFXTask",
+  .stack_size = 3072 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,8 +117,9 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART6_UART_Init(void);
 static void MX_USB_OTG_FS_HCD_Init(void);
 static void MX_SAI2_Init(void);
-void StartDefaultTask(void const * argument);
-extern void audio_debug_print(UART_HandleTypeDef *huart);
+static void MX_FMC_Init(void);
+static void MX_LTDC_Init(void);
+void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -164,9 +181,17 @@ int main(void)
   MX_FATFS_Init();
   MX_USB_OTG_FS_HCD_Init();
   MX_SAI2_Init();
+  MX_FMC_Init();
+  MX_LTDC_Init();
+  MX_TouchGFX_Init();
+  /* Call PreOsInit function */
+  MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
+
+  /* Init scheduler */
+  osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -185,13 +210,17 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 4096);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  TouchGFXTaskHandle = osThreadNew(TouchGFX_Task, NULL, &TouchGFXTask_attributes);
   /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
   osKernelStart();
@@ -276,7 +305,8 @@ void PeriphCommonClock_Config(void)
 
   /** Initializes the peripherals clock
   */
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC1|RCC_PERIPHCLK_CLK48;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC|RCC_PERIPHCLK_SDMMC1
+                              |RCC_PERIPHCLK_CLK48;
   PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
   PeriphClkInitStruct.PLLSAI.PLLSAIR = 5;
   PeriphClkInitStruct.PLLSAI.PLLSAIQ = 2;
@@ -504,6 +534,88 @@ static void MX_I2C3_Init(void)
   /* USER CODE BEGIN I2C3_Init 2 */
 
   /* USER CODE END I2C3_Init 2 */
+
+}
+
+/**
+  * @brief LTDC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_LTDC_Init(void)
+{
+
+  /* USER CODE BEGIN LTDC_Init 0 */
+
+  /* USER CODE END LTDC_Init 0 */
+
+  LTDC_LayerCfgTypeDef pLayerCfg = {0};
+  LTDC_LayerCfgTypeDef pLayerCfg1 = {0};
+
+  /* USER CODE BEGIN LTDC_Init 1 */
+
+  /* USER CODE END LTDC_Init 1 */
+  hltdc.Instance = LTDC;
+  hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
+  hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
+  hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
+  hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
+  hltdc.Init.HorizontalSync = 7;
+  hltdc.Init.VerticalSync = 3;
+  hltdc.Init.AccumulatedHBP = 14;
+  hltdc.Init.AccumulatedVBP = 5;
+  hltdc.Init.AccumulatedActiveW = 654;
+  hltdc.Init.AccumulatedActiveH = 485;
+  hltdc.Init.TotalWidth = 660;
+  hltdc.Init.TotalHeigh = 487;
+  hltdc.Init.Backcolor.Blue = 0;
+  hltdc.Init.Backcolor.Green = 0;
+  hltdc.Init.Backcolor.Red = 0;
+  if (HAL_LTDC_Init(&hltdc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  pLayerCfg.WindowX0 = 0;
+  pLayerCfg.WindowX1 = 0;
+  pLayerCfg.WindowY0 = 0;
+  pLayerCfg.WindowY1 = 0;
+  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
+  pLayerCfg.Alpha = 0;
+  pLayerCfg.Alpha0 = 0;
+  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
+  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
+  pLayerCfg.FBStartAdress = 0;
+  pLayerCfg.ImageWidth = 0;
+  pLayerCfg.ImageHeight = 0;
+  pLayerCfg.Backcolor.Blue = 0;
+  pLayerCfg.Backcolor.Green = 0;
+  pLayerCfg.Backcolor.Red = 0;
+  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  pLayerCfg1.WindowX0 = 0;
+  pLayerCfg1.WindowX1 = 0;
+  pLayerCfg1.WindowY0 = 0;
+  pLayerCfg1.WindowY1 = 0;
+  pLayerCfg1.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
+  pLayerCfg1.Alpha = 0;
+  pLayerCfg1.Alpha0 = 0;
+  pLayerCfg1.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
+  pLayerCfg1.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
+  pLayerCfg1.FBStartAdress = 0;
+  pLayerCfg1.ImageWidth = 0;
+  pLayerCfg1.ImageHeight = 0;
+  pLayerCfg1.Backcolor.Blue = 0;
+  pLayerCfg1.Backcolor.Green = 0;
+  pLayerCfg1.Backcolor.Red = 0;
+  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg1, 1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN LTDC_Init 2 */
+
+  /* USER CODE END LTDC_Init 2 */
 
 }
 
@@ -1160,9 +1272,58 @@ static void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA2_Stream4_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 3, 0);
+  HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream4_IRQn);
 
+  HAL_NVIC_SetPriority(LTDC_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(LTDC_IRQn);
+}
+
+/* FMC initialization function */
+static void MX_FMC_Init(void)
+{
+
+  /* USER CODE BEGIN FMC_Init 0 */
+
+  /* USER CODE END FMC_Init 0 */
+
+  FMC_SDRAM_TimingTypeDef SdramTiming = {0};
+
+  /* USER CODE BEGIN FMC_Init 1 */
+
+  /* USER CODE END FMC_Init 1 */
+
+  /** Perform the SDRAM1 memory initialization sequence
+  */
+  hsdram1.Instance = FMC_SDRAM_DEVICE;
+  /* hsdram1.Init */
+  hsdram1.Init.SDBank = FMC_SDRAM_BANK1;
+  hsdram1.Init.ColumnBitsNumber = FMC_SDRAM_COLUMN_BITS_NUM_8;
+  hsdram1.Init.RowBitsNumber = FMC_SDRAM_ROW_BITS_NUM_12;
+  hsdram1.Init.MemoryDataWidth = FMC_SDRAM_MEM_BUS_WIDTH_16;
+  hsdram1.Init.InternalBankNumber = FMC_SDRAM_INTERN_BANKS_NUM_2;
+  hsdram1.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_1;
+  hsdram1.Init.WriteProtection = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
+  hsdram1.Init.SDClockPeriod = FMC_SDRAM_CLOCK_DISABLE;
+  hsdram1.Init.ReadBurst = FMC_SDRAM_RBURST_DISABLE;
+  hsdram1.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_0;
+  /* SdramTiming */
+  SdramTiming.LoadToActiveDelay = 16;
+  SdramTiming.ExitSelfRefreshDelay = 16;
+  SdramTiming.SelfRefreshTime = 16;
+  SdramTiming.RowCycleDelay = 16;
+  SdramTiming.WriteRecoveryTime = 16;
+  SdramTiming.RPDelay = 16;
+  SdramTiming.RCDDelay = 16;
+
+  if (HAL_SDRAM_Init(&hsdram1, &SdramTiming) != HAL_OK)
+  {
+    Error_Handler( );
+  }
+
+  /* USER CODE BEGIN FMC_Init 2 */
+
+  /* USER CODE END FMC_Init 2 */
 }
 
 /**
@@ -1230,18 +1391,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FMC_NBL1_Pin FMC_NBL0_Pin FMC_D5_Pin FMC_D6_Pin
-                           FMC_D8_Pin FMC_D11_Pin FMC_D4_Pin FMC_D7_Pin
-                           FMC_D9_Pin FMC_D12_Pin FMC_D10_Pin */
-  GPIO_InitStruct.Pin = FMC_NBL1_Pin|FMC_NBL0_Pin|FMC_D5_Pin|FMC_D6_Pin
-                          |FMC_D8_Pin|FMC_D11_Pin|FMC_D4_Pin|FMC_D7_Pin
-                          |FMC_D9_Pin|FMC_D12_Pin|FMC_D10_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-
   /*Configure GPIO pins : ULPI_D7_Pin ULPI_D6_Pin ULPI_D5_Pin ULPI_D3_Pin
                            ULPI_D2_Pin ULPI_D1_Pin ULPI_D4_Pin */
   GPIO_InitStruct.Pin = ULPI_D7_Pin|ULPI_D6_Pin|ULPI_D5_Pin|ULPI_D3_Pin
@@ -1268,30 +1417,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF13_DCMI;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FMC_SDNCAS_Pin FMC_SDCLK_Pin FMC_A11_Pin FMC_A10_Pin
-                           FMC_BA1_Pin FMC_BA0_Pin */
-  GPIO_InitStruct.Pin = FMC_SDNCAS_Pin|FMC_SDCLK_Pin|FMC_A11_Pin|FMC_A10_Pin
-                          |FMC_BA1_Pin|FMC_BA0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LCD_B1_Pin LCD_B2_Pin LCD_B3_Pin LCD_G4_Pin
-                           LCD_G1_Pin LCD_G3_Pin LCD_G0_Pin LCD_G2_Pin
-                           LCD_R7_Pin LCD_R5_Pin LCD_R6_Pin LCD_R4_Pin
-                           LCD_R3_Pin LCD_R1_Pin LCD_R2_Pin */
-  GPIO_InitStruct.Pin = LCD_B1_Pin|LCD_B2_Pin|LCD_B3_Pin|LCD_G4_Pin
-                          |LCD_G1_Pin|LCD_G3_Pin|LCD_G0_Pin|LCD_G2_Pin
-                          |LCD_R7_Pin|LCD_R5_Pin|LCD_R6_Pin|LCD_R4_Pin
-                          |LCD_R3_Pin|LCD_R1_Pin|LCD_R2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
-  HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct);
-
   /*Configure GPIO pin : OTG_FS_VBUS_Pin */
   GPIO_InitStruct.Pin = OTG_FS_VBUS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -1303,34 +1428,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(Audio_INT_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : FMC_D2_Pin FMC_D3_Pin FMC_D1_Pin FMC_D15_Pin
-                           FMC_D0_Pin FMC_D14_Pin FMC_D13_Pin */
-  GPIO_InitStruct.Pin = FMC_D2_Pin|FMC_D3_Pin|FMC_D1_Pin|FMC_D15_Pin
-                          |FMC_D0_Pin|FMC_D14_Pin|FMC_D13_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LCD_DE_Pin LCD_B7_Pin LCD_B6_Pin LCD_B5_Pin
-                           LCD_G6_Pin LCD_G7_Pin LCD_G5_Pin */
-  GPIO_InitStruct.Pin = LCD_DE_Pin|LCD_B7_Pin|LCD_B6_Pin|LCD_B5_Pin
-                          |LCD_G6_Pin|LCD_G7_Pin|LCD_G5_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
-  HAL_GPIO_Init(GPIOK, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LCD_B4_Pin */
-  GPIO_InitStruct.Pin = LCD_B4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF9_LTDC;
-  HAL_GPIO_Init(LCD_B4_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : OTG_FS_PowerSwitchOn_Pin */
   GPIO_InitStruct.Pin = OTG_FS_PowerSwitchOn_Pin;
@@ -1359,26 +1456,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(uSD_Detect_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : FMC_A0_Pin FMC_A1_Pin FMC_A2_Pin FMC_A3_Pin
-                           FMC_A4_Pin FMC_A5_Pin FMC_A6_Pin FMC_A9_Pin
-                           FMC_A7_Pin FMC_A8_Pin FMC_SDNRAS_Pin */
-  GPIO_InitStruct.Pin = FMC_A0_Pin|FMC_A1_Pin|FMC_A2_Pin|FMC_A3_Pin
-                          |FMC_A4_Pin|FMC_A5_Pin|FMC_A6_Pin|FMC_A9_Pin
-                          |FMC_A7_Pin|FMC_A8_Pin|FMC_SDNRAS_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LCD_HSYNC_Pin LCD_VSYNC_Pin LCD_R0_Pin LCD_CLK_Pin */
-  GPIO_InitStruct.Pin = LCD_HSYNC_Pin|LCD_VSYNC_Pin|LCD_R0_Pin|LCD_CLK_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
-  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LCD_BL_CTRL_Pin */
   GPIO_InitStruct.Pin = LCD_BL_CTRL_Pin;
@@ -1438,28 +1515,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
   HAL_GPIO_Init(ULPI_NXT_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FMC_SDNME_Pin FMC_SDNE0_Pin */
-  GPIO_InitStruct.Pin = FMC_SDNME_Pin|FMC_SDNE0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
-
   /*Configure GPIO pins : ARDUINO_D4_Pin ARDUINO_D2_Pin EXT_RST_Pin */
   GPIO_InitStruct.Pin = ARDUINO_D4_Pin|ARDUINO_D2_Pin|EXT_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : FMC_SDCKE0_Pin */
-  GPIO_InitStruct.Pin = FMC_SDCKE0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
-  HAL_GPIO_Init(FMC_SDCKE0_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ULPI_STP_Pin ULPI_DIR_Pin */
   GPIO_InitStruct.Pin = ULPI_STP_Pin|ULPI_DIR_Pin;
@@ -1536,24 +1597,19 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
+void StartDefaultTask(void *argument)
 {
+  /* USER CODE BEGIN 5 */
   MIDI_Init();
   audio_init();
 
-  static uint32_t print_counter = 0;
+  /* Infinite loop */
   for(;;)
   {
     MIDI_Process();
-    // - debug attempt -
-    print_counter++;
-    if (print_counter >= 1000) {
-        print_counter = 0;
-        audio_debug_print(&huart1);
-    }
-    // - ARTUR --------
     osDelay(1);
   }
+  /* USER CODE END 5 */
 }
 
 /**

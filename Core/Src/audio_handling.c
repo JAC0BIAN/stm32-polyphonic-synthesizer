@@ -120,6 +120,7 @@ void audio_init(void)
     {
     	HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 1, 0);
 
+
         BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
         BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, AUDIO_BUFFER_SIZE);
     }

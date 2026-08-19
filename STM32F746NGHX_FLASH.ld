@@ -46,6 +46,7 @@ MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 320K
   FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 1024K
+  QSPI (rx)     : ORIGIN = 0x90000000, LENGTH = 16M
 }
 
 /* Sections */
@@ -182,6 +183,29 @@ SECTIONS
     libm.a ( * )
     libgcc.a ( * )
   }
+  
+  ExtFlashSection : 
+  {
+    . = ALIGN(4);
+    *(ExtFlashSection)
+    *(ExtFlashSection.*)
+    . = ALIGN(4);
+  } > QSPI
 
-  .ARM.attributes 0 : { *(.ARM.attributes) }
-}
+  FontFlashSection : 
+  {
+    . = ALIGN(4);
+    *(FontFlashSection)
+    *(FontFlashSection.*)
+    . = ALIGN(4);
+  } > QSPI
+
+  TextFlashSection : 
+  {
+    . = ALIGN(4);
+    *(TextFlashSection)
+    *(TextFlashSection.*)
+    . = ALIGN(4);
+  } > QSPI
+
+  .ARM.attributes 0 : { *(.ARM.attributes) }}
