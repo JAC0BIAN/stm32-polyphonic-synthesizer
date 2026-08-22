@@ -89,7 +89,7 @@ const osThreadAttr_t defaultTask_attributes = {
 osThreadId_t TouchGFXTaskHandle;
 const osThreadAttr_t TouchGFXTask_attributes = {
   .name = "TouchGFXTask",
-  .stack_size = 3072 * 4,
+  .stack_size = 8192 * 4,
   .priority = (osPriority_t) osPriorityHigh,
 };
 /* USER CODE END PV */

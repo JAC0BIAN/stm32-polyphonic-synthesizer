@@ -5,6 +5,53 @@
   </Languages>
   <Texts>
     <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_QT0H" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">ADDITIVE SYNTH (4 h.)</Translation>
+      </Text>
+      <Text Id="__SingleUse_ATXJ" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SIMPLE SQUARE</Translation>
+      </Text>
+      <Text Id="__SingleUse_0P1H" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SIMPLE SAW</Translation>
+      </Text>
+      <Text Id="__SingleUse_OHBC" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SIMPLE TRIANGLE</Translation>
+      </Text>
+      <Text Id="__SingleUse_XUY7" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SIMPLE SINE</Translation>
+      </Text>
+      <Text Id="__SingleUse_SJ5B" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SIMPLE SINE</Translation>
+      </Text>
+      <Text Id="__SingleUse_R736" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SETTINGS</Translation>
+      </Text>
+      <Text Id="__SingleUse_PREN" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="__SingleUse_QPJS" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">EFFECTS</Translation>
+      </Text>
+      <Text Id="__SingleUse_4HWV" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">VOICE</Translation>
+      </Text>
+      <Text Id="__SingleUse_RV5R" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="__SingleUse_X7SP" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="__SingleUse_JK4E" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="__SingleUse_OBB7" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="__SingleUse_OAEJ" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />

@@ -20,13 +20,22 @@
     <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
     <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
+    <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp"/>
+    <ClCompile Include="..\..\gui\src\effects_screen\effectsPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\effects_screen\effectsView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\effects_screen\effectsViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\presets_screen\presetsPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\presets_screen\presetsView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\presets_screen\presetsViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\screen1_screen\Screen1Presenter.cpp"/>
     <ClCompile Include="..\..\gui\src\screen1_screen\Screen1View.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\screen1_screen\Screen1ViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen2_screen\Screen2Presenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen2_screen\Screen2View.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\screen2_screen\Screen2ViewBase.cpp"/>
-    <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_screen\settingsPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_screen\settingsView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_screen\settingsViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\voice_screen\voicePresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\voice_screen\voiceView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\voice_screen\voiceViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -175,14 +184,23 @@
     <ClInclude Include="..\..\generated\simulator\include\simulator\video\MJPEGDecoder.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\Model.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\effects_screen\effectsPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\effects_screen\effectsView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\effects_screen\effectsViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\presets_screen\presetsPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\presets_screen\presetsView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\presets_screen\presetsViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1Presenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1View.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen1_screen\Screen1ViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2Presenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2View.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen2_screen\Screen2ViewBase.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
-    <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_screen\settingsPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_screen\settingsView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_screen\settingsViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\voice_screen\voicePresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\voice_screen\voiceView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\voice_screen\voiceViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

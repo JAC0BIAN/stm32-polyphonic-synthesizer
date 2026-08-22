@@ -44,6 +44,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Memories definition */
 MEMORY
 {
+  SDRAM  (xrw)    : ORIGIN = 0xC0000000,   LENGTH = 8M
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 320K
   FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 1024K
   QSPI (rx)     : ORIGIN = 0x90000000, LENGTH = 16M
@@ -164,6 +165,16 @@ SECTIONS
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
   } >RAM
+  
+  /* --- TOUCHGFX SECTION to force touchgfx into sdram--- */
+  TouchGFX_Framebuffer (NOLOAD) :
+  {
+    . = ALIGN(4);
+    *(TouchGFX_Framebuffer)
+    *(TouchGFX_Framebuffer.*)
+    . = ALIGN(4);
+  } >SDRAM
+  /* ------------------------------------------- */
 
   /* User_heap_stack section, used to check that there is enough "RAM" Ram  type memory left */
   ._user_heap_stack :

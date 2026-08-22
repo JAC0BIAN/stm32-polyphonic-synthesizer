@@ -10,6 +10,170 @@
             "X": -2,
             "Width": 480,
             "Height": 272,
+            "LockPosition": true,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "scalableImage1",
+            "X": 269,
+            "Y": 136,
+            "Width": 192,
+            "Height": 117,
+            "Filename": "logo.png",
+            "ScalingAlgorithm": "Bilinear Interpolation"
+          },
+          {
+            "Type": "ScrollableContainer",
+            "Name": "scrollableContainer1",
+            "Y": 11,
+            "Width": 238,
+            "Height": 250,
+            "HorizontalScrollEnabled": true,
+            "VerticalScrollEnabled": true,
+            "ScrollbarsVisibleOnPressed": true,
+            "ScrollbarsColor": {
+              "Red": 128,
+              "Green": 128,
+              "Blue": 128
+            },
+            "ScrollbarsAlpha": 255,
+            "Components": []
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "slideMenu1",
+            "Width": 480,
+            "Height": 94,
+            "FileNameBackground": "top_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "top_slide_menu_button.png",
+            "FileNameButtonReleased": "top_slide_menu_button.png",
+            "ButtonX": 212,
+            "ButtonY": 70,
+            "State": "Collapsed",
+            "ExpandDirection": "South",
+            "Easing": "Expo",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 25,
+            "ExpandedStateTimeout": 3000,
+            "Components": [
+              {
+                "Type": "Button",
+                "Name": "effects",
+                "X": 50,
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "equalizer_pressed.png",
+                "Released": "equalizer.png"
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "buttonWithLabel1",
+                "X": 100,
+                "Y": 20,
+                "Width": 240,
+                "Height": 50,
+                "Pressed": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "Released": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "TextId": "__SingleUse_OAEJ",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "0"
+              },
+              {
+                "Type": "Button",
+                "Name": "settings",
+                "X": 340,
+                "Y": 19,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "menu_button_pressed_01.png",
+                "Released": "menu_button_01.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "voice",
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "voice_pressed.png",
+                "Released": "voice.png"
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "voice"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "voice"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effects"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "effects"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "settings"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonWithLabel1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "North",
+              "ActionComponent": "presets"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "voice",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": -2,
+            "Width": 480,
+            "Height": 272,
             "RelativeFilename": "background.png"
           },
           {
@@ -33,12 +197,536 @@
             "Components": [
               {
                 "Type": "Button",
-                "Name": "button1",
+                "Name": "effects",
+                "X": 50,
                 "Y": 20,
                 "Width": 50,
                 "Height": 50,
-                "Pressed": "menu_button_pressed_00.png",
-                "Released": "menu_button_00.png"
+                "Pressed": "equalizer_pressed.png",
+                "Released": "equalizer.png"
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "buttonWithLabel1",
+                "X": 100,
+                "Y": 20,
+                "Width": 240,
+                "Height": 50,
+                "Pressed": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "Released": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "TextId": "__SingleUse_OBB7",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "0",
+                "Preset": "dark_theme\\presets\\button\\regular\\height_50\\medium_rounded_disabled.json"
+              },
+              {
+                "Type": "Button",
+                "Name": "settings",
+                "X": 340,
+                "Y": 19,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "menu_button_pressed_01.png",
+                "Released": "menu_button_01.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "voice",
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "voice_pressed.png",
+                "Released": "voice.png"
+              }
+            ]
+          },
+          {
+            "Type": "Button",
+            "Name": "home",
+            "Y": 222,
+            "Width": 50,
+            "Height": 50,
+            "Pressed": "home.png",
+            "Released": "home.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 358,
+            "Y": 237,
+            "Width": 65,
+            "Height": 20,
+            "TextId": "__SingleUse_4HWV",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "settings"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effects"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "effects"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonWithLabel1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "North",
+              "ActionComponent": "presets"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "home"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "effects",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": -2,
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "slideMenu1",
+            "Width": 480,
+            "Height": 94,
+            "FileNameBackground": "top_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "top_slide_menu_button.png",
+            "FileNameButtonReleased": "top_slide_menu_button.png",
+            "ButtonX": 212,
+            "ButtonY": 70,
+            "State": "Collapsed",
+            "ExpandDirection": "South",
+            "Easing": "Expo",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 25,
+            "ExpandedStateTimeout": 3000,
+            "Components": [
+              {
+                "Type": "Button",
+                "Name": "effects",
+                "X": 50,
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "equalizer_pressed.png",
+                "Released": "equalizer.png"
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "buttonWithLabel1",
+                "X": 100,
+                "Y": 20,
+                "Width": 240,
+                "Height": 50,
+                "Pressed": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "Released": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "TextId": "__SingleUse_JK4E",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "0",
+                "Preset": "dark_theme\\presets\\button\\regular\\height_50\\medium_rounded_disabled.json"
+              },
+              {
+                "Type": "Button",
+                "Name": "settings",
+                "X": 340,
+                "Y": 19,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "menu_button_pressed_01.png",
+                "Released": "menu_button_01.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "voice",
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "voice_pressed.png",
+                "Released": "voice.png"
+              }
+            ]
+          },
+          {
+            "Type": "Button",
+            "Name": "home",
+            "Y": 222,
+            "Width": 50,
+            "Height": 50,
+            "Pressed": "home.png",
+            "Released": "home.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 345,
+            "Y": 237,
+            "Width": 90,
+            "Height": 20,
+            "TextId": "__SingleUse_QPJS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "voice"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "voice"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "settings"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonWithLabel1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "North",
+              "ActionComponent": "presets"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "home"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "presets",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": -2,
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "home",
+            "Y": 222,
+            "Width": 50,
+            "Height": 50,
+            "Pressed": "home.png",
+            "Released": "home.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 344,
+            "Y": 237,
+            "Width": 92,
+            "Height": 24,
+            "TextId": "__SingleUse_PREN",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "SwipeContainer",
+            "Name": "swipeContainer1",
+            "X": 115,
+            "Y": 47,
+            "Width": 250,
+            "Height": 190,
+            "SwipeCutoff": 50,
+            "ShowPageIndicator": true,
+            "IndicatorImageNormal": "__generated\\dark_theme_images_widgets_swipecontainer_small_off_normal.png",
+            "IndicatorImageHighlight": "__generated\\dark_theme_images_widgets_swipecontainer_small_on_active.png",
+            "EndSwipeElasticWidth": 50,
+            "SelectedPage": "SimpleSine",
+            "Preset": "dark_theme\\presets\\swipecontainer\\small_active.json",
+            "Components": [
+              {
+                "Type": "Container",
+                "Name": "SimpleSine",
+                "Width": 250,
+                "Height": 190,
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "Name": "PresetName",
+                    "Y": 12,
+                    "Width": 132,
+                    "Height": 24,
+                    "TextId": "__SingleUse_XUY7",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  }
+                ]
+              },
+              {
+                "Type": "Container",
+                "Name": "SimpleTriangle",
+                "Width": 250,
+                "Height": 190,
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "Name": "PresetName_1",
+                    "Y": 12,
+                    "Width": 185,
+                    "Height": 24,
+                    "TextId": "__SingleUse_OHBC",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  }
+                ]
+              },
+              {
+                "Type": "Container",
+                "Name": "SimpleSaw",
+                "Width": 250,
+                "Height": 190,
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "Name": "PresetName_2",
+                    "Y": 12,
+                    "Width": 130,
+                    "Height": 24,
+                    "TextId": "__SingleUse_0P1H",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  }
+                ]
+              },
+              {
+                "Type": "Container",
+                "Name": "SimpleSquare",
+                "Width": 250,
+                "Height": 190,
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "Name": "PresetName_3",
+                    "Y": 12,
+                    "Width": 168,
+                    "Height": 24,
+                    "TextId": "__SingleUse_ATXJ",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  }
+                ]
+              },
+              {
+                "Type": "Container",
+                "Name": "AdditiveSynth4Harmonics",
+                "Width": 250,
+                "Height": 190,
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "Name": "PresetName_4",
+                    "Y": 12,
+                    "Width": 239,
+                    "Height": 24,
+                    "TextId": "__SingleUse_QT0H",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "slideMenu1",
+            "Width": 480,
+            "Height": 94,
+            "FileNameBackground": "top_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "top_slide_menu_button.png",
+            "FileNameButtonReleased": "top_slide_menu_button.png",
+            "ButtonX": 212,
+            "ButtonY": 70,
+            "State": "Collapsed",
+            "ExpandDirection": "South",
+            "Easing": "Expo",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 25,
+            "ExpandedStateTimeout": 3000,
+            "Components": [
+              {
+                "Type": "Button",
+                "Name": "effects",
+                "X": 50,
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "equalizer_pressed.png",
+                "Released": "equalizer.png"
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "buttonWithLabel1",
+                "X": 100,
+                "Y": 20,
+                "Width": 240,
+                "Height": 50,
+                "Pressed": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "Released": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "TextId": "__SingleUse_RV5R",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "0",
+                "Preset": "dark_theme\\presets\\button\\regular\\height_50\\medium_rounded_disabled.json"
+              },
+              {
+                "Type": "Button",
+                "Name": "settings",
+                "X": 340,
+                "Y": 19,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "menu_button_pressed_01.png",
+                "Released": "menu_button_01.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "voice",
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "voice_pressed.png",
+                "Released": "voice.png"
               }
             ]
           }
@@ -47,47 +735,160 @@
           {
             "InteractionName": "Interaction1",
             "Trigger": {
-              "Type": "TriggerSlideMenuStateChanged",
-              "TriggerComponent": "slideMenu1"
+              "Type": "TriggerClicked",
+              "TriggerComponent": "voice"
             },
             "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "function1"
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "voice"
             }
           },
           {
             "InteractionName": "Interaction2",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "effects"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "Screen2"
+              "ActionComponent": "effects"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "settings"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "home"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
             }
           }
         ]
       },
       {
-        "Name": "Screen2",
+        "Name": "settings",
         "Components": [
           {
             "Type": "Image",
             "Name": "image1",
-            "Width": 482,
+            "X": -2,
+            "Width": 480,
             "Height": 272,
-            "RelativeFilename": "deep.png"
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "slideMenu1",
+            "Width": 480,
+            "Height": 94,
+            "FileNameBackground": "top_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "top_slide_menu_button.png",
+            "FileNameButtonReleased": "top_slide_menu_button.png",
+            "ButtonX": 212,
+            "ButtonY": 70,
+            "State": "Collapsed",
+            "ExpandDirection": "South",
+            "Easing": "Expo",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 25,
+            "ExpandedStateTimeout": 3000,
+            "Components": [
+              {
+                "Type": "Button",
+                "Name": "effects",
+                "X": 50,
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "equalizer_pressed.png",
+                "Released": "equalizer.png"
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "buttonWithLabel1",
+                "X": 100,
+                "Y": 20,
+                "Width": 240,
+                "Height": 50,
+                "Pressed": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "Released": "__generated\\dark_theme_images_widgets_button_regular_height_50_medium_rounded_disabled.png",
+                "TextId": "__SingleUse_X7SP",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "0"
+              },
+              {
+                "Type": "Button",
+                "Name": "settings",
+                "X": 340,
+                "Y": 19,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "menu_button_pressed_01.png",
+                "Released": "menu_button_01.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "voice",
+                "Y": 20,
+                "Width": 50,
+                "Height": 50,
+                "Pressed": "voice_pressed.png",
+                "Released": "voice.png"
+              }
+            ]
           },
           {
             "Type": "Button",
-            "Name": "button1",
-            "X": 10,
-            "Y": 210,
+            "Name": "home",
+            "Y": 222,
             "Width": 50,
             "Height": 50,
-            "Pressed": "menu_toggle_button_selected_03.png",
-            "Released": "menu_toggle_button_selected_03.png"
+            "Pressed": "home.png",
+            "Released": "home.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 339,
+            "Y": 237,
+            "Width": 103,
+            "Height": 20,
+            "TextId": "__SingleUse_R736",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -95,7 +896,44 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "voice"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "voice"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effects"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "effects"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonWithLabel1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "North",
+              "ActionComponent": "presets"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "home"
             },
             "Action": {
               "Type": "ActionGotoScreen",
