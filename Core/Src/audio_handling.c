@@ -60,9 +60,10 @@ static void midi_queue_pop(void){
 		__DMB();
 		MIDI_event temp = midi_queue[midi_queue_tail];
 		midi_queue_tail = (midi_queue_tail+1u)%(MIDI_QUEUE_LENGHT);
+		char wave = 'w'; //s-pure sine,  q-square, t-triangle, w-saw, a - additive with n voices (n is passed in function)
 
 		if (temp.note_on){
-			synth_note_on(&synth, voice, temp.note, temp.velocity, 4);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, wave);
 		}
 		else{
 			synth_note_off(&synth, voice, temp.note);
