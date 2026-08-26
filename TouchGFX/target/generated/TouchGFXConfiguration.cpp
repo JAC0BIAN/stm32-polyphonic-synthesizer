@@ -21,6 +21,7 @@
 #include <gui/common/FrontendHeap.hpp>
 #include <BitmapDatabase.hpp>
 #include <platform/driver/lcd/LCD16bpp.hpp>
+#include <touchgfx/hal/OSWrappers.hpp>
 #include <STM32DMA.hpp>
 #include <TouchGFXHAL.hpp>
 #include <STM32TouchController.hpp>
@@ -36,7 +37,7 @@ static LCD16bpp display;
 
 static ApplicationFontProvider fontProvider;
 static Texts texts;
-static TouchGFXHAL hal(dma, display, tc, 32, 32);
+static TouchGFXHAL hal(dma, display, tc, 480, 272);
 
 void touchgfx_init()
 {

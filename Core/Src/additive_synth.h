@@ -5,14 +5,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define PI                  3.14159265359
-#define SAMPLE_RATE_HZ   48000.0f
-#define LUT_SIZE         2048u
-#define LUT_BITS         11u
-#define LUT_MASK         (LUT_SIZE-1)
-#define MAX_HARMONICS    16u
-#define MAX_VOICES         8u
-#define MAX_BLOCK_FRAMES 256
+#include "dds.h"
 
 typedef struct {
     uint32_t phase;
@@ -35,13 +28,14 @@ typedef struct{
 typedef struct{
     Harmonic    harmonics[MAX_HARMONICS];
     uint32_t    num_harmonics;
+    char 		wave;
 
-    int            midi_note;
-    float        f0_hz;
+    int         midi_note;
+    float       f0_hz;
 }Voice;
 
 void 		synth_init(Synth *s, Voice *v);
-void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, uint32_t requested_harmonics);
+void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, uint32_t requested_harmonics, char wave);
 void         synth_note_off(Synth *s, Voice *v, int midi_note);
 float        synth_process_one(Synth *s, Voice *v);
 void         synth_generate_block_i16(Synth *s, Voice *v, int16_t *out, size_t frames);

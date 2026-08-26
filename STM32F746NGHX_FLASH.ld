@@ -38,8 +38,8 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM); /* end of "RAM" Ram type memory */
 
-_Min_Heap_Size = 0x200; /* required amount of heap */
-_Min_Stack_Size = 0x400; /* required amount of stack */
+_Min_Heap_Size = 0xA00; /* required amount of heap */
+_Min_Stack_Size = 0xA00; /* required amount of stack */
 
 /* Memories definition */
 MEMORY
@@ -47,7 +47,7 @@ MEMORY
   SDRAM  (xrw)    : ORIGIN = 0xC0000000,   LENGTH = 8M
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 320K
   FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 1024K
-  QSPI (rx)     : ORIGIN = 0x90000000, LENGTH = 16M
+  QUADSPI (r)     : ORIGIN = 0x90000000, LENGTH = 16M
 }
 
 /* Sections */
@@ -173,6 +173,9 @@ SECTIONS
     *(TouchGFX_Framebuffer)
     *(TouchGFX_Framebuffer.*)
     . = ALIGN(4);
+    *(Video_RGB_Buffer)
+    *(Video_RGB_Buffer.*)
+    . = ALIGN(4);
   } >SDRAM
   /* ------------------------------------------- */
 
@@ -201,7 +204,7 @@ SECTIONS
     *(ExtFlashSection)
     *(ExtFlashSection.*)
     . = ALIGN(4);
-  } > QSPI
+  } > QUADSPI
 
   FontFlashSection : 
   {
@@ -209,7 +212,7 @@ SECTIONS
     *(FontFlashSection)
     *(FontFlashSection.*)
     . = ALIGN(4);
-  } > QSPI
+  } > QUADSPI
 
   TextFlashSection : 
   {
@@ -217,6 +220,6 @@ SECTIONS
     *(TextFlashSection)
     *(TextFlashSection.*)
     . = ALIGN(4);
-  } > QSPI
+  } > QUADSPI
 
   .ARM.attributes 0 : { *(.ARM.attributes) }}

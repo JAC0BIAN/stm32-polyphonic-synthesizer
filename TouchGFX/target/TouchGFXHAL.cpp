@@ -181,11 +181,6 @@ extern "C"
         }
         return pdTRUE;
     }
-
-    void HAL_LTDC_LineEventCallback(LTDC_HandleTypeDef *hltdc)
-        {
-            touchgfx::OSWrappers::signalVSync();
-        }
 }
 
 /* USER CODE END TouchGFXHAL.cpp */

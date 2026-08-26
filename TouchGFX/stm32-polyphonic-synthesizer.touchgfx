@@ -959,7 +959,8 @@
       16
     ],
     "AvailableLCDs": {
-      "16": "LCD16bpp"
+      "16": "LCD16bpp",
+      "32": "LCD32bpp"
     },
     "AvailableSections": [
       "ExtFlashSection",
