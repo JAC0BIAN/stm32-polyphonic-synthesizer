@@ -7,6 +7,19 @@
 
 #include "dds.h"
 
+typedef enum {  // different ways of audio generation:
+    BASIC,		// basic waveforms
+    ADD,		// additive synthesis
+    SUB			// subtractive synthesis
+} SynthType;
+
+typedef enum {  // basic waveforms
+	SINE,
+	SAW,
+	SQUARE,
+	TRIANGLE
+} WaveType;
+
 typedef struct {
     uint32_t phase;
     uint32_t phase_inc;
@@ -28,14 +41,16 @@ typedef struct{
 typedef struct{
     Harmonic    harmonics[MAX_HARMONICS];
     uint32_t    num_harmonics;
-    char 		wave;
+
+    SynthType 	synth_type;
+    WaveType 	wave;
 
     int         midi_note;
     float       f0_hz;
 }Voice;
 
-void 		synth_init(Synth *s, Voice *v);
-void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, uint32_t requested_harmonics, char wave);
+void 		 synth_init(Synth *s, Voice *v);
+void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, uint32_t requested_harmonics, WaveType wave, SynthType synth_type);
 void         synth_note_off(Synth *s, Voice *v, int midi_note);
 float        synth_process_one(Synth *s, Voice *v);
 void         synth_generate_block_i16(Synth *s, Voice *v, int16_t *out, size_t frames);
