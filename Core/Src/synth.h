@@ -6,6 +6,31 @@
 #include <stddef.h>
 
 #include "dds.h"
+// ---------------------- test --------------------------
+typedef enum {	// code will switch between them to simulate a sound envelope
+	ADSR_ATTACK,		// how fast the volume rises
+	ADSR_DECAY,		// how fast it falls to normall level
+	ADSR_SUSTAIN,	// how long it stays at normall level
+	ADSR_RELEASE,		// how fast it falls
+	ADSR_OFF			// signal to clean the note
+} ADSR_state;
+
+typedef struct {
+	float 		attack_t;
+	float 		decay_t;
+	float 		sustain;
+	float 		release_t;
+}ADSR_params;
+
+typedef struct{
+	ADSR_state	state;
+	float		level;
+	float		attack_inc;
+	float		decay_inc;
+	float 		release_inc;
+}ADSR_envelope;
+
+// -------------------------------------------------------
 
 typedef enum {  // different ways of audio generation:
     BASIC,		// basic waveforms
@@ -35,6 +60,7 @@ typedef struct{
 
     uint32_t    active_voices;
     float 		current_gain;
+    ADSR_params env;				// todo zmienić nazewe
 }Synth;
 
 
@@ -47,6 +73,8 @@ typedef struct{
 
     int         midi_note;
     float       f0_hz;
+
+    ADSR_envelope env;
 }Voice;
 
 void 		 synth_init(Synth *s, Voice *v);
