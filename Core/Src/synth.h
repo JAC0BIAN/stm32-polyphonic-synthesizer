@@ -15,6 +15,13 @@ typedef enum {	// code will switch between them to simulate a sound envelope
 	ADSR_OFF			// signal to clean the note
 } ADSR_state;
 
+#define LPF_STAGES 8   // 8 x 6 dB/oct = 48 dB/oct
+
+typedef struct {
+	float		alpha; //alpha = Ts/(T+Ts), where Ts is the sampling period and T = 1/(2pi * cutoff frequency)
+	float		prev_y[LPF_STAGES]; //y[n-1] (previous output state)
+}LPF;
+
 typedef struct {
 	float 		attack_t;
 	float 		decay_t;
@@ -53,14 +60,15 @@ typedef struct {
 
 typedef struct{
     //int16_t        sine_lut[LUT_SIZE];
-	float        sine_lut[LUT_SIZE];
+	float       sine_lut[LUT_SIZE];
     uint16_t    midi_freakyuency[128];
-    float        sample_rate;
-    float         master_gain;
+    float       sample_rate;
+    float       master_gain;
 
     uint32_t    active_voices;
     float 		current_gain;
     ADSR_params env;				// todo zmienić nazewe
+    LPF 		lpf;
 }Synth;
 
 
@@ -82,5 +90,7 @@ void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, 
 void         synth_note_off(Synth *s, Voice *v, int midi_note);
 float        synth_process_one(Synth *s, Voice *v);
 void         synth_generate_block_i16(Synth *s, Voice *v, int16_t *out, size_t frames);
+void 		 LPF_Init(LPF *f, float cutoff);
+float 		 LPF_Process(LPF *f, float x);
 
 #endif /* SINH */

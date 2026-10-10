@@ -81,6 +81,21 @@ static float ADSR_tick(ADSR_envelope *e, float sustain) {
 	}
 	return e->level;
 }
+// ================================== Filters ===========================================
+void LPF_Init(LPF * f, float cutoff)
+{
+	f->alpha = cutoff/(cutoff + SAMPLE_RATE_HZ/(2.0f*PI));
+	for (int i = 0; i < LPF_STAGES; i++) f->prev_y[i] = 0.0f;
+}
+
+float LPF_Process(LPF *f, float x)
+{
+	for (int i = 0; i < LPF_STAGES; i++) {
+	        f->prev_y[i] = (1.0f - f->alpha) * f->prev_y[i] + f->alpha * x;
+	        x = f->prev_y[i];   // output of this stage feeds the next
+	    }
+	return x;
+}
 
 // =================================== Synth ============================================
 void update_synth_gain(Synth *s) {
@@ -98,10 +113,15 @@ void synth_init(Synth *s, Voice *v){
     v -> midi_note = 69;
     v -> f0_hz = 420.0f;
 
-    s->env.attack_t  = 2.01f;
-    s->env.decay_t   = 0.10f;
-    s->env.sustain   = 0.70f;
-    s->env.release_t = 0.30f;
+    //s->env.attack_t  = 2.01f;
+    //s->env.decay_t   = 0.10f;
+    //s->env.sustain   = 0.70f;
+    //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
+
+    s->env.attack_t  = 0.005f;
+    s->env.decay_t   = 1.00f;
+    s->env.sustain   = 0.00f;
+    s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
 
     generate_sine_lut(s -> sine_lut, LUT_SIZE);
 
@@ -115,6 +135,7 @@ void synth_init(Synth *s, Voice *v){
     }
 
     update_synth_gain(s);
+    LPF_Init(&s->lpf, 1200.0f);
 }
 
 
@@ -151,6 +172,7 @@ void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t
     v -> midi_note = midi_note;
     v -> f0_hz = s -> midi_freakyuency[midi_note];
     v -> wave = wave;
+    v -> synth_type = synth_type;
 
     ADSR_start(&v->env, &s->env, s->sample_rate);
 
@@ -212,7 +234,7 @@ static void free_unused_voices(Synth *s, Voice *vs){
 			voice_reset(&vs[s->active_voices-1]);
 			s->active_voices--;
 		} else{
-			i++;									//pls worky 👉👈
+			i++;									//pls work 👉👈
 		}
 	}
 	update_synth_gain(s);
@@ -232,6 +254,7 @@ void synth_note_off(Synth *s, Voice *vs, int midi_note){
 void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t frames) {
     static float float_buf[MAX_BLOCK_FRAMES]; //static - no allocation on stack
     static float voice_buf[MAX_BLOCK_FRAMES];
+    int		 	 lowpass = 1; //flag for LPF
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
@@ -271,6 +294,7 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
         case BASIC: {
         	switch(v->wave){
 			case SINE: {
+				if (v->synth_type == SUB) break;
 				Harmonic *h = &v->harmonics[0];
 
 				register uint32_t phase = h->phase;
@@ -341,8 +365,21 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
 			default:
 				break;
 			}
+        	break;
         	}
         case SUB: {
+        	Harmonic *h = &v->harmonics[0];
+        	register uint32_t phase = h->phase;
+        	register uint32_t phase_inc = h->phase_inc;
+        	register float amp = h->amp;
+
+        	for (size_t n = 0; n < frames; n++) {
+        		float saw = ((float)phase / 2147483648.0f) - 1.0f;
+        		voice_buf[n] += amp * saw;
+        		phase += phase_inc;
+        	}
+
+        	h->phase = phase;
         	break;
         }
         default:
@@ -358,7 +395,11 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
 
     float gain = s->current_gain;
     for (size_t n = 0; n < frames; n++) {
-        out[n] = float_to_int16(float_buf[n] * gain);
+    	float sample = float_buf[n] * gain;
+    	if (lowpass==1){ //TEMP: LPF only applied to subtractive synthesis TODO: apply to presets that use LPF
+    		sample = LPF_Process(&s->lpf, sample)* 4.0f; //TODO: normalize volume after filtering
+    	}
+        out[n] = float_to_int16(sample);
     }
 
 }
