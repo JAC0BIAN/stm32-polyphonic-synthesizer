@@ -63,12 +63,17 @@ typedef struct{
 	float       sine_lut[LUT_SIZE];
     uint16_t    midi_freakyuency[128];
     float       sample_rate;
-    float       master_gain;
+
 
     uint32_t    active_voices;
-    float 		current_gain;
     ADSR_params env;				// todo zmienić nazewe
     LPF 		lpf;
+
+    // Values for smoothing out volume jumps on note press
+    float       master_gain;
+    float		current_gain;
+    float 		target_gain;
+    float		gain_inc;
 }Synth;
 
 

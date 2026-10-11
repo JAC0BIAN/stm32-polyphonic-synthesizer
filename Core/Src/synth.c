@@ -101,13 +101,14 @@ float LPF_Process(LPF *f, float x)
 void update_synth_gain(Synth *s) {
     float mod = (float)s->active_voices;
     if (mod < 1.0f) mod = 1.0f;
-    s->current_gain = s->master_gain / mod;
+    s->target_gain = s->master_gain / mod;
 }
 
 void synth_init(Synth *s, Voice *v){
     //
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.4f;
+    s -> gain_inc = 0.002f;
 	s -> active_voices = 0;
     v -> num_harmonics = 0;
     v -> midi_note = 69;
@@ -135,6 +136,7 @@ void synth_init(Synth *s, Voice *v){
     }
 
     update_synth_gain(s);
+    s -> current_gain = s -> target_gain;
     LPF_Init(&s->lpf, 1200.0f);
 }
 
@@ -394,12 +396,17 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     free_unused_voices(s, voices);
 
     float gain = s->current_gain;
+    const float target = s->target_gain;
+    const float k = s->gain_inc;
+
     for (size_t n = 0; n < frames; n++) {
+    	gain += (target-gain)*k;
     	float sample = float_buf[n] * gain;
     	if (lowpass==1){ //TEMP: LPF only applied to subtractive synthesis TODO: apply to presets that use LPF
     		sample = LPF_Process(&s->lpf, sample)* 4.0f; //TODO: normalize volume after filtering
     	}
         out[n] = float_to_int16(sample);
+        s->current_gain = gain;
     }
 
 }
