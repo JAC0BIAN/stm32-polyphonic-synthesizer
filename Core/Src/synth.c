@@ -108,7 +108,7 @@ void synth_init(Synth *s, Voice *v){
     //
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
-    s -> gain_inc = 0.002f;
+    s -> gain_inc = 0.01f;
 	s -> active_voices = 0;
     v -> num_harmonics = 0;
     v -> midi_note = 69;
@@ -127,7 +127,7 @@ void synth_init(Synth *s, Voice *v){
     generate_sine_lut(s -> sine_lut, LUT_SIZE);
 
     // MIDI note to frequency
-    for (uint32_t i = 0; i < 128; i++){
+    for (uint32_t i = 21; i < 109; i++){
     	s->midi_freakyuency[i] = (uint16_t)(440.0f * powf(2.0f, ((float)i - 69.0f) / 12.0f) + 0.5f);
     }
 
@@ -142,8 +142,8 @@ void synth_init(Synth *s, Voice *v){
 
 
 void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t requested_harmonics, WaveType wave, SynthType synth_type){
-	if (midi_note < 0) midi_note = 0;
-	if (midi_note > 127) midi_note = 127;
+	if (midi_note < 20) midi_note = 20;
+	if (midi_note > 109) midi_note = 109;
 	if (velocity > 127) velocity = 127;
 
 	uint32_t idx = 0xFFFFFFFF;
