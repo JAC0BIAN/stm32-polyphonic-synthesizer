@@ -6,6 +6,7 @@
 #include <stddef.h>
 
 #include "dds.h"
+#include "chorus.h"
 // ---------------------- test --------------------------
 typedef enum {	// code will switch between them to simulate a sound envelope
 	ADSR_ATTACK,		// how fast the volume rises
@@ -14,13 +15,6 @@ typedef enum {	// code will switch between them to simulate a sound envelope
 	ADSR_RELEASE,		// how fast it falls
 	ADSR_OFF			// signal to clean the note
 } ADSR_state;
-
-#define LPF_STAGES 8   // 8 x 6 dB/oct = 48 dB/oct
-
-typedef struct {
-	float		alpha; //alpha = Ts/(T+Ts), where Ts is the sampling period and T = 1/(2pi * cutoff frequency)
-	float		prev_y[LPF_STAGES]; //y[n-1] (previous output state)
-}LPF;
 
 typedef struct {
 	float 		attack_t;
@@ -36,6 +30,15 @@ typedef struct{
 	float		decay_inc;
 	float 		release_inc;
 }ADSR_envelope;
+
+// ------------------------- LPF ------------------------
+
+#define LPF_STAGES 8   // 8 x 6 dB/oct = 48 dB/oct
+
+typedef struct {
+	float		alpha; //alpha = Ts/(T+Ts), where Ts is the sampling period and T = 1/(2pi * cutoff frequency)
+	float		prev_y[LPF_STAGES]; //y[n-1] (previous output state)
+}LPF;
 
 // -------------------------------------------------------
 
@@ -68,6 +71,7 @@ typedef struct{
     uint32_t    active_voices;
     ADSR_params env;				// todo zmienić nazewe
     LPF 		lpf;
+    Chorus		chorus;
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;
