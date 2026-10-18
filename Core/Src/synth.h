@@ -6,7 +6,8 @@
 #include <stddef.h>
 
 #include "dds.h"
-#include "chorus.h"
+#include "effects/chorus.h"
+#include "effects/flanger.h"
 // ---------------------- test --------------------------
 typedef enum {	// code will switch between them to simulate a sound envelope
 	ADSR_ATTACK,		// how fast the volume rises
@@ -72,6 +73,7 @@ typedef struct{
     ADSR_params env;				// todo zmienić nazewe
     LPF 		lpf;
     Chorus		chorus;
+    Flanger		flanger;
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;

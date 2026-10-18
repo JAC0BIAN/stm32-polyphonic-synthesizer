@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <math.h>
-#include "dds.h"
+#include "../dds.h"
 
 void Chorus_Init(Chorus * ch, const float *sine_lut)
 {

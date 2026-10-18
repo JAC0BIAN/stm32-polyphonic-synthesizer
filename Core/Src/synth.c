@@ -139,6 +139,7 @@ void synth_init(Synth *s, Voice *v){
     s -> current_gain = s -> target_gain;
     LPF_Init(&s->lpf, 1200.0f);
     Chorus_Init(&s -> chorus, s->sine_lut);
+    Flanger_Init(&s -> flanger, s -> sine_lut);
 }
 
 
@@ -271,7 +272,8 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     static float float_buf[MAX_BLOCK_FRAMES]; //static - no allocation on stack
     static float voice_buf[MAX_BLOCK_FRAMES];
     int		 	 lowpass 	= 0; //flag for LPF
-    int		 	 chorus_on 	= 1; //flag for chorus effect
+    int		 	 chorus_on 	= 0; //flag for chorus effect
+    int		 	 flanger_on = 1; //flag for flanger effect
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
@@ -386,7 +388,6 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
         	}
         case SUB: {
         	lowpass = 1;
-        	chorus_on = 1;
         	Harmonic *h = &v->harmonics[0];
         	register uint32_t phase = h->phase;
         	register uint32_t phase_inc = h->phase_inc;
@@ -424,6 +425,9 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	}
     	if (chorus_on == 1){
     		sample = Chorus_Process(&s->chorus, sample);
+    	}
+    	if (flanger_on == 1){
+    	    sample = Flanger_Process(&s->flanger, sample);
     	}
         out[n] = float_to_int16(sample);
         s->current_gain = gain;
