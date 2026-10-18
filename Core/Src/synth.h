@@ -6,6 +6,7 @@
 #include <stddef.h>
 
 #include "dds.h"
+#include "filters/lpf.h"
 #include "effects/chorus.h"
 #include "effects/flanger.h"
 // ---------------------- test --------------------------
@@ -31,15 +32,6 @@ typedef struct{
 	float		decay_inc;
 	float 		release_inc;
 }ADSR_envelope;
-
-// ------------------------- LPF ------------------------
-
-#define LPF_STAGES 8   // 8 x 6 dB/oct = 48 dB/oct
-
-typedef struct {
-	float		alpha; //alpha = Ts/(T+Ts), where Ts is the sampling period and T = 1/(2pi * cutoff frequency)
-	float		prev_y[LPF_STAGES]; //y[n-1] (previous output state)
-}LPF;
 
 // -------------------------------------------------------
 
