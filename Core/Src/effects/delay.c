@@ -25,7 +25,7 @@ void Delay_Init(Delay * d, float *buf)
 	float q		 = 1;							   // q = 1 -> 4th of a note, 4 -> 16th of a note
 	float base_d = (SAMPLE_RATE_HZ*60.0f)/(BPM*q); // based? (base delay depending on BPM and q (4ths/8ths etc. of a note)
 
-	for (uint32_t i = 0; i < N; i++){
+	for (uint32_t i = 0; i < ND; i++){
 		D_Voice *v	= &d->voices[i];
 		v -> d0 	= base_d * (float)(i + 1);   // delay, multiplied for next voices
 		v -> gain 	= powf(0.7f, i);			 // exponentially decaying amplitude for next voices
@@ -37,7 +37,7 @@ float Delay_Process(Delay * d, float x)
 	d->d_buff[d->idx] = x;	// save current sample to the buffer
 	float sum = 0.0f;
 
-	for (uint32_t i = 0; i < N; i++){
+	for (uint32_t i = 0; i < ND; i++){
 		D_Voice *v = &d->voices[i];
 		float delay = v->d0;				// delay
 		uint32_t d_int = (uint32_t)delay;	// change delay to integer (will be used as an index)

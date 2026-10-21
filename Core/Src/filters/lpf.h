@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define LPF_STAGES 8   // 8 x 6 dB/oct = 48 dB/oct
+#define LPF_STAGES 4   // 8 x 6 dB/oct = 48 dB/oct
 
 typedef struct {
 	float		alpha; //alpha = Ts/(T+Ts), where Ts is the sampling period and T = 1/(2pi * cutoff frequency)

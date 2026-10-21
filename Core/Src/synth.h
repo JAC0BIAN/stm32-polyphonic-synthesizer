@@ -10,6 +10,7 @@
 #include "effects/chorus.h"
 #include "effects/flanger.h"
 #include "effects/delay.h"
+#include "effects/reverb.h"
 
 #define SDRAM_BASE  0xC0000000u
 // ---------------------- test --------------------------
@@ -72,6 +73,7 @@ typedef struct{
     Chorus		chorus;
     Flanger		flanger;
     Delay		delay;
+    Reverb		reverb;
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;

@@ -127,6 +127,7 @@ void synth_init(Synth *s, Voice *v){
     Chorus_Init(&s -> chorus, s->sine_lut);
     Flanger_Init(&s -> flanger, s -> sine_lut);
     Delay_Init(&s -> delay, delay_buf);
+    Reverb_Init(&s -> reverb);
 }
 
 
@@ -261,7 +262,8 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     int		 	 lowpass 	= 0; //flag for LPF
     int		 	 chorus_on 	= 0; //flag for chorus effect
     int		 	 flanger_on = 0; //flag for flanger effect
-    int			 delay_on	= 1; //flag for delay effect
+    int			 delay_on	= 0; //flag for delay effect
+    int			 reverb_on	= 1; //flag for reverb effect
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
@@ -419,6 +421,9 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	}
     	if (delay_on == 1){
     	    sample = Delay_Process(&s->delay, sample);
+    	}
+    	if (reverb_on == 1){
+    	    sample = Reverb_Process(&s->reverb, sample);
     	}
         out[n] = float_to_int16(sample);
         s->current_gain = gain;
