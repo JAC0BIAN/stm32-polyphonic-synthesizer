@@ -9,6 +9,9 @@
 #include "filters/lpf.h"
 #include "effects/chorus.h"
 #include "effects/flanger.h"
+#include "effects/delay.h"
+
+#define SDRAM_BASE  0xC0000000u
 // ---------------------- test --------------------------
 typedef enum {	// code will switch between them to simulate a sound envelope
 	ADSR_ATTACK,		// how fast the volume rises
@@ -63,9 +66,12 @@ typedef struct{
 
     uint32_t    active_voices;
     ADSR_params env;				// todo zmienić nazewe
+
     LPF 		lpf;
+
     Chorus		chorus;
     Flanger		flanger;
+    Delay		delay;
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;

@@ -21,4 +21,4 @@ typedef struct {
 void LPF_Init(LPF * f, float cutoff);
 float LPF_Process(LPF *f, float x);
 
-#endif /* SRC_FLANGER_H_ */
+#endif /* SRC_LPF_H_ */

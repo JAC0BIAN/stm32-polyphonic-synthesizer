@@ -10,6 +10,7 @@
 
 #include "stm32f7xx_hal.h"
 #include "stm32746g_discovery_audio.h"
+#include "stm32746g_discovery_sdram.h"
 #include "synth.h"
 
 #define AUDIO_BLOCK_SIZE    64
