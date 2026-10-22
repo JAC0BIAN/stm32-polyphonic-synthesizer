@@ -100,15 +100,15 @@ void synth_init(Synth *s, Voice *v){
     v -> midi_note = 69;
     v -> f0_hz = 420.0f;
 
-    //s->env.attack_t  = 2.01f;
-    //s->env.decay_t   = 0.10f;
-    //s->env.sustain   = 0.70f;
-    //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
+    s->env.attack_t  = 2.01f;
+    s->env.decay_t   = 0.10f;
+    s->env.sustain   = 0.70f;
+    s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
 
-    s->env.attack_t  = 0.005f;
-    s->env.decay_t   = 1.00f;
-    s->env.sustain   = 0.00f;
-    s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+    //s->env.attack_t  = 0.005f;
+    //s->env.decay_t   = 1.00f;
+    //s->env.sustain   = 0.00f;
+    //s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
 
     generate_sine_lut(s -> sine_lut, LUT_SIZE);
 
@@ -124,6 +124,7 @@ void synth_init(Synth *s, Voice *v){
     update_synth_gain(s);
     s -> current_gain = s -> target_gain;
     LPF_Init(&s->lpf, 1200.0f);
+    HPF_Init(&s->hpf, 60.0f);
     Chorus_Init(&s -> chorus, s->sine_lut);
     Flanger_Init(&s -> flanger, s -> sine_lut);
     Delay_Init(&s -> delay, delay_buf);
@@ -259,11 +260,12 @@ void synth_note_off(Synth *s, Voice *vs, int midi_note){
 void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t frames) {
     static float float_buf[MAX_BLOCK_FRAMES]; //static - no allocation on stack
     static float voice_buf[MAX_BLOCK_FRAMES];
-    int		 	 lowpass 	= 0; //flag for LPF
+    int		 	 lowpass 	= 1; //flag for LPF
+    int		 	 highpass 	= 1; //flag for HPF
     int		 	 chorus_on 	= 0; //flag for chorus effect
     int		 	 flanger_on = 0; //flag for flanger effect
     int			 delay_on	= 0; //flag for delay effect
-    int			 reverb_on	= 1; //flag for reverb effect
+    int			 reverb_on	= 0; //flag for reverb effect
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
@@ -410,8 +412,11 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     for (size_t n = 0; n < frames; n++) {
     	gain += (target-gain)*k;
     	float sample = float_buf[n] * gain;
-    	if (lowpass == 1){ //TEMP: LPF only applied to subtractive synthesis TODO: apply to presets that use LPF
-    		sample = LPF_Process(&s->lpf, sample)* 4.0f; //TODO: normalize volume after filtering
+    	if (lowpass == 1){
+    		sample = LPF_Process(&s->lpf, sample)* 4.0f;
+    	}
+    	if (highpass == 1){
+    	    sample = HPF_Process(&s->hpf, sample)* 4.0f;
     	}
     	if (chorus_on == 1){
     		sample = Chorus_Process(&s->chorus, sample);

@@ -7,6 +7,7 @@
 
 #include "dds.h"
 #include "filters/lpf.h"
+#include "filters/hpf.h"
 #include "effects/chorus.h"
 #include "effects/flanger.h"
 #include "effects/delay.h"
@@ -69,6 +70,7 @@ typedef struct{
     ADSR_params env;				// todo zmienić nazewe
 
     LPF 		lpf;
+    HPF 		hpf;
 
     Chorus		chorus;
     Flanger		flanger;
