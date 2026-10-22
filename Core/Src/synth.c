@@ -129,6 +129,7 @@ void synth_init(Synth *s, Voice *v){
     Flanger_Init(&s -> flanger, s -> sine_lut);
     Delay_Init(&s -> delay, delay_buf);
     Reverb_Init(&s -> reverb);
+    Phaser_Init(&s -> phaser, s -> sine_lut);
 }
 
 
@@ -260,10 +261,11 @@ void synth_note_off(Synth *s, Voice *vs, int midi_note){
 void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t frames) {
     static float float_buf[MAX_BLOCK_FRAMES]; //static - no allocation on stack
     static float voice_buf[MAX_BLOCK_FRAMES];
-    int		 	 lowpass 	= 1; //flag for LPF
-    int		 	 highpass 	= 1; //flag for HPF
+    int		 	 lowpass 	= 0; //flag for LPF
+    int		 	 highpass 	= 0; //flag for HPF
     int		 	 chorus_on 	= 0; //flag for chorus effect
     int		 	 flanger_on = 0; //flag for flanger effect
+    int		 	 phaser_on  = 1; //flag for phaser effect
     int			 delay_on	= 0; //flag for delay effect
     int			 reverb_on	= 0; //flag for reverb effect
 
@@ -423,6 +425,9 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	}
     	if (flanger_on == 1){
     	    sample = Flanger_Process(&s->flanger, sample);
+    	}
+    	if (phaser_on == 1){
+    		sample = Phaser_Process(&s->phaser, sample)* 0.25f;
     	}
     	if (delay_on == 1){
     	    sample = Delay_Process(&s->delay, sample);

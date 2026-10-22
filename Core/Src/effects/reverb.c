@@ -16,6 +16,8 @@
 void Reverb_Init(Reverb * r)
 {
 	LPF_Init(&r->lpf, 1200.0f);
+	Allpass_Init(&r->ap[0], 400u, 0.65f);
+	Allpass_Init(&r->ap[1], 113u, 0.65f);
 	r -> beta = 1.0f / (float)NR;
 
 	for (uint32_t k = 0; k < NR; k++) {
@@ -41,21 +43,11 @@ void Reverb_Init(Reverb * r)
 	r->ap[1].gain  = 0.65f;
 	r->ap[1].idx   = 0;
 
-	for (uint32_t k = 0; k < AP_COUNT; k++) {
+	for (uint32_t k = 0; k < 2u; k++) {
 	    for (uint32_t i = 0; i < AP_BUF_SIZE; i++) {
 	        r->ap[k].buf[i] = 0.0f;
 	    };
 	};
-}
-
-static float Allpass_Process(Allpass *ap, float x)
-{
-    uint32_t read_idx = (ap->idx - ap->delay) & AP_BUF_MASK;
-    float delayed = ap->buf[read_idx];
-    float y = delayed - ap->gain * x;
-    ap->buf[ap->idx] = x + ap->gain * y;
-    ap->idx = (ap->idx + 1u) & AP_BUF_MASK;
-    return y;
 }
 
 float Reverb_Process(Reverb *r, float x)
@@ -76,7 +68,7 @@ float Reverb_Process(Reverb *r, float x)
 
     float wet = r->beta * sum;
 
-    for (uint32_t k = 0; k < AP_COUNT; k++) {
+    for (uint32_t k = 0; k < 2u; k++) {
         wet = Allpass_Process(&r->ap[k], wet);
     }
 

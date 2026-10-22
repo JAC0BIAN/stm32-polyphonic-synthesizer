@@ -11,20 +11,11 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "../filters/lpf.h"
+#include "../filters/allpass.h"
 
 #define	NR			6u
 #define R_BUF_SIZE 	4096
 #define R_BUF_MASK 	(R_BUF_SIZE - 1)
-#define AP_BUF_SIZE 1024u
-#define AP_BUF_MASK (AP_BUF_SIZE - 1u)
-#define AP_COUNT 	2u
-
-typedef struct {
-    float 		buf[AP_BUF_SIZE];
-    uint32_t 	idx;
-    uint32_t 	delay;
-    float 		gain;
-} Allpass;
 
 typedef struct{
     float       gain;
@@ -36,7 +27,7 @@ typedef struct{
 typedef struct{
 	R_Voice		voices[NR];
 	float		beta;
-    Allpass 	ap[AP_COUNT];
+	Allpass 	ap[2];
     LPF 		lpf;
 }Reverb;
 

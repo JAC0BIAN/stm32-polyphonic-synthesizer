@@ -10,6 +10,7 @@
 #include "filters/hpf.h"
 #include "effects/chorus.h"
 #include "effects/flanger.h"
+#include "effects/phaser.h"
 #include "effects/delay.h"
 #include "effects/reverb.h"
 
@@ -74,6 +75,7 @@ typedef struct{
 
     Chorus		chorus;
     Flanger		flanger;
+    Phaser		phaser;
     Delay		delay;
     Reverb		reverb;
 
