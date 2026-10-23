@@ -81,6 +81,14 @@ typedef struct{
     Delay		delay;
     Reverb		reverb;
 
+    uint16_t	lowpass; 	//flag for LPF
+    uint16_t	highpass; 	//flag for HPF
+    uint16_t	chorus_on; 	//flag for chorus effect
+    uint16_t	flanger_on; //flag for flanger effect
+    uint16_t	phaser_on; 	//flag for phaser effect
+    uint16_t	delay_on; 	//flag for delay effect
+    uint16_t	reverb_on; 	//flag for reverb effect
+
     // Values for smoothing out volume jumps on note press
     float       master_gain;
     float		current_gain;

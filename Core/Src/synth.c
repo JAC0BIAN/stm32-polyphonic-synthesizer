@@ -107,6 +107,14 @@ void update_synth_gain(Synth *s) {
 void synth_init(Synth *s, Voice *v){
 	float *delay_buf = (float *)SDRAM_BASE;
 
+	s->lowpass    = 0u; 	//flag for LPF
+	s->highpass   = 0u; 	//flag for HPF
+	s->chorus_on  = 0u; 	//flag for chorus effect
+	s->flanger_on = 0u; 	//flag for flanger effect
+	s->phaser_on  = 0u; 	//flag for phaser effect
+	s->delay_on	  = 0u; 	//flag for delay effect
+	s->reverb_on  = 1u; 	//flag for reverb effect
+
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
     s -> gain_inc = 0.01f;
@@ -138,13 +146,13 @@ void synth_init(Synth *s, Voice *v){
 
     update_synth_gain(s);
     s -> current_gain = s -> target_gain;
-    LPF_Init(&s->lpf, 1200.0f);
-    HPF_Init(&s->hpf, 60.0f);
-    Chorus_Init(&s -> chorus, s->sine_lut);
-    Flanger_Init(&s -> flanger, s -> sine_lut);
-    Delay_Init(&s -> delay, delay_buf);
-    Reverb_Init(&s -> reverb);
-    Phaser_Init(&s -> phaser, s -> sine_lut);
+    if (s->lowpass == 1) 	LPF_Init(&s->lpf, 1200.0f);
+    if (s->highpass == 1) 	HPF_Init(&s->hpf, 60.0f);
+    if (s->chorus_on == 1) 	Chorus_Init(&s -> chorus, s->sine_lut);
+    if (s->flanger_on == 1) Flanger_Init(&s -> flanger, s -> sine_lut);
+    if (s->delay_on == 1) 	Delay_Init(&s -> delay, delay_buf);
+    if (s->reverb_on == 1) 	Reverb_Init(&s -> reverb);
+    if (s->phaser_on == 1) 	Phaser_Init(&s -> phaser, s -> sine_lut);
 }
 
 
@@ -276,13 +284,13 @@ void synth_note_off(Synth *s, Voice *vs, int midi_note){
 void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t frames) {
     static float float_buf[MAX_BLOCK_FRAMES]; //static - no allocation on stack
     static float voice_buf[MAX_BLOCK_FRAMES];
-    int		 	 lowpass 	= 0; //flag for LPF
-    int		 	 highpass 	= 0; //flag for HPF
-    int		 	 chorus_on 	= 0; //flag for chorus effect
-    int		 	 flanger_on = 0; //flag for flanger effect
-    int		 	 phaser_on  = 0; //flag for phaser effect
-    int			 delay_on	= 0; //flag for delay effect
-    int			 reverb_on	= 0; //flag for reverb effect
+    uint16_t lowpass 	= s->lowpass; 		//flag for LPF
+    uint16_t highpass 	= s->highpass; 		//flag for HPF
+    uint16_t chorus_on 	= s->chorus_on; 	//flag for chorus effect
+    uint16_t flanger_on = s->flanger_on; 	//flag for flanger effect
+    uint16_t phaser_on  = s->phaser_on; 	//flag for phaser effect
+    uint16_t delay_on	= s->delay_on; 		//flag for delay effect
+    uint16_t reverb_on	= s->reverb_on; 	//flag for reverb effect
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
