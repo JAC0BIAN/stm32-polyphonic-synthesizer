@@ -15,7 +15,7 @@
 
 void Reverb_Init(Reverb * r)
 {
-	LPF_Init(&r->lpf, 1200.0f);
+	LPF_Init(&r->lpf, 15000.0f);
 	Allpass_Init(&r->ap[0], 400u, 0.65f);
 	Allpass_Init(&r->ap[1], 113u, 0.65f);
 	r -> beta = 1.0f / (float)NR;

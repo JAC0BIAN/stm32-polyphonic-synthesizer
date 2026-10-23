@@ -6,8 +6,10 @@
 #include <stddef.h>
 
 #include "dds.h"
+
 #include "filters/lpf.h"
 #include "filters/hpf.h"
+
 #include "effects/chorus.h"
 #include "effects/flanger.h"
 #include "effects/phaser.h"

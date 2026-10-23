@@ -12,7 +12,7 @@
 #include <stddef.h>
 
 #define PI                  3.14159265359
-#define SAMPLE_RATE_HZ     48000.0f
+#define SAMPLE_RATE_HZ      48000.0f
 
 #define LUT_SIZE            2048u
 #define LUT_BITS            11u

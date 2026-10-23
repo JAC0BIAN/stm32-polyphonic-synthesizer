@@ -81,6 +81,21 @@ static float ADSR_tick(ADSR_envelope *e, float sustain) {
 	}
 	return e->level;
 }
+// ================================ Antialiasing ========================================
+float polyblep(float t, float dt)
+{
+    if (t < dt) {
+        t /= dt;
+        return 2.0f * t - t * t - 1.0f;
+    };
+
+    if (t > 1.0f - dt) {
+        t = (t - 1.0f) / dt;
+        return t * t + 2.0f * t + 1.0f;
+    };
+
+    return 0.0f;
+}
 
 // =================================== Synth ============================================
 void update_synth_gain(Synth *s) {
@@ -265,7 +280,7 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     int		 	 highpass 	= 0; //flag for HPF
     int		 	 chorus_on 	= 0; //flag for chorus effect
     int		 	 flanger_on = 0; //flag for flanger effect
-    int		 	 phaser_on  = 1; //flag for phaser effect
+    int		 	 phaser_on  = 0; //flag for phaser effect
     int			 delay_on	= 0; //flag for delay effect
     int			 reverb_on	= 0; //flag for reverb effect
 
@@ -329,13 +344,20 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
 				register uint32_t phase_inc = h->phase_inc;
 				register float amp = h->amp;
 
+				const float scale = 1.0f / 4294967296.0f; // scale by 2^32 (uint32_t)
+				const float dt = (float)phase_inc * scale;
+
 				for (size_t n = 0; n < frames; n++) {
+					float t = (float)phase * scale;
 
-					if (phase < 0x80000000u)
-						voice_buf[n] += amp;
-					else
-						voice_buf[n] -= amp;
+					float square = (phase < 0x80000000u) ? 1.0f : -1.0f;
+					square += polyblep(t, dt);
 
+					float t2 = t + 0.5f;
+					if (t2 >= 1.0f) {t2 -= 1.0f;}
+					square -= polyblep(t2, dt);
+
+					voice_buf[n] += amp * square;
 					phase += phase_inc;
 				}
 
@@ -366,8 +388,15 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
 				register uint32_t phase_inc = h->phase_inc;
 				register float amp = h->amp;
 
+				const float scale = 1.0f / 4294967296.0f; // scale by 2^32 (uint32_t)
+				const float dt = (float)phase_inc * scale;
+
 				for (size_t n = 0; n < frames; n++) {
-					float saw = ((float)phase / 2147483648.0f) - 1.0f;
+					float t = (float)phase * scale;
+					float saw = 2.0f * t - 1.0f;
+
+					saw -= polyblep(t, dt); //polyBLEP correction on phase wrap
+
 					voice_buf[n] += amp * saw;
 					phase += phase_inc;
 				}
@@ -387,8 +416,15 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
         	register uint32_t phase_inc = h->phase_inc;
         	register float amp = h->amp;
 
+        	const float scale = 1.0f / 4294967296.0f; // scale by 2^32 (uint32_t)
+        	const float dt = (float)phase_inc * scale;
+
         	for (size_t n = 0; n < frames; n++) {
-        		float saw = ((float)phase / 2147483648.0f) - 1.0f;
+        		float t = (float)phase * scale;
+        		float saw = 2.0f * t - 1.0f;
+
+        		saw -= polyblep(t, dt); //polyBLEP correction on phase wrap
+
         		voice_buf[n] += amp * saw;
         		phase += phase_inc;
         	}
