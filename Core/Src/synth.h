@@ -15,6 +15,8 @@
 #include "effects/phaser.h"
 #include "effects/delay.h"
 #include "effects/reverb.h"
+#include "effects/overdrive.h"
+#include "effects/distorsion.h"
 
 #define SDRAM_BASE  0xC0000000u
 // ---------------------- test --------------------------
@@ -80,6 +82,8 @@ typedef struct{
     Phaser		phaser;
     Delay		delay;
     Reverb		reverb;
+    Overdrive	overdrive;
+    Distortion  distortion;
 
     uint16_t	lowpass; 	//flag for LPF
     uint16_t	highpass; 	//flag for HPF
@@ -88,6 +92,8 @@ typedef struct{
     uint16_t	phaser_on; 	//flag for phaser effect
     uint16_t	delay_on; 	//flag for delay effect
     uint16_t	reverb_on; 	//flag for reverb effect
+    uint16_t	overdrive_on; 	//flag for overdrive effect
+	uint16_t	distortion_on;	//flag for distortion effect
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;

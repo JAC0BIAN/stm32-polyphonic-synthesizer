@@ -113,7 +113,9 @@ void synth_init(Synth *s, Voice *v){
 	s->flanger_on = 0u; 	//flag for flanger effect
 	s->phaser_on  = 0u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
-	s->reverb_on  = 1u; 	//flag for reverb effect
+	s->reverb_on  = 0u; 	//flag for reverb effect
+	s->overdrive_on = 0u;
+	s->distortion_on = 1u;
 
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
@@ -153,6 +155,8 @@ void synth_init(Synth *s, Voice *v){
     if (s->delay_on == 1) 	Delay_Init(&s -> delay, delay_buf);
     if (s->reverb_on == 1) 	Reverb_Init(&s -> reverb);
     if (s->phaser_on == 1) 	Phaser_Init(&s -> phaser, s -> sine_lut);
+    if (s->overdrive_on == 1)	overdrive_init(&s -> overdrive);
+    if (s->distortion_on == 1)	distortion_init(&s -> distortion);
 }
 
 
@@ -291,6 +295,8 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     uint16_t phaser_on  = s->phaser_on; 	//flag for phaser effect
     uint16_t delay_on	= s->delay_on; 		//flag for delay effect
     uint16_t reverb_on	= s->reverb_on; 	//flag for reverb effect
+    uint16_t overdrive_on = s->overdrive_on;
+    uint16_t distortion_on = s->distortion_on;
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
@@ -478,6 +484,12 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	}
     	if (reverb_on == 1){
     	    sample = Reverb_Process(&s->reverb, sample);
+    	}
+    	if (overdrive_on ==1){
+    		sample = overdrive_process(&s -> overdrive, sample);
+    	}
+    	if (distortion_on ==1){
+    	    sample = distortion_process(&s -> distortion, sample);
     	}
         out[n] = float_to_int16(sample);
         s->current_gain = gain;
