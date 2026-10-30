@@ -74,7 +74,7 @@ static void midi_queue_pop(void){
 		switch (temp.type) {
 		case MIDI_EVENT_NOTE_ON: {
 			//last 3 parameters below are: number of voices in additive, basic waveform type (for basic synth type), synth type (basic, add, sub)
-			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SAW, BASIC);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, 0, ADD);
 			//TODO: change preset parameters passing from hardcoded above to config files loaded once on preset selection. ADD GUI handled selection.
 			}
 			break;
