@@ -116,6 +116,7 @@ void synth_init(Synth *s, Voice *v){
 	s->reverb_on  = 0u; 	//flag for reverb effect
 	s->overdrive_on = 0u;
 	s->distortion_on = 1u;
+	s->compressor_on = 0u;
 
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
@@ -157,6 +158,7 @@ void synth_init(Synth *s, Voice *v){
     if (s->phaser_on == 1) 	Phaser_Init(&s -> phaser, s -> sine_lut);
     if (s->overdrive_on == 1)	overdrive_init(&s -> overdrive);
     if (s->distortion_on == 1)	distortion_init(&s -> distortion);
+    if (s->compressor_on == 1)  compressor_init(&s -> compressor);
 }
 
 
@@ -297,6 +299,7 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     uint16_t reverb_on	= s->reverb_on; 	//flag for reverb effect
     uint16_t overdrive_on = s->overdrive_on;
     uint16_t distortion_on = s->distortion_on;
+    uint16_t compressor_on = s->compressor_on;
 
     if (frames > MAX_BLOCK_FRAMES) frames = MAX_BLOCK_FRAMES;
 
@@ -490,6 +493,9 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	}
     	if (distortion_on ==1){
     	    sample = distortion_process(&s -> distortion, sample);
+    	}
+    	if (compressor_on ==1){
+    		sample = compressor_process(&s -> compressor, sample);
     	}
         out[n] = float_to_int16(sample);
         s->current_gain = gain;

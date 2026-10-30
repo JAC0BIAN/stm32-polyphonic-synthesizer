@@ -17,6 +17,7 @@
 #include "effects/reverb.h"
 #include "effects/overdrive.h"
 #include "effects/distorsion.h"
+#include "effects/compressor.h"
 
 #define SDRAM_BASE  0xC0000000u
 // ---------------------- test --------------------------
@@ -84,6 +85,7 @@ typedef struct{
     Reverb		reverb;
     Overdrive	overdrive;
     Distortion  distortion;
+    Compressor 	compressor;
 
     uint16_t	lowpass; 	//flag for LPF
     uint16_t	highpass; 	//flag for HPF
@@ -94,6 +96,7 @@ typedef struct{
     uint16_t	reverb_on; 	//flag for reverb effect
     uint16_t	overdrive_on; 	//flag for overdrive effect
 	uint16_t	distortion_on;	//flag for distortion effect
+	uint16_t 	compressor_on; 	// flag for compressor effect
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;
