@@ -26,10 +26,19 @@ static int16_t mono_cache[AUDIO_BUFFER_SIZE];
 // Midi queue
 #define MIDI_QUEUE_LENGHT 16u
 
-typedef struct{
+typedef enum {
+    MIDI_EVENT_NOTE_ON,
+    MIDI_EVENT_NOTE_OFF,
+    MIDI_EVENT_PITCH_BEND,
+	MIDI_EVENT_ALL_NOTES_OFF
+
+} MIDI_event_type;
+
+typedef struct {
+	MIDI_event_type type;
 	uint8_t note;
-	uint8_t note_on;		// 1 - on , 0 - off
 	uint8_t velocity;		// pressed key dynamics
+	uint16_t pitch_bend;
 } MIDI_event;
 
 static volatile MIDI_event	midi_queue[MIDI_QUEUE_LENGHT];
@@ -37,7 +46,7 @@ static volatile uint32_t	midi_queue_head = 0;
 static volatile uint32_t	midi_queue_tail = 0;
 //static volatile uint8_t		midi_queue_count = 0;
 
-static void midi_queue_push(uint8_t note, uint8_t velocity, uint8_t note_on){
+static void midi_queue_push(uint8_t note, uint8_t velocity, MIDI_event_type type){
 	uint32_t head = midi_queue_head;
 	uint32_t next = (head+1u)%(MIDI_QUEUE_LENGHT);
 
@@ -47,9 +56,10 @@ static void midi_queue_push(uint8_t note, uint8_t velocity, uint8_t note_on){
 	}
 
 	// Assign values and pass into queue
+	midi_queue[head].type = type;
 	midi_queue[head].note = note;
 	midi_queue[head].velocity = velocity;
-	midi_queue[head].note_on = note_on;
+	midi_queue[head].pitch_bend = 0;
 	__DMB();		// Force memory order (snippet z stackOverflow)
 	midi_queue_head = next;
 	//if(midi_queue_count < MIDI_QUEUE_LENGHT) midi_queue_count++;
@@ -61,18 +71,46 @@ static void midi_queue_pop(void){
 		MIDI_event temp = midi_queue[midi_queue_tail];
 		midi_queue_tail = (midi_queue_tail+1u)%(MIDI_QUEUE_LENGHT);
 
-		if (temp.note_on){
+		switch (temp.type) {
+		case MIDI_EVENT_NOTE_ON: {
 			//last 3 parameters below are: number of voices in additive, basic waveform type (for basic synth type), synth type (basic, add, sub)
-			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SQUARE, BASIC);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SAW, BASIC);
 			//TODO: change preset parameters passing from hardcoded above to config files loaded once on preset selection. ADD GUI handled selection.
-		}
-		else{
+			}
+			break;
+		case MIDI_EVENT_NOTE_OFF: {
 			synth_note_off(&synth, voice, temp.note);
+			}
+			break;
+		case MIDI_EVENT_PITCH_BEND: {
+		    synth_pitch_bend(&synth, voice, temp.pitch_bend);
+			}
+		    break;
+		case MIDI_EVENT_ALL_NOTES_OFF: {
+		    synth_all_notes_off(&synth, voice);
+		    break;
+		}
+		default: break;
 		}
 		//midi_queue_count--;
 	}
 }// queuo
 
+//----------------------------------------------
+static void midi_queue_push_pitch_bend(uint16_t value) {
+    uint32_t head = midi_queue_head;
+    uint32_t next = (head + 1u) % MIDI_QUEUE_LENGHT;
+
+    if (next == midi_queue_tail)
+        return;
+
+    midi_queue[head].type = MIDI_EVENT_PITCH_BEND;
+    midi_queue[head].pitch_bend = value;
+
+    __DMB();
+
+    midi_queue_head = next;
+}
 //----------------------------------------------
 
 static void fill_stereo_block(int16_t *dst, size_t frames)
@@ -128,19 +166,25 @@ void audio_init(void)
     }
 }
 
-void audio_note_on(uint8_t note, uint8_t velocity)
-{
+void audio_note_on(uint8_t note, uint8_t velocity) {
 	if (velocity == 0) { // velocity 0 is note-off in MIDI standard
 	    audio_note_off(note);
 	    return;
 	}
 
-    midi_queue_push(note, velocity, 1);
+    midi_queue_push(note, velocity, MIDI_EVENT_NOTE_ON);
 }
 
-void audio_note_off(uint8_t note)
-{
-    midi_queue_push(note, 0, 0);
+void audio_note_off(uint8_t note) {
+    midi_queue_push(note, 0, MIDI_EVENT_NOTE_OFF);
+}
+
+void audio_all_notes_off(void) {
+    midi_queue_push(0, 0, MIDI_EVENT_ALL_NOTES_OFF);
+}
+
+void audio_pitch_bend(uint16_t value) {
+    midi_queue_push_pitch_bend(value);
 }
 
 // - debug attempt -

@@ -37,6 +37,7 @@ void tuh_midi_umount_cb(uint8_t idx)
   (void) idx;
   //turn off LED when device is disconnected
   HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_RESET);
+  audio_all_notes_off();
 }
 
 void tuh_midi_rx_cb(uint8_t idx, uint32_t xferred_bytes)
@@ -46,20 +47,28 @@ void tuh_midi_rx_cb(uint8_t idx, uint32_t xferred_bytes)
 
   while (tuh_midi_packet_read(idx, packet))
   {
-    uint8_t status   = packet[1];
-    uint8_t note     = packet[2];
-    uint8_t velocity = packet[3];
+	uint8_t system  = packet[0] & 0x0F;
+	uint8_t status 	= packet[1] & 0xF0;
+    uint8_t data1 	= packet[2];
+    uint8_t data2 	= packet[3];
 
-    if (status == 0x90 && velocity > 0) // Note-On event (0x90 = 1001nnn status byte)
+    if (data1 >= 128 || data2 >= 128) // MIDI data bytes must be 7-bit
+               continue;
+
+    if (status == 0x90 && data2 > 0 && system == 0x9) // Note-On event (0x90 = 1001nnn status byte)
     {
-    	audio_note_on(note, velocity);
+    	audio_note_on(data1, data2);
     }
-    else if (status == 0x80 || (status == 0x90 && velocity == 0)) // Note-Off event (0x80 = 1000nnn status byte)
+    else if ((status == 0x80 && system == 0x8) ||
+    		 (status == 0x90 && system == 0x9 && data2 == 0)) // Note-Off event (0x80 = 1000nnn status byte)
     {
-    	audio_note_off(note);
+    	audio_note_off(data1);
     }
-    else
-    {
+    else if (status == 0xE0 && system == 0xE) {
+        uint16_t pitch_bend = data1 | (data2 << 7);
+        audio_pitch_bend(pitch_bend);
+    }
+    else {
     	continue;
     }
   }

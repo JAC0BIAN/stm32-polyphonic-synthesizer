@@ -19,5 +19,7 @@
 void audio_init(void);
 void audio_note_on(uint8_t note, uint8_t velocity);
 void audio_note_off(uint8_t note);
+void audio_all_notes_off(void);
+void audio_pitch_bend(uint16_t value);
 
 #endif /* SRC_AUDIO_HANDLING_H_ */

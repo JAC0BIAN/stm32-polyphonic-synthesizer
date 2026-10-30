@@ -95,6 +95,9 @@ typedef struct{
     uint16_t	overdrive_on; 	//flag for overdrive effect
 	uint16_t	distortion_on;	//flag for distortion effect
 
+	float 		pitch_bend_ratio;
+	float 		pitch_bend_range;
+
     // Values for smoothing out volume jumps on note press
     float       master_gain;
     float		current_gain;
@@ -119,6 +122,8 @@ typedef struct{
 void 		 synth_init(Synth *s, Voice *v);
 void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, uint32_t requested_harmonics, WaveType wave, SynthType synth_type);
 void         synth_note_off(Synth *s, Voice *v, int midi_note);
+void 		 synth_all_notes_off(Synth *s, Voice *v);
+void 		 synth_pitch_bend(Synth *s, Voice *v, uint16_t value);
 float        synth_process_one(Synth *s, Voice *v);
 void         synth_generate_block_i16(Synth *s, Voice *v, int16_t *out, size_t frames);
 void 		 LPF_Init(LPF *f, float cutoff);

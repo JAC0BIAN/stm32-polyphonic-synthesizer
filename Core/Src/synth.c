@@ -110,12 +110,12 @@ void synth_init(Synth *s, Voice *v){
 	s->lowpass    = 0u; 	//flag for LPF
 	s->highpass   = 0u; 	//flag for HPF
 	s->chorus_on  = 0u; 	//flag for chorus effect
-	s->flanger_on = 0u; 	//flag for flanger effect
+	s->flanger_on = 1u; 	//flag for flanger effect
 	s->phaser_on  = 0u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
 	s->reverb_on  = 0u; 	//flag for reverb effect
 	s->overdrive_on = 0u;
-	s->distortion_on = 1u;
+	s->distortion_on = 0u;
 
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
@@ -134,6 +134,9 @@ void synth_init(Synth *s, Voice *v){
     //s->env.decay_t   = 1.00f;
     //s->env.sustain   = 0.00f;
     //s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+
+    s->pitch_bend_ratio = 1.0f;
+    s->pitch_bend_range = 12.0f;
 
     generate_sine_lut(s -> sine_lut, LUT_SIZE);
 
@@ -191,14 +194,16 @@ void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t
 	//-----------------------------
 
     v -> midi_note = midi_note;
-    v -> f0_hz = s -> midi_freakyuency[midi_note];
+    v -> f0_hz = (float) s-> midi_freakyuency[midi_note];
     v -> wave = wave;
     v -> synth_type = synth_type;
+
+    float bent_f0 = v->f0_hz * s->pitch_bend_ratio;
 
     ADSR_start(&v->env, &s->env, s->sample_rate);
 
     float nyquist = s -> sample_rate * 0.5f;                // Antialiasing filter
-    uint32_t max_nyquist = (uint32_t)(nyquist/ (v -> f0_hz));
+    uint32_t max_nyquist = (uint32_t)(nyquist / bent_f0);
     if (max_nyquist < 1u) max_nyquist = 1u;
 
     uint32_t n = requested_harmonics;
@@ -230,7 +235,7 @@ void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t
 
     	h->phase = 0;
     	h->phase_inc = freq_to_phase_inc(
-    	    v->f0_hz, s->sample_rate
+    	    bent_f0, s->sample_rate
     	);
     	h->amp = norm_velocity;
     }
@@ -283,6 +288,32 @@ void synth_note_off(Synth *s, Voice *vs, int midi_note){
 			return;
 		}
 	}
+}
+
+void synth_all_notes_off(Synth *s, Voice *vs) {
+    for (uint32_t i = 0; i < s->active_voices; i++) {
+        if (vs[i].env.state != ADSR_OFF && vs[i].env.state != ADSR_RELEASE) {
+            ADSR_release(&vs[i].env, &s->env, s->sample_rate);
+        };
+    };
+}
+
+void synth_pitch_bend(Synth *s, Voice *vs, uint16_t value) {
+    float bend = ((float)value - 8192.0f) / 8192.0f;
+    float semitones = bend * s->pitch_bend_range;
+    float ratio = powf(2.0f, semitones / 12.0f);
+    s->pitch_bend_ratio = ratio;
+
+    for (uint32_t i = 0; i < s->active_voices; i++) {
+        Voice *v = &vs[i];
+        float bent_frequency = v->f0_hz * ratio;
+
+        for (uint32_t k = 0; k < v->num_harmonics; k++) {
+            Harmonic *h = &v->harmonics[k];
+            float harmonic_frequency = bent_frequency * (float)(k + 1);
+            h->phase_inc = freq_to_phase_inc(harmonic_frequency,s->sample_rate);
+        }
+    }
 }
 
 void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t frames) {
@@ -465,10 +496,10 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	gain += (target-gain)*k;
     	float sample = float_buf[n] * gain;
     	if (lowpass == 1){
-    		sample = LPF_Process(&s->lpf, sample)* 4.0f;
+    		sample = LPF_Process(&s->lpf, sample);
     	}
     	if (highpass == 1){
-    	    sample = HPF_Process(&s->hpf, sample)* 4.0f;
+    	    sample = HPF_Process(&s->hpf, sample);
     	}
     	if (chorus_on == 1){
     		sample = Chorus_Process(&s->chorus, sample);
@@ -477,7 +508,7 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	    sample = Flanger_Process(&s->flanger, sample);
     	}
     	if (phaser_on == 1){
-    		sample = Phaser_Process(&s->phaser, sample)* 0.25f;
+    		sample = Phaser_Process(&s->phaser, sample);
     	}
     	if (delay_on == 1){
     	    sample = Delay_Process(&s->delay, sample);
