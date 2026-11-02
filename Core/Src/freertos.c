@@ -81,6 +81,8 @@ __weak void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTask
    /* Run time stack overflow checking is performed if
    configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
    called if a stack overflow is detected. */
+	taskDISABLE_INTERRUPTS();
+	for(;;);
 }
 /* USER CODE END 4 */
 

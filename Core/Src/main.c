@@ -145,25 +145,25 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_ADC3_Init();
+  //MX_ADC3_Init();
   MX_CRC_Init();
   MX_DMA2D_Init();
-  MX_I2C1_Init();
+  //MX_I2C1_Init();
   MX_I2C3_Init();
   MX_QUADSPI_Init();
   MX_RTC_Init();
   MX_SDMMC1_SD_Init();
   MX_TIM1_Init();
-  MX_TIM2_Init();
-  MX_TIM3_Init();
-  MX_TIM5_Init();
-  MX_TIM8_Init();
-  MX_TIM12_Init();
+  //MX_TIM2_Init();
+  //MX_TIM3_Init();
+  //MX_TIM5_Init();
+  //MX_TIM8_Init();
+  //MX_TIM12_Init();
   MX_USART1_UART_Init();
-  MX_USART6_UART_Init();
+  //MX_USART6_UART_Init();
   MX_FATFS_Init();
   MX_USB_OTG_FS_HCD_Init();
-  MX_SAI2_Init();
+  //MX_SAI2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

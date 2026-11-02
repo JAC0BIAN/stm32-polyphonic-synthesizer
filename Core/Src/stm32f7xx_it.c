@@ -198,7 +198,7 @@ void DMA2_Stream4_IRQHandler(void)
 void OTG_FS_IRQHandler(void)
 {
   /* USER CODE BEGIN OTG_FS_IRQn 0 */
-  tuh_int_handler(0);
+  //tuh_int_handler(0);
   tuh_int_handler(BOARD_TUH_RHPORT);
   /* USER CODE END OTG_FS_IRQn 0 */
   /* USER CODE BEGIN OTG_FS_IRQn 1 */

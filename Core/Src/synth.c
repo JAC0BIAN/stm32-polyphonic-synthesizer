@@ -34,7 +34,7 @@ static void ADSR_start(ADSR_envelope *e, const ADSR_params *p, float sr ){
 	if (d < 0.001f){d = 0.001f;}
 
 
-	e->attack_inc = 1.0/(a*sr);
+	e->attack_inc = 1.0f/(a*sr);
 	e->decay_inc  = (1.0f - p->sustain)/(d*sr);
 	e->state = ADSR_ATTACK;
 
@@ -110,31 +110,31 @@ void synth_init(Synth *s, Voice *v){
 	s->lowpass    = 0u; 	//flag for LPF
 	s->highpass   = 0u; 	//flag for HPF
 	s->chorus_on  = 0u; 	//flag for chorus effect
-	s->flanger_on = 1u; 	//flag for flanger effect
+	s->flanger_on = 0u; 	//flag for flanger effect
 	s->phaser_on  = 0u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
 	s->reverb_on  = 0u; 	//flag for reverb effect
 	s->overdrive_on = 0u;
-	s->distortion_on = 1u;
+	s->distortion_on = 0u;
 	s->compressor_on = 0u;
 
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
     s -> gain_inc = 0.01f;
-	s -> active_voices = 0;
-    v -> num_harmonics = 0;
-    v -> midi_note = 69;
+	s -> active_voices = 0u;
+    v -> num_harmonics = 0u;
+    v -> midi_note = 69u;
     v -> f0_hz = 420.0f;
 
-    s->env.attack_t  = 2.01f;
-    s->env.decay_t   = 0.10f;
-    s->env.sustain   = 0.70f;
-    s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
+    //s->env.attack_t  = 2.01f;
+    //s->env.decay_t   = 0.10f;
+    //s->env.sustain   = 0.70f;
+    //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
 
-    //s->env.attack_t  = 0.005f;
-    //s->env.decay_t   = 1.00f;
-    //s->env.sustain   = 0.00f;
-    //s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+    s->env.attack_t  = 0.005f;
+    s->env.decay_t   = 1.00f;
+    s->env.sustain   = 0.00f;
+    s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
 
     s->pitch_bend_ratio = 1.0f;
     s->pitch_bend_range = 12.0f;

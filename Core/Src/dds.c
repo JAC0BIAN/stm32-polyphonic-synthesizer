@@ -30,15 +30,15 @@ uint32_t freq_to_phase_inc(float f, float fs)
 {
     // Increments phase based on the frequency
 
-    double v = ((double)f * 4294967296.0) / (double)fs;
+    double v = ((double)f * 4294967296.0f) / (double)fs;
 
     // Faza inc = 2^32 / częstotliwość
     // bo jeden okres to pełen zakres fazy czyli 2^32
 
-    if (v < 0.0) v = 0.0;
-    if (v > 4294967295.0) v = 4294967295.0;
+    if (v < 0.0f) v = 0.0f;
+    if (v > 4294967295.0f) v = 4294967295.0f;
 
-    return (uint32_t)(v + 0.5);
+    return (uint32_t)(v + 0.5f);
 }
 
 
