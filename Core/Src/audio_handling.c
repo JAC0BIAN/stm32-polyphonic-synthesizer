@@ -82,7 +82,7 @@ static void midi_queue_pop(void){
 		switch (temp.type) {
 		case MIDI_EVENT_NOTE_ON: {
 			//last 3 parameters below are: number of voices in additive, basic waveform type (for basic synth type), synth type (basic, add, sub)
-			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SINE, ADD);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SAW, BASIC);
 			//TODO: change preset parameters passing from hardcoded above to config files loaded once on preset selection. ADD GUI handled selection.
 			}
 			break;
@@ -175,6 +175,9 @@ void audio_init(void)
 
     // voice.num_harmonics = 0;
 
+    // ---- additional oscillators (config BEFORE audio begins) ----
+    synth_set_osc2(&synth, 1u, SAW, -12.0f, 7.0f, 0.8f);
+
 
     // ---- DWT cycle counter ----
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
@@ -204,6 +207,7 @@ void audio_init(void)
 
 void audio_note_on(uint8_t note, uint8_t velocity) {
 	if (velocity == 0) { // velocity 0 is note-off in MIDI standard
+		if (note < 21u || note > 108u) return;
 	    audio_note_off(note);
 	    return;
 	}
@@ -212,6 +216,7 @@ void audio_note_on(uint8_t note, uint8_t velocity) {
 }
 
 void audio_note_off(uint8_t note) {
+	if (note < 21u || note > 108u) return;
     midi_queue_push(note, 0, MIDI_EVENT_NOTE_OFF);
 }
 

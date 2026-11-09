@@ -56,7 +56,8 @@ typedef enum {  // basic waveforms
 	SINE,
 	SAW,
 	SQUARE,
-	TRIANGLE
+	TRIANGLE,
+	TRAPEZ
 } WaveType;
 
 typedef struct {
@@ -101,6 +102,14 @@ typedef struct{
 	float 		pitch_bend_ratio;
 	float 		pitch_bend_range;
 
+    // --- 2nd oscillator ---
+    uint16_t    osc2_enabled;
+    WaveType    osc2_wave;
+    float       osc2_semitones;     // e.g. 0, +12, -12, +7
+    float       osc2_detune_cents;  // e.g. +7.0f
+    float       osc2_level;         // 0.0 .. 1.0 in relation to osc1
+    float       osc2_ratio;         // calculation in synth_set_osc2()
+
     // Values for smoothing out volume jumps on note press
     float       master_gain;
     float		current_gain;
@@ -111,6 +120,7 @@ typedef struct{
 
 typedef struct{
     Harmonic    harmonics[MAX_HARMONICS];
+    Harmonic    osc2;
     uint32_t    num_harmonics;
 
     SynthType 	synth_type;
@@ -123,6 +133,7 @@ typedef struct{
 }Voice;
 
 void 		 synth_init(Synth *s, Voice *v);
+void 		 synth_set_osc2(Synth *s, uint16_t enabled, WaveType wave, float semitones, float detune_cents, float level);
 void         synth_note_on(Synth *s, Voice *v, int midi_note, uint8_t velocity, uint32_t requested_harmonics, WaveType wave, SynthType synth_type);
 void         synth_note_off(Synth *s, Voice *v, int midi_note);
 void 		 synth_all_notes_off(Synth *s, Voice *v);

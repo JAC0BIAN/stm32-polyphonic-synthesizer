@@ -7,6 +7,12 @@
 #include <math.h>
 #include "dds.h"
 
+#define CAP_LEN 48000u
+volatile int16_t cap_buf[CAP_LEN];     // albo wskaźnik w SDRAM
+volatile uint32_t cap_pos = 0;
+volatile uint8_t  cap_enable = 0;      // ustaw w debuggerze lub przyciskiem
+volatile uint8_t  cap_done = 0;
+
 static void voice_reset(Voice *v){
 	// Clear unused voice
 	v -> midi_note = -1;
@@ -22,6 +28,10 @@ static void voice_reset(Voice *v){
 	v -> env.attack_inc = 0.0f;
 	v -> env.decay_inc = 0.0f;
 	v -> env.release_inc = 0.0f;
+
+	v -> osc2.phase = 0;
+	v -> osc2.phase_inc = 0;
+	v -> osc2.amp = 0.0f;
 }
 // ----------------------------------- ADSR ---------------------------------------------
 // ADSR_state -> enum list with all states of the ADSR
@@ -97,6 +107,102 @@ float polyblep(float t, float dt)
     return 0.0f;
 }
 
+// ================================ 2nd Oscillator ========================================
+
+static void render_osc(WaveType wave, Harmonic *h, const float *lut, float *buf, size_t frames) {
+    uint32_t phase = h->phase;
+    const uint32_t phase_inc = h->phase_inc;
+    const float amp = h->amp;
+
+    const float scale = 1.0f / 4294967296.0f;   // 2^-32
+    const float dt = (float)phase_inc * scale;
+    const uint32_t shift = 32u - LUT_BITS;
+
+    switch (wave) {
+    case SINE:
+        for (size_t n = 0; n < frames; n++) {
+            buf[n] += amp * lut[phase >> shift];
+            phase += phase_inc;
+        }
+        break;
+
+    case SAW:
+        for (size_t n = 0; n < frames; n++) {
+            float t = (float)phase * scale;
+            float saw = 2.0f * t - 1.0f;
+            saw -= polyblep(t, dt);
+            buf[n] += amp * saw;
+            phase += phase_inc;
+        }
+        break;
+
+    case SQUARE:
+        for (size_t n = 0; n < frames; n++) {
+            float t = (float)phase * scale;
+            float sq = (phase < 0x80000000u) ? 1.0f : -1.0f;
+            sq += polyblep(t, dt);
+
+            float t2 = t + 0.5f;
+            if (t2 >= 1.0f) t2 -= 1.0f;
+            sq -= polyblep(t2, dt);
+
+            buf[n] += amp * sq;
+            phase += phase_inc;
+        }
+        break;
+
+    case TRIANGLE:
+        for (size_t n = 0; n < frames; n++) {
+            float t = (float)phase * scale;
+            float tri = (phase < 0x80000000u) ? 4.0f*t - 1.0f : 3.0f - 4.0f*t;   // -1 -> +1 -> -1
+            buf[n] += amp * tri;
+            phase += phase_inc;
+        }
+        break;
+
+    case TRAPEZ:
+        for (size_t n = 0; n < frames; n++) {
+            float t = (float)phase * scale;
+            float R = 0.1f;
+            float H = 0.3f;
+            float F = 0.1f;
+            float tri;
+            if (t < R) {
+                tri = -1.0f + 2.0f * t / R;
+            }
+            else if (t < R + H) {
+                tri = 1.0f;
+            }
+            else if (t < R + H + F) {
+                tri = 1.0f - 2.0f * (t - R - H) / F;
+            }
+            else {
+                tri = -1.0f;
+            }
+            buf[n] += amp * tri;
+            phase += phase_inc;
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    h->phase = phase;
+}
+
+void synth_set_osc2(Synth *s, uint16_t enabled, WaveType wave, float semitones, float detune_cents, float level) {
+    if (level < 0.0f) level = 0.0f;
+    if (level > 1.0f) level = 1.0f;
+
+    s->osc2_enabled      = enabled;
+    s->osc2_wave         = wave;
+    s->osc2_semitones    = semitones;
+    s->osc2_detune_cents = detune_cents;
+    s->osc2_level        = level;
+    s->osc2_ratio        = powf(2.0f, (semitones + detune_cents / 100.0f) / 12.0f);
+}
+
 // =================================== Synth ============================================
 void update_synth_gain(Synth *s) {
     float mod = (float)s->active_voices;
@@ -107,11 +213,11 @@ void update_synth_gain(Synth *s) {
 void synth_init(Synth *s, Voice *v){
 	float *delay_buf = (float *)SDRAM_BASE;
 
-	s->lowpass    = 0u; 	//flag for LPF
+	s->lowpass    = 1u; 	//flag for LPF
 	s->highpass   = 0u; 	//flag for HPF
 	s->chorus_on  = 0u; 	//flag for chorus effect
 	s->flanger_on = 0u; 	//flag for flanger effect
-	s->phaser_on  = 0u; 	//flag for phaser effect
+	s->phaser_on  = 1u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
 	s->reverb_on  = 0u; 	//flag for reverb effect
 	s->overdrive_on = 0u;
@@ -120,24 +226,26 @@ void synth_init(Synth *s, Voice *v){
 
     s -> sample_rate = SAMPLE_RATE_HZ;
     s -> master_gain = 0.1f;
-    s -> gain_inc = 0.01f;
+    s -> gain_inc = 0.0005f;
 	s -> active_voices = 0u;
     v -> num_harmonics = 0u;
     v -> midi_note = 69u;
     v -> f0_hz = 420.0f;
 
-    s->env.attack_t  = 2.01f;
-    s->env.decay_t   = 0.10f;
-    s->env.sustain   = 0.70f;
-    s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
+    //s->env.attack_t  = 2.01f;
+    //s->env.decay_t   = 0.10f;
+    //s->env.sustain   = 0.70f;
+    //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
 
-//    s->env.attack_t  = 0.005f;
-//    s->env.decay_t   = 1.00f;
-//    s->env.sustain   = 0.00f;
-//    s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+    s->env.attack_t  = 2.00f;
+    s->env.decay_t   = 0.50f;
+    s->env.sustain   = 1.00f;
+    s->env.release_t = 2.00f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
 
     s->pitch_bend_ratio = 1.0f;
     s->pitch_bend_range = 12.0f;
+
+    synth_set_osc2(s, 0u, SAW, 0.0f, 7.0f, 0.5f);
 
     generate_sine_lut(s -> sine_lut, LUT_SIZE);
 
@@ -152,7 +260,7 @@ void synth_init(Synth *s, Voice *v){
 
     update_synth_gain(s);
     s -> current_gain = s -> target_gain;
-    if (s->lowpass == 1) 	LPF_Init(&s->lpf, 1200.0f);
+    if (s->lowpass == 1) 	LPF_Init(&s->lpf, 4200.0f);
     if (s->highpass == 1) 	HPF_Init(&s->hpf, 60.0f);
     if (s->chorus_on == 1) 	Chorus_Init(&s -> chorus, s->sine_lut);
     if (s->flanger_on == 1) Flanger_Init(&s -> flanger, s -> sine_lut);
@@ -166,16 +274,17 @@ void synth_init(Synth *s, Voice *v){
 
 
 void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t requested_harmonics, WaveType wave, SynthType synth_type){
-	if (midi_note < 20) midi_note = 20;
-	if (midi_note > 109) midi_note = 109;
+	if (midi_note < 21 || midi_note > 108) return;
 	if (velocity > 127) velocity = 127;
 
 	uint32_t idx = 0xFFFFFFFF;
+	uint8_t  fresh = 1;
 
 	// Checks if requested voice already exists.
 	for (uint32_t i = 0; i < s->active_voices; i++) {
 		if (vs[i].midi_note == midi_note) {
 			idx = i;
+			fresh = (vs[i].env.state == ADSR_OFF);
 	        break;
 		}
 	}
@@ -187,7 +296,14 @@ void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t
 	        s->active_voices++;
 	    } else {
 	     // If max voices was already reached, steal the oldest one.
-	        idx = 0;
+	    	uint32_t best = 0;
+	    	float lo = 3.0f;
+	    	for (uint32_t i = 0; i < MAX_VOICES; i++) {
+	    		float lv = vs[i].env.level + (vs[i].env.state == ADSR_RELEASE ? 0.0f : 1.0f);
+	    		if (lv < lo) { lo = lv; best = i; }
+	    	}
+	    	idx = best;
+	    	fresh = (vs[idx].env.state == ADSR_OFF);
 	    }
 	}
 
@@ -217,10 +333,11 @@ void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t
 
     if (synth_type == ADD) {
     	float amp_sum = 0.0f;
+    	v->osc2.amp = 0.0f;
 
 		for (uint32_t k = 1; k <= n; k++){
 			Harmonic * h = &v -> harmonics[k - 1];
-			h -> phase = 0;
+			if (fresh) h -> phase = 0;
 			h -> phase_inc = freq_to_phase_inc(v -> f0_hz * (float)k, s -> sample_rate);
 			h -> amp = 1.0f / (float)k;
 			amp_sum = amp_sum + h -> amp;
@@ -233,19 +350,27 @@ void synth_note_on(Synth *s, Voice *vs, int midi_note,uint8_t velocity, uint32_t
 			}
 		}
     } else {
-    	Harmonic *h = &v->harmonics[0];
+        // --- OSC1 ---
+        float osc1_gain = 1.0f;
+        float f2 = bent_f0 * s->osc2_ratio;
+        uint8_t osc2_active = (s->osc2_enabled && f2 < nyquist);
 
-    	h->phase = 0;
-    	h->phase_inc = freq_to_phase_inc(
-    	    bent_f0, s->sample_rate
-    	);
-    	h->amp = norm_velocity;
-    }
+        if (osc2_active) osc1_gain = 1.0f / (1.0f + s->osc2_level);
 
-    for (uint32_t i = n; i < MAX_HARMONICS; i++){
-    	 	v->harmonics[i].phase = 0;
-            v -> harmonics[i].phase_inc = 0;
-            v -> harmonics[i].amp = 0.0f;
+        Harmonic *h = &v->harmonics[0];
+        if (fresh) h->phase = 0;
+        h->phase_inc = freq_to_phase_inc(bent_f0, s->sample_rate);
+        h->amp       = norm_velocity * osc1_gain;
+
+        // --- OSC2 ---
+        if (fresh) v->osc2.phase = 0;
+        if (osc2_active) {
+            v->osc2.phase_inc = freq_to_phase_inc(f2, s->sample_rate);
+            v->osc2.amp       = norm_velocity * s->osc2_level * osc1_gain;
+        } else {
+            v->osc2.phase_inc = 0;
+            v->osc2.amp       = 0.0f;
+        }
     }
 
     update_synth_gain(s);
@@ -310,10 +435,16 @@ void synth_pitch_bend(Synth *s, Voice *vs, uint16_t value) {
         Voice *v = &vs[i];
         float bent_frequency = v->f0_hz * ratio;
 
-        for (uint32_t k = 0; k < v->num_harmonics; k++) {
-            Harmonic *h = &v->harmonics[k];
-            float harmonic_frequency = bent_frequency * (float)(k + 1);
-            h->phase_inc = freq_to_phase_inc(harmonic_frequency,s->sample_rate);
+        if (v->synth_type == ADD) {
+            for (uint32_t k = 0; k < v->num_harmonics; k++) {
+                float hf = bent_frequency * (float)(k + 1);
+                v->harmonics[k].phase_inc = freq_to_phase_inc(hf, s->sample_rate);
+            }
+        } else {
+            v->harmonics[0].phase_inc = freq_to_phase_inc(bent_frequency, s->sample_rate);
+            if (v->osc2.amp > 0.0f) {
+                v->osc2.phase_inc = freq_to_phase_inc(bent_frequency * s->osc2_ratio, s->sample_rate);
+            }
         }
     }
 }
@@ -346,146 +477,31 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
         Voice *v = &voices[vi];
 
         for(size_t n =0; n < frames; n++) voice_buf[n] = 0.0f;
+        if (v->synth_type == ADD) {
+            uint32_t n_harm = v->num_harmonics;
+            for (uint32_t i = 0; i < n_harm; i++) {
+                Harmonic *h = &v->harmonics[i];
+                uint32_t phase = h->phase;
+                const uint32_t phase_inc = h->phase_inc;
+                const float amp = h->amp;
 
-        switch(v->synth_type){
-        case ADD: {
-        	uint32_t n_harm = v->num_harmonics;
-			for (uint32_t i = 0; i < n_harm; i++) {
-				Harmonic *h = &v->harmonics[i];
+                for (size_t n = 0; n < frames; n++) {
+                    voice_buf[n] += amp * lut[phase >> shift];
+                    phase += phase_inc;
+                }
+                h->phase = phase;
+            }
+        } else {
+            WaveType w1 = (v->synth_type == SUB) ? SAW : v->wave;
+            render_osc(w1, &v->harmonics[0], lut, voice_buf, frames);
 
-				register uint32_t phase = h->phase;
-				register uint32_t phase_inc = h->phase_inc;
-				register float amp = h->amp;
-
-				for (size_t n = 0; n < frames; n++) {
-					uint32_t idx = phase >> shift;
-					voice_buf[n] += amp * lut[idx];
-					phase += phase_inc;
-				}
-
-				h->phase = phase; //save phase to RAM only once per block
-			}
-			break;
-        }
-        case BASIC: {
-        	switch(v->wave){
-			case SINE: {
-				if (v->synth_type == SUB) break;
-				Harmonic *h = &v->harmonics[0];
-
-				register uint32_t phase = h->phase;
-				register uint32_t phase_inc = h->phase_inc;
-				register float amp = h->amp;
-
-				for (size_t n = 0; n < frames; n++) {
-						uint32_t idx = phase >> shift;
-						voice_buf[n] += amp * lut[idx];
-						phase += phase_inc;
-				}
-
-				h->phase = phase;
-				break;
-			}
-			case SQUARE: { //square waveform created simply: + amplitude 1st half of the period, - amplitude 2nd half of the period
-				Harmonic *h = &v->harmonics[0];
-				register uint32_t phase = h->phase;
-				register uint32_t phase_inc = h->phase_inc;
-				register float amp = h->amp;
-
-				const float scale = 1.0f / 4294967296.0f; // scale by 2^32 (uint32_t)
-				const float dt = (float)phase_inc * scale;
-
-				for (size_t n = 0; n < frames; n++) {
-					float t = (float)phase * scale;
-
-					float square = (phase < 0x80000000u) ? 1.0f : -1.0f;
-					square += polyblep(t, dt);
-
-					float t2 = t + 0.5f;
-					if (t2 >= 1.0f) {t2 -= 1.0f;}
-					square -= polyblep(t2, dt);
-
-					voice_buf[n] += amp * square;
-					phase += phase_inc;
-				}
-
-				h->phase = phase;
-				break;
-			}
-			case TRIANGLE: { //triangle is like saw, but starts going back down after half of the period
-				Harmonic *h = &v->harmonics[0];
-				register uint32_t phase = h->phase;
-				register uint32_t phase_inc = h->phase_inc;
-				register float amp = h->amp;
-
-				for (size_t n = 0; n < frames; n++) {
-					float saw = ((float)phase / 2147483648.0f) - 1.0f;
-					if (phase < 0x80000000u)
-						voice_buf[n] += amp * saw;
-					else
-						voice_buf[n] -= amp * saw;
-					phase += phase_inc;
-				}
-
-				h->phase = phase;
-				break;
-			}
-			case SAW: { //saw is just linearly rising phase, shifted down by 1 (starts from -amplitude ends at +amplitude)
-				Harmonic *h = &v->harmonics[0];
-				register uint32_t phase = h->phase;
-				register uint32_t phase_inc = h->phase_inc;
-				register float amp = h->amp;
-
-				const float scale = 1.0f / 4294967296.0f; // scale by 2^32 (uint32_t)
-				const float dt = (float)phase_inc * scale;
-
-				for (size_t n = 0; n < frames; n++) {
-					float t = (float)phase * scale;
-					float saw = 2.0f * t - 1.0f;
-
-					saw -= polyblep(t, dt); //polyBLEP correction on phase wrap
-
-					voice_buf[n] += amp * saw;
-					phase += phase_inc;
-				}
-
-				h->phase = phase;
-				break;
-			}
-			default:
-				break;
-			}
-        	break;
-        	}
-        case SUB: {
-        	lowpass = 1;
-        	Harmonic *h = &v->harmonics[0];
-        	register uint32_t phase = h->phase;
-        	register uint32_t phase_inc = h->phase_inc;
-        	register float amp = h->amp;
-
-        	const float scale = 1.0f / 4294967296.0f; // scale by 2^32 (uint32_t)
-        	const float dt = (float)phase_inc * scale;
-
-        	for (size_t n = 0; n < frames; n++) {
-        		float t = (float)phase * scale;
-        		float saw = 2.0f * t - 1.0f;
-
-        		saw -= polyblep(t, dt); //polyBLEP correction on phase wrap
-
-        		voice_buf[n] += amp * saw;
-        		phase += phase_inc;
-        	}
-
-        	h->phase = phase;
-        	break;
-        }
-        default:
-        	break;
+            if (v->osc2.amp > 0.0f) {
+                render_osc(s->osc2_wave, &v->osc2, lut, voice_buf, frames);
+            }
         }
 
-        for (size_t n = 0; n < frames; n++){
-        	float_buf[n] += voice_buf[n] * ADSR_tick(&v->env, s->env.sustain);
+        for (size_t n = 0; n < frames; n++) {
+            float_buf[n] += voice_buf[n] * ADSR_tick(&v->env, s->env.sustain);
         }
     }
 
@@ -530,6 +546,11 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
     	}
         out[n] = float_to_int16(sample);
         s->current_gain = gain;
+
+        if (cap_enable && !cap_done) {
+        	cap_buf[cap_pos++] = out[n];
+        	if (cap_pos >= CAP_LEN) { cap_done = 1; cap_enable = 0; }
+        }
     }
 
 }

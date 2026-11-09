@@ -22,7 +22,7 @@ void Delay_Init(Delay * d, float *buf)
 		d->d_buff[i] = 0.0f;
 	};
 
-	float q		 = 1;							   // q = 1 -> 4th of a note, 4 -> 16th of a note
+	float q		 = 2;							   // q = 1 -> 4th of a note, 4 -> 16th of a note
 	float base_d = (SAMPLE_RATE_HZ*60.0f)/(BPM*q); // based? (base delay depending on BPM and q (4ths/8ths etc. of a note)
 
 	for (uint32_t i = 0; i < ND; i++){
