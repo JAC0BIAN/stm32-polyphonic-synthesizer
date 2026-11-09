@@ -10,13 +10,21 @@
 #include "main.h"
 #include <stdio.h>
 
-// - debug attempt -
-volatile uint32_t dbg_last_cyc = 0;
-volatile uint32_t dbg_call_count = 0;
-volatile uint8_t  dbg_usb_irq_active = 0;
+volatile uint8_t  dbg_usb_irq_active = 0;	// old debug flags
 volatile uint16_t dbg_dma_during_usb = 0;
-volatile uint32_t dbg_max_gap_us = 0;
-// -----------------
+
+static volatile uint32_t dbg_last_cyc      = 0;	// CYCCNT at previous callback
+static volatile uint32_t dbg_gap_max_cyc   = 0;	// max distance between callbacks		should be ~1333 us
+static volatile uint32_t dbg_blocks        = 0;	// number of blocks generated			should be ~750
+static volatile uint64_t dbg_total_sum_cyc = 0;	// sum of whole-callback time
+static volatile uint32_t dbg_total_max_cyc = 0;	// max whole-callback time
+static volatile uint32_t dbg_synth_max_cyc = 0;	// max synth_generate_block_i16 time
+static volatile uint32_t dbg_midi_max_cyc  = 0;	// max midi_queue_pop time
+static volatile uint32_t dbg_overruns      = 0;	// blocks that exceeded the budget
+static volatile uint32_t dbg_voices_max    = 0;	// max active voices seen
+
+static uint32_t dbg_budget_cyc = 1;			// set in audio_init()
+
 
 static int16_t audio_dma_buffer[AUDIO_BUFFER_SIZE] __attribute__((aligned(32)));
 static Synth synth;
@@ -74,7 +82,7 @@ static void midi_queue_pop(void){
 		switch (temp.type) {
 		case MIDI_EVENT_NOTE_ON: {
 			//last 3 parameters below are: number of voices in additive, basic waveform type (for basic synth type), synth type (basic, add, sub)
-			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SAW, BASIC);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, SINE, ADD);
 			//TODO: change preset parameters passing from hardcoded above to config files loaded once on preset selection. ADD GUI handled selection.
 			}
 			break;
@@ -115,27 +123,48 @@ static void midi_queue_push_pitch_bend(uint16_t value) {
 
 static void fill_stereo_block(int16_t *dst, size_t frames)
 {
-	// - debug attempt -
+	// ---- profiling: start ----
+	uint32_t t_start = DWT->CYCCNT;
 
 	if (dbg_usb_irq_active) dbg_dma_during_usb++;
-	//- - - - - - - - - ARTUR
-	uint32_t now = DWT->CYCCNT;
+
 	if (dbg_last_cyc != 0){
-	    uint32_t gap_cycles = now - dbg_last_cyc;
-	    uint32_t gap_us = gap_cycles / (HAL_RCC_GetHCLKFreq() / 1000000u);
-	    if (gap_us > dbg_max_gap_us) dbg_max_gap_us = gap_us;
+	    uint32_t gap = t_start - dbg_last_cyc;
+	    if (gap > dbg_gap_max_cyc) dbg_gap_max_cyc = gap;
 	}
-	dbg_last_cyc = now;
-	dbg_call_count++;
-	// -----------------
+	dbg_last_cyc = t_start;
+	// --------------------------
+
 	midi_queue_pop();
+	uint32_t t_midi = DWT->CYCCNT;
+
     synth_generate_block_i16(&synth, voice, mono_cache, frames);
+    uint32_t t_synth = DWT->CYCCNT;
+
     // Duplicate mono channel to emulate stereo
     // TODO move stereo generation to synth
     for (size_t n = 0; n < frames; n++) {
         dst[2 * n]     = mono_cache[n];
         dst[2 * n + 1] = mono_cache[n];
     }
+
+    // ---- profiling: end ----
+    uint32_t t_end = DWT->CYCCNT;
+
+    uint32_t midi_cyc  = t_midi  - t_start;
+    uint32_t synth_cyc = t_synth - t_midi;
+    uint32_t total_cyc = t_end   - t_start;
+
+    if (midi_cyc  > dbg_midi_max_cyc)  dbg_midi_max_cyc  = midi_cyc;
+    if (synth_cyc > dbg_synth_max_cyc) dbg_synth_max_cyc = synth_cyc;
+    if (total_cyc > dbg_total_max_cyc) dbg_total_max_cyc = total_cyc;
+    if (total_cyc > dbg_budget_cyc)    dbg_overruns++;
+    if (synth.active_voices > dbg_voices_max) dbg_voices_max = synth.active_voices;
+
+    dbg_total_sum_cyc += total_cyc;
+    dbg_blocks++;
+    // ------------------------
+
 }
 
 
@@ -146,11 +175,17 @@ void audio_init(void)
 
     // voice.num_harmonics = 0;
 
-    // - debug attempt -
+
+    // ---- DWT cycle counter ----
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    *(volatile uint32_t *)0xE0001FB0 = 0xC5ACCE55;	// DWT->LAR unlock
     DWT->CYCCNT = 0;
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-    // - count DWT cycles -
+
+    // cycles available for one block
+    dbg_budget_cyc = (uint32_t)(((uint64_t)SystemCoreClock * AUDIO_BLOCK_SIZE) / 48000u);
+    // ---------------------------
+
 
     fill_stereo_block(&audio_dma_buffer[0], AUDIO_BLOCK_SIZE);
     fill_stereo_block(&audio_dma_buffer[AUDIO_BLOCK_SIZE * 2], AUDIO_BLOCK_SIZE);
@@ -162,7 +197,8 @@ void audio_init(void)
     	HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 1, 0);
 
         BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
-        BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, AUDIO_BUFFER_SIZE);
+        BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, sizeof(audio_dma_buffer));
+//        BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, AUDIO_BUFFER_SIZE);
     }
 }
 
@@ -187,23 +223,55 @@ void audio_pitch_bend(uint16_t value) {
     midi_queue_push_pitch_bend(value);
 }
 
-// - debug attempt -
+// - debug attempt - -> now used for performance checks
 void audio_debug_print(UART_HandleTypeDef *huart)
 {
-    char buf[96];
+    __disable_irq();
+    uint32_t blocks    = dbg_blocks;
+    uint64_t sum_cyc   = dbg_total_sum_cyc;
+    uint32_t total_max = dbg_total_max_cyc;
+    uint32_t synth_max = dbg_synth_max_cyc;
+    uint32_t midi_max  = dbg_midi_max_cyc;
+    uint32_t overruns  = dbg_overruns;
+    uint32_t voices    = dbg_voices_max;
+    uint32_t gap_max   = dbg_gap_max_cyc;
+
+    dbg_blocks = 0;
+    dbg_total_sum_cyc = 0;
+    dbg_total_max_cyc = 0;
+    dbg_synth_max_cyc = 0;
+    dbg_midi_max_cyc = 0;
+    dbg_overruns = 0;
+    dbg_voices_max = 0;
+    dbg_gap_max_cyc = 0;
+    dbg_dma_during_usb = 0;
+    __enable_irq();
+
+    uint32_t avg_cyc  = blocks ? (uint32_t)(sum_cyc / blocks) : 0;
+
+    // load in 0.1 % units (integer math - newlib-nano printf has no %f)
+    uint32_t avg_load = (uint32_t)(((uint64_t)avg_cyc   * 1000u) / dbg_budget_cyc);
+    uint32_t max_load = (uint32_t)(((uint64_t)total_max * 1000u) / dbg_budget_cyc);
+    uint32_t gap_us   = gap_max / (SystemCoreClock / 1000000u);
+
+    char buf[160];
     int len = snprintf(buf, sizeof(buf),
-        "gap_max=%luus count=%lu dma_during_usb=%u\r\n",
-        (unsigned long)dbg_max_gap_us,
-        (unsigned long)dbg_call_count,
-        (unsigned)dbg_dma_during_usb);
+        "CPU avg %lu.%lu%% max %lu.%lu%% | synth %lu midi %lu cyc | budget %lu | over %lu | voices %lu | gap %luus | blk %lu\r\n",
+        (unsigned long)(avg_load / 10u), (unsigned long)(avg_load % 10u),
+        (unsigned long)(max_load / 10u), (unsigned long)(max_load % 10u),
+        (unsigned long)synth_max,
+        (unsigned long)midi_max,
+        (unsigned long)dbg_budget_cyc,
+        (unsigned long)overruns,
+        (unsigned long)voices,
+        (unsigned long)gap_us,
+        (unsigned long)blocks);
 
     if (len > 0) {
+        if (len > (int)sizeof(buf)) len = sizeof(buf) - 1;
         HAL_UART_Transmit(huart, (uint8_t *)buf, (uint16_t)len, 100);
     }
 
-    dbg_max_gap_us = 0;
-    dbg_call_count = 0;
-    dbg_dma_during_usb = 0;
 }
 // -----------------
 

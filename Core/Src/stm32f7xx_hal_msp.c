@@ -1146,10 +1146,12 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef* hsai)
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
-    PeriphClkInitStruct.PLLI2S.PLLI2SN = 100;
+    PeriphClkInitStruct.PLLI2S.PLLI2SN = 344;
+//    PeriphClkInitStruct.PLLI2S.PLLI2SN = 100;
     PeriphClkInitStruct.PLLI2S.PLLI2SP = RCC_PLLP_DIV2;
     PeriphClkInitStruct.PLLI2S.PLLI2SR = 2;
-    PeriphClkInitStruct.PLLI2S.PLLI2SQ = 2;
+    PeriphClkInitStruct.PLLI2S.PLLI2SQ = 7;
+//    PeriphClkInitStruct.PLLI2S.PLLI2SQ = 2;
     PeriphClkInitStruct.PLLI2SDivQ = 1;
     PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
@@ -1195,8 +1197,10 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef* hsai)
     hdma_sai2_a.Init.Direction = DMA_MEMORY_TO_PERIPH;
     hdma_sai2_a.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_sai2_a.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_sai2_a.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-    hdma_sai2_a.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+    hdma_sai2_a.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_sai2_a.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+//    hdma_sai2_a.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+//       hdma_sai2_a.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
     hdma_sai2_a.Init.Mode = DMA_CIRCULAR;
     hdma_sai2_a.Init.Priority = DMA_PRIORITY_LOW;
     hdma_sai2_a.Init.FIFOMode = DMA_FIFOMODE_ENABLE;

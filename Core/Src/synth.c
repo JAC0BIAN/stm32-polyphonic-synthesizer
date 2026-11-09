@@ -126,15 +126,15 @@ void synth_init(Synth *s, Voice *v){
     v -> midi_note = 69u;
     v -> f0_hz = 420.0f;
 
-    //s->env.attack_t  = 2.01f;
-    //s->env.decay_t   = 0.10f;
-    //s->env.sustain   = 0.70f;
-    //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
+    s->env.attack_t  = 2.01f;
+    s->env.decay_t   = 0.10f;
+    s->env.sustain   = 0.70f;
+    s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
 
-    s->env.attack_t  = 0.005f;
-    s->env.decay_t   = 1.00f;
-    s->env.sustain   = 0.00f;
-    s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+//    s->env.attack_t  = 0.005f;
+//    s->env.decay_t   = 1.00f;
+//    s->env.sustain   = 0.00f;
+//    s->env.release_t = 0.01f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
 
     s->pitch_bend_ratio = 1.0f;
     s->pitch_bend_range = 12.0f;
