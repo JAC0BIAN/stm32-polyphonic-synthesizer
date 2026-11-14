@@ -92,6 +92,7 @@ static float ADSR_tick(ADSR_envelope *e, float sustain) {
 	return e->level;
 }
 // ================================ Antialiasing ========================================
+// PolyBLEP -------------------------------------
 float polyblep(float t, float dt)
 {
     if (t < dt) {
@@ -105,6 +106,32 @@ float polyblep(float t, float dt)
     };
 
     return 0.0f;
+}
+// PolyBLAMP  ------------------------------------
+static inline float blamp4_res(float x)
+{
+    if (x >= 2.0f) return 0.0f;
+    if (x >= 1.0f) {
+        float y = 2.0f - x;
+        float y2 = y * y;
+        return y2 * y2 * y * (1.0f / 120.0f);
+    }
+
+    return 7.0f/30.0f + x * (-0.5f + x * (1.0f/3.0f + x * x * (-1.0f/12.0f + x * (1.0f/40.0f))));
+}
+
+float polyblamp(float t, float dt)
+{
+    float dist = (t < 0.5f) ? t : (1.0f - t);
+    if (dist >= 2.0f * dt) return 0.0f;
+    return dt * blamp4_res(dist / dt);
+}
+
+static inline float blamp_at(float t, float corner, float dt)
+{
+    float tc = t - corner;
+    if (tc < 0.0f) tc += 1.0f;
+    return polyblamp(tc, dt);
 }
 
 // ================================ 2nd Oscillator ========================================
@@ -154,31 +181,36 @@ static void render_osc(WaveType wave, Harmonic *h, const float *lut, float *buf,
     case TRIANGLE:
         for (size_t n = 0; n < frames; n++) {
             float t = (float)phase * scale;
-            float tri = (phase < 0x80000000u) ? 4.0f*t - 1.0f : 3.0f - 4.0f*t;   // -1 -> +1 -> -1
+            float tri = (phase < 0x80000000u) ? 4.0f*t - 1.0f : 3.0f - 4.0f*t;
+
+            tri += 8.0f * polyblamp(t, dt);
+            float t2 = t + 0.5f;
+            if (t2 >= 1.0f) t2 -= 1.0f;
+            tri -= 8.0f * polyblamp(t2, dt);
+
             buf[n] += amp * tri;
             phase += phase_inc;
         }
         break;
 
     case TRAPEZ:
+    	const float R = 0.1f, H = 0.3f, F = 0.1f;
+    	const float kr = 2.0f / R;
+    	const float kf = 2.0f / F;
         for (size_t n = 0; n < frames; n++) {
             float t = (float)phase * scale;
-            float R = 0.1f;
-            float H = 0.3f;
-            float F = 0.1f;
             float tri;
-            if (t < R) {
-                tri = -1.0f + 2.0f * t / R;
-            }
-            else if (t < R + H) {
-                tri = 1.0f;
-            }
-            else if (t < R + H + F) {
-                tri = 1.0f - 2.0f * (t - R - H) / F;
-            }
-            else {
-                tri = -1.0f;
-            }
+
+            if (t < R) 				tri = -1.0f + 2.0f * t / R;
+            else if (t < R + H) 	tri = 1.0f;
+            else if (t < R + H + F) tri = 1.0f - 2.0f * (t - R - H) / F;
+            else 					tri = -1.0f;
+
+            tri += kr * blamp_at(t, 0.0f, dt);
+            tri -= kr * blamp_at(t, R, dt);
+            tri -= kf * blamp_at(t, R + H, dt);
+            tri += kf * blamp_at(t, R + H + F, dt);
+
             buf[n] += amp * tri;
             phase += phase_inc;
         }
@@ -213,11 +245,11 @@ void update_synth_gain(Synth *s) {
 void synth_init(Synth *s, Voice *v){
 	float *delay_buf = (float *)SDRAM_BASE;
 
-	s->lowpass    = 1u; 	//flag for LPF
+	s->lowpass    = 0u; 	//flag for LPF
 	s->highpass   = 0u; 	//flag for HPF
 	s->chorus_on  = 0u; 	//flag for chorus effect
 	s->flanger_on = 0u; 	//flag for flanger effect
-	s->phaser_on  = 1u; 	//flag for phaser effect
+	s->phaser_on  = 0u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
 	s->reverb_on  = 0u; 	//flag for reverb effect
 	s->overdrive_on = 0u;
