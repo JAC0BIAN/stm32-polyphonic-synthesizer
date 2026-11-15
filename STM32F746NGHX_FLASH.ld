@@ -46,6 +46,7 @@ MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 320K
   FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 1024K
+  SDRAM  (xrw)    : ORIGIN = 0xC0100000,   LENGTH = 7M
 }
 
 /* Sections */
@@ -174,6 +175,16 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM
+
+  .BufferSection (NOLOAD) :
+  {
+    . = ALIGN(32);
+    __touchgfx_buffers_start__ = .;
+    *(TouchGFX_Framebuffer TouchGFX_Framebuffer.*)
+    *(Video_RGB_Buffer Video_RGB_Buffer.*)
+    . = ALIGN(32);
+    __touchgfx_buffers_end__ = .;
+  } >SDRAM
 
   /* Remove information from the compiler libraries */
   /DISCARD/ :

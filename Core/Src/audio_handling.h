@@ -12,6 +12,7 @@
 #include "stm32746g_discovery_audio.h"
 #include "stm32746g_discovery_sdram.h"
 #include "synth.h"
+#include "audio_params.h"
 
 #define AUDIO_BLOCK_SIZE    64
 #define AUDIO_BUFFER_SIZE   (AUDIO_BLOCK_SIZE * 2 * 2)

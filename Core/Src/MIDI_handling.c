@@ -1,6 +1,7 @@
 #include "MIDI_handling.h"
 #include "audio_handling.h"
 #include "main.h"       
+#include "touchgfx_board.h"
 #include "tusb.h"
 
 // - debug attempt -
@@ -10,7 +11,14 @@
 
 void MIDI_Init(void)
 {
-    tusb_init(BOARD_TUH_RHPORT);
+    if (tusb_init(BOARD_TUH_RHPORT))
+    {
+        TouchGFX_LogError("BOOT: TinyUSB init OK\r\n");
+    }
+    else
+    {
+        TouchGFX_LogError("BOOT ERROR: TinyUSB init failed\r\n");
+    }
 }
 
 void MIDI_Process(void)

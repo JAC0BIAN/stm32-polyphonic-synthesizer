@@ -245,10 +245,10 @@ void update_synth_gain(Synth *s) {
 void synth_init(Synth *s, Voice *v){
 	float *delay_buf = (float *)SDRAM_BASE;
 
-	s->lowpass    = 0u; 	//flag for LPF
+	s->lowpass    = 1u; 	//flag for LPF
 	s->highpass   = 0u; 	//flag for HPF
 	s->chorus_on  = 0u; 	//flag for chorus effect
-	s->flanger_on = 0u; 	//flag for flanger effect
+	s->flanger_on = 1u; 	//flag for flanger effect
 	s->phaser_on  = 0u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
 	s->reverb_on  = 0u; 	//flag for reverb effect
@@ -292,16 +292,16 @@ void synth_init(Synth *s, Voice *v){
 
     update_synth_gain(s);
     s -> current_gain = s -> target_gain;
-    if (s->lowpass == 1) 	LPF_Init(&s->lpf, 4200.0f);
-    if (s->highpass == 1) 	HPF_Init(&s->hpf, 60.0f);
-    if (s->chorus_on == 1) 	Chorus_Init(&s -> chorus, s->sine_lut);
-    if (s->flanger_on == 1) Flanger_Init(&s -> flanger, s -> sine_lut);
-    if (s->delay_on == 1) 	Delay_Init(&s -> delay, delay_buf);
-    if (s->reverb_on == 1) 	Reverb_Init(&s -> reverb);
-    if (s->phaser_on == 1) 	Phaser_Init(&s -> phaser, s -> sine_lut);
-    if (s->overdrive_on == 1)	overdrive_init(&s -> overdrive);
-    if (s->distortion_on == 1)	distortion_init(&s -> distortion);
-    if (s->compressor_on == 1)  compressor_init(&s -> compressor);
+    LPF_Init(&s->lpf, 4200.0f);
+    HPF_Init(&s->hpf, 60.0f);
+    Chorus_Init(&s -> chorus, s->sine_lut);
+    Flanger_Init(&s -> flanger, s -> sine_lut);
+    Delay_Init(&s -> delay, delay_buf);
+    Reverb_Init(&s -> reverb);
+    Phaser_Init(&s -> phaser, s -> sine_lut);
+    overdrive_init(&s -> overdrive);
+    distortion_init(&s -> distortion);
+    compressor_init(&s -> compressor);
 }
 
 

@@ -38,6 +38,7 @@ Release/
 *.a
 *.su
 *.crl
+!Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc/libtouchgfx-float-abi-hard.a
 
 #TouchGFX files (in case your project has touchGFX)
 TouchGFX/generated

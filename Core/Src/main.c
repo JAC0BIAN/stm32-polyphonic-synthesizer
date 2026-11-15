@@ -25,6 +25,8 @@
 /* USER CODE BEGIN Includes */
 #include "MIDI_handling.h"
 #include "audio_handling.h"
+#include "../../TouchGFX/App/app_touchgfx.h"
+#include "touchgfx_board.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,6 +104,7 @@ static void MX_USART6_UART_Init(void);
 static void MX_USB_OTG_FS_HCD_Init(void);
 static void MX_SAI2_Init(void);
 void StartDefaultTask(void const * argument);
+void StartTouchGFXTask(void const * argument);
 extern void audio_debug_print(UART_HandleTypeDef *huart);
 
 /* USER CODE BEGIN PFP */
@@ -278,7 +281,7 @@ void PeriphCommonClock_Config(void)
 
   /** Initializes the peripherals clock
   */
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC1|RCC_PERIPHCLK_CLK48;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC1|RCC_PERIPHCLK_CLK48|RCC_PERIPHCLK_LTDC;
   PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
   PeriphClkInitStruct.PLLSAI.PLLSAIR = 5;
   PeriphClkInitStruct.PLLSAI.PLLSAIQ = 2;
@@ -1540,8 +1543,17 @@ static void MX_GPIO_Init(void)
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void const * argument)
 {
+  TouchGFX_LogError("BOOT: default task started\r\n");
   MIDI_Init();
+  TouchGFX_LogError("BOOT: starting audio init\r\n");
   audio_init();
+  TouchGFX_LogError("BOOT: audio init returned\r\n");
+
+  osThreadDef(touchgfxTask, StartTouchGFXTask, osPriorityLow, 0, 4096);
+  if (osThreadCreate(osThread(touchgfxTask), NULL) == NULL)
+  {
+    TouchGFX_LogError("TouchGFX: task creation failed\r\n");
+  }
 
   static uint32_t print_counter = 0;
   for(;;)
@@ -1556,6 +1568,18 @@ void StartDefaultTask(void const * argument)
     // - ARTUR --------
     osDelay(1);
   }
+}
+
+void StartTouchGFXTask(void const * argument)
+{
+  (void)argument;
+  TouchGFX_LogError("BOOT: starting LTDC init\r\n");
+  TouchGFX_LTDC_Init();
+  TouchGFX_LogError("BOOT: LTDC init OK; starting TouchGFX\r\n");
+  MX_TouchGFX_Init();
+  TouchGFX_LogError("BOOT: TouchGFX init OK\r\n");
+  MX_TouchGFX_Process();
+  TouchGFX_ReportFatalError("TouchGFX: process loop returned\r\n");
 }
 
 /**

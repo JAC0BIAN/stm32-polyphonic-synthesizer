@@ -8,6 +8,7 @@
 
 #include "audio_handling.h"
 #include "main.h"
+#include "touchgfx_board.h"
 #include <stdio.h>
 
 volatile uint8_t  dbg_usb_irq_active = 0;	// old debug flags
@@ -30,6 +31,61 @@ static int16_t audio_dma_buffer[AUDIO_BUFFER_SIZE] __attribute__((aligned(32)));
 static Synth synth;
 static Voice voice[MAX_VOICES];
 static int16_t mono_cache[AUDIO_BUFFER_SIZE];
+
+_Static_assert((int)AUDIO_SYNTH_SUB == (int)SUB && (int)AUDIO_SYNTH_ADD == (int)ADD, "AudioSynthType must match SynthType");
+_Static_assert((int)AUDIO_WAVE_TRAPEZ == (int)TRAPEZ && (int)AUDIO_WAVE_SAW == (int)SAW, "AudioWave must match WaveType");
+
+static volatile SynthType patch_type      = BASIC;
+static volatile WaveType  patch_wave      = TRIANGLE;
+static volatile uint8_t   patch_harmonics = 4;
+
+static volatile uint16_t * const fx_flag[AUDIO_FX_COUNT] = {
+    &synth.lowpass,
+    &synth.highpass,
+    &synth.chorus_on,
+    &synth.flanger_on,
+    &synth.phaser_on,
+    &synth.delay_on,
+    &synth.reverb_on,
+    &synth.overdrive_on,
+    &synth.distortion_on,
+    &synth.compressor_on,
+};
+
+void audio_set_effect(AudioFx fx, uint8_t on)
+{
+    if (fx >= AUDIO_FX_COUNT) return;
+    *fx_flag[fx] = on ? 1u : 0u;
+}
+
+uint8_t audio_get_effect(AudioFx fx)
+{
+    if (fx >= AUDIO_FX_COUNT) return 0;
+    return (uint8_t)*fx_flag[fx];
+}
+
+void audio_set_synth_type(AudioSynthType t) { patch_type = (SynthType)t; }
+void audio_set_wave(AudioWave w)            { patch_wave = (WaveType)w; }
+void audio_set_harmonics(uint8_t n)
+{
+    if (n < 1u) n = 1u;
+    if (n > MAX_HARMONICS) n = MAX_HARMONICS;
+    patch_harmonics = n;
+}
+
+static struct {
+    uint16_t en;
+    WaveType wave;
+    float    semi, detune, level;
+} osc2_cfg = { 1u, SAW, -12.0f, 7.0f, 0.8f };
+
+static volatile uint8_t osc2_dirty = 0;
+
+void audio_set_osc2_enable(uint8_t on)       { osc2_cfg.en     = on ? 1u : 0u;   __DMB(); osc2_dirty = 1; }
+void audio_set_osc2_wave(AudioWave w)        { osc2_cfg.wave   = (WaveType)w;    __DMB(); osc2_dirty = 1; }
+void audio_set_osc2_semitones(float semi)    { osc2_cfg.semi   = semi;           __DMB(); osc2_dirty = 1; }
+void audio_set_osc2_detune(float cents)      { osc2_cfg.detune = cents;          __DMB(); osc2_dirty = 1; }
+void audio_set_osc2_level(float level)       { osc2_cfg.level  = level;          __DMB(); osc2_dirty = 1; }
 
 // Midi queue
 #define MIDI_QUEUE_LENGHT 16u
@@ -82,7 +138,7 @@ static void midi_queue_pop(void){
 		switch (temp.type) {
 		case MIDI_EVENT_NOTE_ON: {
 			//last 3 parameters below are: number of voices in additive, basic waveform type (for basic synth type), synth type (basic, add, sub)
-			synth_note_on(&synth, voice, temp.note, temp.velocity, 4, TRIANGLE, BASIC);
+			synth_note_on(&synth, voice, temp.note, temp.velocity, patch_harmonics, patch_wave, patch_type);
 			//TODO: change preset parameters passing from hardcoded above to config files loaded once on preset selection. ADD GUI handled selection.
 			}
 			break;
@@ -134,7 +190,12 @@ static void fill_stereo_block(int16_t *dst, size_t frames)
 	}
 	dbg_last_cyc = t_start;
 	// --------------------------
-
+	if (osc2_dirty) {
+	    osc2_dirty = 0;
+	    synth_set_osc2(&synth, osc2_cfg.en, osc2_cfg.wave,
+	                   osc2_cfg.semi, osc2_cfg.detune, osc2_cfg.level);
+	}
+	midi_queue_pop();
 	midi_queue_pop();
 	uint32_t t_midi = DWT->CYCCNT;
 
@@ -170,13 +231,18 @@ static void fill_stereo_block(int16_t *dst, size_t frames)
 
 void audio_init(void)
 {
-	BSP_SDRAM_Init();
+	if (BSP_SDRAM_Init() != SDRAM_OK)
+	{
+		TouchGFX_LogError("BOOT ERROR: SDRAM init failed\r\n");
+		Error_Handler();
+	}
+	TouchGFX_LogError("BOOT: SDRAM init OK\r\n");
     synth_init(&synth, voice);
 
     // voice.num_harmonics = 0;
 
     // ---- additional oscillators (config BEFORE audio begins) ----
-    synth_set_osc2(&synth, 0u, SAW, -12.0f, 7.0f, 0.8f);
+    synth_set_osc2(&synth, osc2_cfg.en, osc2_cfg.wave, osc2_cfg.semi, osc2_cfg.detune, osc2_cfg.level);
 
 
     // ---- DWT cycle counter ----
@@ -195,14 +261,22 @@ void audio_init(void)
 
     SCB_CleanDCache_by_Addr((uint32_t*)audio_dma_buffer, sizeof(audio_dma_buffer));
 
-    if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, 70, AUDIO_FREQUENCY_48K) == AUDIO_OK)
+    if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, 70, AUDIO_FREQUENCY_48K) != AUDIO_OK)
     {
-    	HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 1, 0);
-
-        BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
-        BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, sizeof(audio_dma_buffer));
-//        BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, AUDIO_BUFFER_SIZE);
+        TouchGFX_LogError("BOOT ERROR: audio codec init failed\r\n");
+        return;
     }
+
+    HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 1, 0);
+
+    BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
+    if (BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, sizeof(audio_dma_buffer)) != AUDIO_OK)
+    {
+        TouchGFX_LogError("BOOT ERROR: audio playback start failed\r\n");
+        return;
+    }
+    TouchGFX_LogError("BOOT: audio playback started\r\n");
+//        BSP_AUDIO_OUT_Play((uint16_t *)audio_dma_buffer, AUDIO_BUFFER_SIZE);
 }
 
 void audio_note_on(uint8_t note, uint8_t velocity) {
