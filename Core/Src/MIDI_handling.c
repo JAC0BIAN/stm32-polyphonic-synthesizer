@@ -3,11 +3,15 @@
 #include "main.h"       
 #include "touchgfx_board.h"
 #include "tusb.h"
+#include "midi_status.h"
 
 // - debug attempt -
 //volatile uint8_t dbg_usb_irq_active = 0;
 //volatile uint32_t dbg_dma_during_usb = 0;
 // -----------------
+
+static volatile uint8_t midi_connected = 0;
+uint8_t midi_is_connected(void) { return midi_connected; }
 
 void MIDI_Init(void)
 {
@@ -37,6 +41,7 @@ void tuh_midi_mount_cb(uint8_t idx, const tuh_midi_mount_cb_t *mount_cb_data)
   (void) mount_cb_data;
 
   //turn on LED when device is connected
+  midi_connected = 1;
   HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_SET);
 }
 
@@ -44,6 +49,7 @@ void tuh_midi_umount_cb(uint8_t idx)
 {
   (void) idx;
   //turn off LED when device is disconnected
+  midi_connected = 0;
   HAL_GPIO_WritePin(GPIOI, GPIO_PIN_1, GPIO_PIN_RESET);
   audio_all_notes_off();
 }

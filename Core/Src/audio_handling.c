@@ -36,7 +36,7 @@ _Static_assert((int)AUDIO_SYNTH_SUB == (int)SUB && (int)AUDIO_SYNTH_ADD == (int)
 _Static_assert((int)AUDIO_WAVE_TRAPEZ == (int)TRAPEZ && (int)AUDIO_WAVE_SAW == (int)SAW, "AudioWave must match WaveType");
 
 static volatile SynthType patch_type      = BASIC;
-static volatile WaveType  patch_wave      = TRIANGLE;
+static volatile WaveType  patch_wave      = SAW;
 static volatile uint8_t   patch_harmonics = 4;
 
 static volatile uint16_t * const fx_flag[AUDIO_FX_COUNT] = {
@@ -52,22 +52,19 @@ static volatile uint16_t * const fx_flag[AUDIO_FX_COUNT] = {
     &synth.compressor_on,
 };
 
-void audio_set_effect(AudioFx fx, uint8_t on)
-{
+void audio_set_effect(AudioFx fx, uint8_t on) {
     if (fx >= AUDIO_FX_COUNT) return;
     *fx_flag[fx] = on ? 1u : 0u;
 }
 
-uint8_t audio_get_effect(AudioFx fx)
-{
+uint8_t audio_get_effect(AudioFx fx) {
     if (fx >= AUDIO_FX_COUNT) return 0;
     return (uint8_t)*fx_flag[fx];
 }
 
 void audio_set_synth_type(AudioSynthType t) { patch_type = (SynthType)t; }
 void audio_set_wave(AudioWave w)            { patch_wave = (WaveType)w; }
-void audio_set_harmonics(uint8_t n)
-{
+void audio_set_harmonics(uint8_t n) {
     if (n < 1u) n = 1u;
     if (n > MAX_HARMONICS) n = MAX_HARMONICS;
     patch_harmonics = n;
@@ -77,7 +74,7 @@ static struct {
     uint16_t en;
     WaveType wave;
     float    semi, detune, level;
-} osc2_cfg = { 1u, SAW, -12.0f, 7.0f, 0.8f };
+} osc2_cfg = { 0u, SAW, -12.0f, 7.0f, 0.8f };
 
 static volatile uint8_t osc2_dirty = 0;
 
@@ -86,6 +83,29 @@ void audio_set_osc2_wave(AudioWave w)        { osc2_cfg.wave   = (WaveType)w;   
 void audio_set_osc2_semitones(float semi)    { osc2_cfg.semi   = semi;           __DMB(); osc2_dirty = 1; }
 void audio_set_osc2_detune(float cents)      { osc2_cfg.detune = cents;          __DMB(); osc2_dirty = 1; }
 void audio_set_osc2_level(float level)       { osc2_cfg.level  = level;          __DMB(); osc2_dirty = 1; }
+
+AudioSynthType audio_get_synth_type(void)     { return (AudioSynthType)patch_type; }
+AudioWave      audio_get_wave(void)           { return (AudioWave)patch_wave; }
+uint8_t        audio_get_harmonics(void)      { return patch_harmonics; }
+
+uint8_t        audio_get_osc2_enable(void)    { return (uint8_t)osc2_cfg.en; }
+AudioWave      audio_get_osc2_wave(void)      { return (AudioWave)osc2_cfg.wave; }
+float          audio_get_osc2_semitones(void) { return osc2_cfg.semi; }
+float          audio_get_osc2_detune(void)    { return osc2_cfg.detune; }
+float          audio_get_osc2_level(void)     { return osc2_cfg.level; }
+
+void audio_set_volume(float v) {
+    if (v < 0.0f) v = 0.0f;
+    if (v > 1.0f) v = 1.0f;
+    synth.volume = v;
+}
+
+float audio_get_volume(void) {
+    return synth.volume;
+}
+
+void    audio_set_mute(uint8_t on) { synth.mute = on ? 1u : 0u; }
+uint8_t audio_get_mute(void)       { return (uint8_t)synth.mute; }
 
 // Midi queue
 #define MIDI_QUEUE_LENGHT 16u

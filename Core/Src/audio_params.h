@@ -44,7 +44,22 @@ void audio_set_osc2_enable(uint8_t on);
 void audio_set_osc2_wave(AudioWave w);
 void audio_set_osc2_semitones(float semi);
 void audio_set_osc2_detune(float cents);
-void audio_set_osc2_level(float level);       // 0.0 .. 1.0
+void audio_set_osc2_level(float level);
+
+void  audio_set_volume(float v);
+float audio_get_volume(void);
+
+void    audio_set_mute(uint8_t on);
+uint8_t audio_get_mute(void);
+
+AudioSynthType audio_get_synth_type(void);
+AudioWave      audio_get_wave(void);
+uint8_t        audio_get_harmonics(void);
+uint8_t        audio_get_osc2_enable(void);
+AudioWave      audio_get_osc2_wave(void);
+float          audio_get_osc2_semitones(void);
+float          audio_get_osc2_detune(void);
+float          audio_get_osc2_level(void);
 
 #ifdef __cplusplus
 }

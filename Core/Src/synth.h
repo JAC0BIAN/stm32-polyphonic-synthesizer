@@ -112,6 +112,8 @@ typedef struct{
 
     // Values for smoothing out volume jumps on note press
     float       master_gain;
+    float       volume;
+    uint16_t    mute;
     float		current_gain;
     float 		target_gain;
     float		gain_inc;

@@ -2,9 +2,151 @@
 <TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.1">
   <Languages>
     <Language Id="GB" />
+    <Language Id="PL" />
   </Languages>
   <Texts>
-    <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_QMV5" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">TRAPEZ</Translation>
+        <Translation Language="PL">TRAPEZ</Translation>
+      </Text>
+      <Text Id="__SingleUse_45H9" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">TRIANGLE</Translation>
+        <Translation Language="PL">TRÓJKĄT</Translation>
+      </Text>
+      <Text Id="__SingleUse_H9Q5" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">SQUARE</Translation>
+        <Translation Language="PL">PROSTOKĄT</Translation>
+      </Text>
+      <Text Id="__SingleUse_BHG5" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">SAW</Translation>
+        <Translation Language="PL">PIŁA</Translation>
+      </Text>
+      <Text Id="__SingleUse_PA0X" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">SINE</Translation>
+        <Translation Language="PL">SINUS</Translation>
+      </Text>
+      <Text Id="__SingleUse_PQD5" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">TRAPEZ</Translation>
+        <Translation Language="PL">TRAPEZ</Translation>
+      </Text>
+      <Text Id="__SingleUse_7OXL" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">TRIANGLE</Translation>
+        <Translation Language="PL">TRÓJKĄT</Translation>
+      </Text>
+      <Text Id="__SingleUse_7DR5" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">SQUARE</Translation>
+        <Translation Language="PL">PROSTOKĄT</Translation>
+      </Text>
+      <Text Id="__SingleUse_8WPH" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">SAW</Translation>
+        <Translation Language="PL">PIŁA</Translation>
+      </Text>
+      <Text Id="__SingleUse_TRHY" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">SINE</Translation>
+        <Translation Language="PL">SINUS</Translation>
+      </Text>
+      <Text Id="OSC2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">OSCILLATOR 2</Translation>
+        <Translation Language="PL">OSCYLATOR 2</Translation>
+      </Text>
+      <Text Id="OSC1" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">OSCILLATOR 1</Translation>
+        <Translation Language="PL">OSCYLATOR 1</Translation>
+      </Text>
+      <Text Id="TRAPEZ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">TRAPEZ</Translation>
+        <Translation Language="PL">TRAPEZ</Translation>
+      </Text>
+      <Text Id="TRAP" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">SINE</Translation>
+        <Translation Language="PL">SINUS</Translation>
+      </Text>
+      <Text Id="TRIANGLE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">TRIANGLE</Translation>
+        <Translation Language="PL">TRÓJKĄT</Translation>
+      </Text>
+      <Text Id="SQUARE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">SQUARE</Translation>
+        <Translation Language="PL">PROSTOKĄT</Translation>
+      </Text>
+      <Text Id="SAW" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">SAWTOOTH</Translation>
+        <Translation Language="PL">PIŁA</Translation>
+      </Text>
+      <Text Id="SINE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">SINE</Translation>
+        <Translation Language="PL">SINUS</Translation>
+      </Text>
+      <Text Id="__SingleUse_QQJM" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">SUB</Translation>
+        <Translation Language="PL">SUB</Translation>
+      </Text>
+      <Text Id="__SingleUse_BDKY" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">ADD</Translation>
+        <Translation Language="PL">ADD</Translation>
+      </Text>
+      <Text Id="SETTINGSINFO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Settings.</Translation>
+        <Translation Language="PL">Ustawienia.</Translation>
+      </Text>
+      <Text Id="PRESETSINFO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Audio presets.</Translation>
+        <Translation Language="PL">Presety audio.</Translation>
+      </Text>
+      <Text Id="WAVEGENINFO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Waveform generators.</Translation>
+        <Translation Language="PL">Generatory przebiegów.</Translation>
+      </Text>
+      <Text Id="EFFECTSSINFO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Audio effects.</Translation>
+        <Translation Language="PL">Efekty przetwarzania audio.</Translation>
+      </Text>
+      <Text Id="HOMEINFO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Home page.</Translation>
+        <Translation Language="PL">Strona główna.</Translation>
+      </Text>
+      <Text Id="WELCOME" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Design and implementation &#10;of a polyphonic sound synthesizer&#10;using a signal processor or &#10;microcontroller</Translation>
+        <Translation Language="PL">Projekt i implementacja&#10;polifonicznego syntezatora dźwięku &#10;z wykorzystaniem procesora sygnałowego &#10;lub mikrokontrolera</Translation>
+      </Text>
+      <Text Id="LANG" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">EN</Translation>
+        <Translation Language="PL">PL</Translation>
+      </Text>
+      <Text Id="COMPRESSOR" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">COMPRESSOR</Translation>
+        <Translation Language="PL">KOMPRESOR</Translation>
+      </Text>
+      <Text Id="DISTORTION" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">DISTROTION</Translation>
+        <Translation Language="PL">DISTORTION</Translation>
+      </Text>
+      <Text Id="OVERDRIVE" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">OVERDRIVE</Translation>
+        <Translation Language="PL">OVERDRIVE</Translation>
+      </Text>
+      <Text Id="PHASER" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">PHASER</Translation>
+        <Translation Language="PL">PHASER</Translation>
+      </Text>
+      <Text Id="FLANGER" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">FLANGER</Translation>
+        <Translation Language="PL">FLANGER</Translation>
+      </Text>
+      <Text Id="CHORUS" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">CHORUS</Translation>
+        <Translation Language="PL">CHORUS</Translation>
+      </Text>
+      <Text Id="DELAY" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">DELAY</Translation>
+        <Translation Language="PL">ECHO</Translation>
+      </Text>
+      <Text Id="REVERB" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">REVERB</Translation>
+        <Translation Language="PL">POGŁOS</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />

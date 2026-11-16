@@ -2,6 +2,2059 @@
   "Application": {
     "Screens": [
       {
+        "Name": "homeScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "MIDIstatus",
+            "X": 409,
+            "Y": 11,
+            "Width": 24,
+            "Height": 24,
+            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "info",
+            "X": 45,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "X": 6,
+                "Y": 7,
+                "IconReleased": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "language",
+            "X": 13,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 32,
+                "Height": 32,
+                "ColorPressed": {
+                  "Red": 64,
+                  "Green": 69,
+                  "Blue": 71
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "settings",
+            "X": 433,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "presetsPage",
+            "X": 393,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "effectsPage",
+            "X": 351,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "wavegenPage",
+            "X": 312,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_device_graphic_eq_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_device_graphic_eq_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "homePage",
+            "X": 271,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_home_filled_32_32_264F2C.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_home_filled_32_32_264F2C.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "volumeButton",
+            "X": 433,
+            "Y": 7,
+            "Width": 32,
+            "Height": 32,
+            "Pressed": "__generated\\icon_theme_images_av_volume_off_32_32_FF0000.svg.png",
+            "Released": "__generated\\icon_theme_images_av_volume_up_32_32_FFFFFF.svg.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "welcomeText",
+            "X": 29,
+            "Y": 31,
+            "Width": 423,
+            "Height": 105,
+            "TextId": "WELCOME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "WideTextAction": 1
+          },
+          {
+            "Type": "TextArea",
+            "Name": "langText",
+            "X": 15,
+            "Y": 235,
+            "Width": 28,
+            "Height": 24,
+            "TextId": "LANG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "infoText",
+            "X": 71,
+            "Y": 211,
+            "Width": 120,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "HOMEINFO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "volumeMenu",
+            "X": 400,
+            "Width": 80,
+            "Height": 272,
+            "FileNameBackground": "right_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "right_slide_menu_button.png",
+            "FileNameButtonReleased": "right_slide_menu_button.png",
+            "ButtonY": 110,
+            "State": "Collapsed",
+            "ExpandDirection": "West",
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 30,
+            "ExpandedStateTimeout": 10000,
+            "Components": [
+              {
+                "Type": "Slider",
+                "Name": "volume",
+                "X": 41,
+                "Y": 24,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_round_light.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "InitValue": 50
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "mute",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "volumeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "muteToggled"
+            }
+          },
+          {
+            "InteractionName": "effectsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effectsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "volume",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "volume"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "volumeChanged"
+            }
+          },
+          {
+            "InteractionName": "toggleLanguage",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "language"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleLanguage"
+            }
+          },
+          {
+            "InteractionName": "wavegenScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "wavegenPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen0"
+            }
+          },
+          {
+            "InteractionName": "showInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfo"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "fadeInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showInfo"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 2000,
+              "AnimationDelay": 1000,
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "hideInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeInfo"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "restoreInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "info"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "presetsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "presetsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "settingsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen3"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Screen0",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_4",
+            "X": 89,
+            "Y": 189,
+            "Width": 50,
+            "Height": 24,
+            "TextId": "TRAP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "info",
+            "X": 45,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "X": 6,
+                "Y": 7,
+                "IconReleased": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "language",
+            "X": 13,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 32,
+                "Height": 32,
+                "ColorPressed": {
+                  "Red": 64,
+                  "Green": 69,
+                  "Blue": 71
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "settings",
+            "X": 433,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "presetsPage",
+            "X": 393,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "effectsPage",
+            "X": 351,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "wavegenPage",
+            "X": 312,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_device_graphic_eq_32_32_264F2C.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_device_graphic_eq_32_32_264F2C.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "homePage",
+            "X": 271,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_home_filled_32_32_FFFFFF.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_home_filled_32_32_FFFFFF.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "volumeButton",
+            "X": 433,
+            "Y": 7,
+            "Width": 32,
+            "Height": 32,
+            "Pressed": "__generated\\icon_theme_images_av_volume_off_32_32_FF0000.svg.png",
+            "Released": "__generated\\icon_theme_images_av_volume_up_32_32_FFFFFF.svg.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "infoText",
+            "X": 71,
+            "Y": 211,
+            "Width": 225,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "WAVEGENINFO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "langText",
+            "X": 15,
+            "Y": 235,
+            "Width": 28,
+            "Height": 24,
+            "TextId": "LANG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "volumeMenu",
+            "X": 400,
+            "Width": 80,
+            "Height": 272,
+            "FileNameBackground": "right_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "right_slide_menu_button.png",
+            "FileNameButtonReleased": "right_slide_menu_button.png",
+            "ButtonY": 110,
+            "State": "Collapsed",
+            "ExpandDirection": "West",
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 30,
+            "ExpandedStateTimeout": 10000,
+            "Components": [
+              {
+                "Type": "Slider",
+                "Name": "volume",
+                "X": 41,
+                "Y": 24,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_round_light.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "InitValue": 50
+              }
+            ]
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "MIDIstatus",
+            "X": 409,
+            "Y": 11,
+            "Width": 24,
+            "Height": 24,
+            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "subButton",
+            "X": 153,
+            "Y": 190,
+            "Width": 60,
+            "Height": 30,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "TextButtonStyle",
+                "Y": 2,
+                "TextId": "__SingleUse_QQJM",
+                "TextRotation": "0",
+                "ColorReleased": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "ColorPressed": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                }
+              },
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 60,
+                "Height": 30,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 2,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "additiveButton",
+            "X": 83,
+            "Y": 190,
+            "Width": 60,
+            "Height": 30,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "TextButtonStyle",
+                "Y": 2,
+                "TextId": "__SingleUse_BDKY",
+                "TextRotation": "0",
+                "ColorReleased": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "ColorPressed": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                }
+              },
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 60,
+                "Height": 30,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 2,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "basicButton",
+            "X": 13,
+            "Y": 190,
+            "Width": 60,
+            "Height": 30,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "X": 18,
+                "Y": 3,
+                "IconReleased": "__generated\\icon_theme_images_image_edit_25_25_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_image_edit_25_25_E8F6FB.svg.png"
+              },
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 60,
+                "Height": 30,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 2,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "osc2",
+            "X": 13,
+            "Y": 7,
+            "Width": 200,
+            "Height": 179,
+            "Visible": false,
+            "Components": [
+              {
+                "Type": "BoxWithBorder",
+                "Name": "osc2bg",
+                "Width": 200,
+                "Height": 179,
+                "Color": {
+                  "Red": 135,
+                  "Green": 135,
+                  "Blue": 135
+                },
+                "Alpha": 90
+              },
+              {
+                "Type": "TextArea",
+                "Name": "osc2txt",
+                "X": 26,
+                "Y": 4,
+                "Width": 149,
+                "Height": 24,
+                "TextId": "OSC2",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "osc2Button",
+                "X": 9,
+                "Y": 141,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "left",
+                "X": 159,
+                "Y": 142,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "Y": 1,
+                    "IconReleased": "__generated\\icon_theme_images_hardware_keyboard_arrow_left_32_32_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_done_32_32_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "osc2TriangleButton",
+                "X": 77,
+                "Y": 68,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_45H9",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "osc2TrapezButton",
+                "X": 10,
+                "Y": 105,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_QMV5",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "osc2SquareButton",
+                "X": 10,
+                "Y": 68,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_H9Q5",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "osc2SawButton",
+                "X": 77,
+                "Y": 32,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_BHG5",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "osc2SineButton",
+                "X": 10,
+                "Y": 32,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_PA0X",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "osc1",
+            "X": 13,
+            "Y": 7,
+            "Width": 200,
+            "Height": 179,
+            "Components": [
+              {
+                "Type": "BoxWithBorder",
+                "Name": "osc1bg",
+                "Width": 200,
+                "Height": 179,
+                "Color": {
+                  "Red": 135,
+                  "Green": 135,
+                  "Blue": 135
+                },
+                "Alpha": 90
+              },
+              {
+                "Type": "TextArea",
+                "Name": "osc1txt",
+                "X": 26,
+                "Y": 4,
+                "Width": 149,
+                "Height": 24,
+                "TextId": "OSC1",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "right",
+                "X": 159,
+                "Y": 142,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 1,
+                    "Y": 1,
+                    "IconReleased": "__generated\\icon_theme_images_hardware_keyboard_arrow_right_32_32_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_hardware_keyboard_arrow_right_32_32_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "sineButton",
+                "X": 10,
+                "Y": 32,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_TRHY",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "sawButton",
+                "X": 77,
+                "Y": 32,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_8WPH",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "squareButton",
+                "X": 10,
+                "Y": 68,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_7DR5",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "triangleButton",
+                "X": 77,
+                "Y": 68,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_7OXL",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "trapezButton",
+                "X": 10,
+                "Y": 105,
+                "Width": 60,
+                "Height": 30,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "TextButtonStyle",
+                    "Y": 9,
+                    "TextId": "__SingleUse_PQD5",
+                    "TextRotation": "0",
+                    "ColorReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 60,
+                    "Height": 30,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "subSliders",
+            "X": 225,
+            "Y": 7,
+            "Width": 158,
+            "Height": 213,
+            "Components": [
+              {
+                "Type": "BoxWithBorder",
+                "Name": "oscbg",
+                "Width": 158,
+                "Height": 213,
+                "Color": {
+                  "Red": 135,
+                  "Green": 135,
+                  "Blue": 135
+                },
+                "Alpha": 90
+              },
+              {
+                "Type": "Slider",
+                "Name": "osc2LevelSlider",
+                "X": 126,
+                "Y": -6,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "InitValue": 50,
+                "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+              },
+              {
+                "Type": "Slider",
+                "Name": "osc2DetuneSlider",
+                "X": 67,
+                "Y": -6,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "ValueMin": -100,
+                "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+              },
+              {
+                "Type": "Slider",
+                "Name": "osc2SemitonesSlider",
+                "X": 15,
+                "Y": -6,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 24,
+                "ValueMin": -24,
+                "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "addSliders",
+            "X": 225,
+            "Y": 7,
+            "Width": 158,
+            "Height": 213,
+            "Visible": false,
+            "Components": [
+              {
+                "Type": "BoxWithBorder",
+                "Name": "oscbg_1",
+                "Width": 158,
+                "Height": 213,
+                "Color": {
+                  "Red": 135,
+                  "Green": 135,
+                  "Blue": 135
+                },
+                "Alpha": 90
+              },
+              {
+                "Type": "Slider",
+                "Name": "harmonicsSlider",
+                "X": 67,
+                "Y": -6,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 16,
+                "InitValue": 4,
+                "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "mute",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "volumeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "muteToggled"
+            }
+          },
+          {
+            "InteractionName": "effectsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effectsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "volume",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "volume"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "volumeChanged"
+            }
+          },
+          {
+            "InteractionName": "toggleLanguage",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "language"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleLanguage"
+            }
+          },
+          {
+            "InteractionName": "takeMeHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "homePage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "homeScreen"
+            }
+          },
+          {
+            "InteractionName": "showInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfo"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "fadeInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showInfo"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 3000,
+              "AnimationDelay": 1000,
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "hideInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeInfo"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "restoreInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "info"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "presetsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "presetsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "settingsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen3"
+            }
+          },
+          {
+            "InteractionName": "selectBasic",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "basicButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectBasic"
+            }
+          },
+          {
+            "InteractionName": "selectAdditive",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "additiveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectAdditive"
+            }
+          },
+          {
+            "InteractionName": "selectSub",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "subButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectSub"
+            }
+          },
+          {
+            "InteractionName": "selectSine",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "sineButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectSine"
+            }
+          },
+          {
+            "InteractionName": "selectSaw",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "sawButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectSaw"
+            }
+          },
+          {
+            "InteractionName": "selectSquare",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "squareButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectSquare"
+            }
+          },
+          {
+            "InteractionName": "selectTriangle",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "triangleButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectTriangle"
+            }
+          },
+          {
+            "InteractionName": "selectTrapez",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "trapezButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectTrapez"
+            }
+          },
+          {
+            "InteractionName": "os2Sine",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "osc2SineButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2SelectSine"
+            }
+          },
+          {
+            "InteractionName": "osc2Saw",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "osc2SawButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2SelectSaw"
+            }
+          },
+          {
+            "InteractionName": "osc2Square",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "osc2SquareButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2SelectSquare"
+            }
+          },
+          {
+            "InteractionName": "osc2Triangle",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "osc2TriangleButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2SelectTriangle"
+            }
+          },
+          {
+            "InteractionName": "osc2Trapez",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "osc2TrapezButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2SelectTrapez"
+            }
+          },
+          {
+            "InteractionName": "osc2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "osc2Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2Toggled"
+            }
+          },
+          {
+            "InteractionName": "harmonics",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "harmonicsSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "harmonicsChanged"
+            }
+          },
+          {
+            "InteractionName": "osc2Semitones",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "osc2SemitonesSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2SemitonesChanged"
+            }
+          },
+          {
+            "InteractionName": "osc2DetuneChanged",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "osc2DetuneSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2DetuneChanged"
+            }
+          },
+          {
+            "InteractionName": "osc2Level",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "osc2LevelSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "osc2LevelChanged"
+            }
+          },
+          {
+            "InteractionName": "osc2hide",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "left"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "osc2"
+            }
+          },
+          {
+            "InteractionName": "osc1show",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "left"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "osc1"
+            }
+          },
+          {
+            "InteractionName": "osc1hide",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "right"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "osc1"
+            }
+          },
+          {
+            "InteractionName": "osc2show",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "right"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "osc2"
+            }
+          },
+          {
+            "InteractionName": "hideSubSliders",
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showAddSliders"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "subSliders"
+            }
+          },
+          {
+            "InteractionName": "showAddSliders",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "additiveButton"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "addSliders"
+            }
+          },
+          {
+            "InteractionName": "showSubSliders",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "basicButton"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "subSliders"
+            }
+          },
+          {
+            "InteractionName": "hideAddSliders",
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showSubSliders"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "addSliders"
+            }
+          }
+        ]
+      },
+      {
         "Name": "Screen1",
         "Components": [
           {
@@ -9,18 +2062,448 @@
             "Name": "background",
             "Width": 480,
             "Height": 272,
-            "RelativeFilename": "__generated\\alternate_theme_images_backgrounds_480x272_poly.png"
+            "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "overdriveText",
+            "X": 279,
+            "Y": 32,
+            "Width": 121,
+            "Height": 24,
+            "TextId": "OVERDRIVE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "distortionText",
+            "X": 279,
+            "Y": 78,
+            "Width": 130,
+            "Height": 24,
+            "TextId": "DISTORTION",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "compressorText",
+            "X": 279,
+            "Y": 126,
+            "Width": 144,
+            "Height": 24,
+            "TextId": "COMPRESSOR",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "phaserText",
+            "X": 279,
+            "Y": 169,
+            "Width": 82,
+            "Height": 24,
+            "TextId": "PHASER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "phaserButton",
+            "X": 209,
+            "Y": 164,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "flangerButton",
+            "X": 17,
+            "Y": 164,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "chorusButton",
+            "X": 17,
+            "Y": 119,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
           },
           {
             "Type": "ToggleButton",
             "Name": "reverbButton",
-            "X": 185,
-            "Y": 111,
-            "Width": 110,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_medium_rounded_on_normal.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_medium_rounded_off_light.png",
-            "Preset": "alternate_theme\\presets\\togglebutton\\medium\\rounded.json"
+            "X": 17,
+            "Y": 25,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "overdriveButton",
+            "X": 209,
+            "Y": 25,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "distortionButton",
+            "X": 209,
+            "Y": 71,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "compressorButton",
+            "X": 209,
+            "Y": 119,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "delayButton",
+            "X": 17,
+            "Y": 71,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "reverbText",
+            "X": 86,
+            "Y": 32,
+            "Width": 82,
+            "Height": 24,
+            "TextId": "REVERB",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "delayText",
+            "X": 86,
+            "Y": 78,
+            "Width": 64,
+            "Height": 24,
+            "TextId": "DELAY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "chorusText",
+            "X": 86,
+            "Y": 126,
+            "Width": 88,
+            "Height": 24,
+            "TextId": "CHORUS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "flangerText",
+            "X": 86,
+            "Y": 171,
+            "Width": 95,
+            "Height": 24,
+            "TextId": "FLANGER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "language",
+            "X": 13,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 32,
+                "Height": 32,
+                "ColorPressed": {
+                  "Red": 64,
+                  "Green": 69,
+                  "Blue": 71
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "TextArea",
+            "Name": "langText",
+            "X": 15,
+            "Y": 235,
+            "Width": 28,
+            "Height": 24,
+            "TextId": "LANG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "volumeButton",
+            "X": 433,
+            "Y": 7,
+            "Width": 32,
+            "Height": 32,
+            "Pressed": "__generated\\icon_theme_images_av_volume_off_32_32_FF0000.svg.png",
+            "Released": "__generated\\icon_theme_images_av_volume_up_32_32_FFFFFF.svg.png"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "MIDIstatus",
+            "X": 409,
+            "Y": 11,
+            "Width": 24,
+            "Height": 24,
+            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "infoText",
+            "X": 71,
+            "Y": 211,
+            "Width": 136,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "EFFECTSSINFO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "info",
+            "X": 45,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "X": 6,
+                "Y": 7,
+                "IconReleased": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "settings",
+            "X": 433,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "presetsPage",
+            "X": 393,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "effectsPage",
+            "X": 351,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_image_music_note_32_32_264F2C.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_image_music_note_32_32_264F2C.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "wavegenPage",
+            "X": 312,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_device_graphic_eq_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_device_graphic_eq_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "homePage",
+            "X": 271,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_home_filled_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_home_filled_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "volumeMenu",
+            "X": 400,
+            "Width": 80,
+            "Height": 272,
+            "FileNameBackground": "right_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "right_slide_menu_button.png",
+            "FileNameButtonReleased": "right_slide_menu_button.png",
+            "ButtonY": 110,
+            "State": "Collapsed",
+            "ExpandDirection": "West",
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 30,
+            "ExpandedStateTimeout": 10000,
+            "Components": [
+              {
+                "Type": "Slider",
+                "Name": "volume",
+                "X": 41,
+                "Y": 24,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_round_light.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "InitValue": 50
+              }
+            ]
           }
         ],
         "Interactions": [
@@ -34,6 +2517,986 @@
               "Type": "ActionCustom",
               "FunctionName": "reverbToggled"
             }
+          },
+          {
+            "InteractionName": "delay",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "delayButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "delayToggled"
+            }
+          },
+          {
+            "InteractionName": "chorus",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "chorusButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chorusToggled"
+            }
+          },
+          {
+            "InteractionName": "flanger",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flangerButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "flangerToggled"
+            }
+          },
+          {
+            "InteractionName": "phaser",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "phaserButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "phaserToggled"
+            }
+          },
+          {
+            "InteractionName": "volume",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "volume"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "volumeChanged"
+            }
+          },
+          {
+            "InteractionName": "mute",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "volumeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "muteToggled"
+            }
+          },
+          {
+            "InteractionName": "overdrive",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "overdriveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "overdriveToggled"
+            }
+          },
+          {
+            "InteractionName": "distortion",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "distortionButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "distortionToggled"
+            }
+          },
+          {
+            "InteractionName": "compressor",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "compressorButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "compressorToggled"
+            }
+          },
+          {
+            "InteractionName": "takeMeHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "homePage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "homeScreen"
+            }
+          },
+          {
+            "InteractionName": "toggleLanguage",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "language"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleLanguage"
+            }
+          },
+          {
+            "InteractionName": "wavegenScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "wavegenPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen0"
+            }
+          },
+          {
+            "InteractionName": "showInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfo"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "fadeInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showInfo"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 3000,
+              "AnimationDelay": 1000,
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "hideInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeInfo"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "restoreInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "info"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "presetsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "presetsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "settingsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen3"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Screen2",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "MIDIstatus",
+            "X": 409,
+            "Y": 11,
+            "Width": 24,
+            "Height": 24,
+            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "info",
+            "X": 45,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "X": 6,
+                "Y": 7,
+                "IconReleased": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "language",
+            "X": 13,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 32,
+                "Height": 32,
+                "ColorPressed": {
+                  "Red": 64,
+                  "Green": 69,
+                  "Blue": 71
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "settings",
+            "X": 433,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_settings_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "presetsPage",
+            "X": 393,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_264F2C.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_264F2C.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "effectsPage",
+            "X": 351,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "wavegenPage",
+            "X": 312,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_device_graphic_eq_32_32_FFFFFF.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_device_graphic_eq_32_32_FFFFFF.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "homePage",
+            "X": 271,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_home_filled_32_32_FFFFFF.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_home_filled_32_32_FFFFFF.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "volumeButton",
+            "X": 433,
+            "Y": 7,
+            "Width": 32,
+            "Height": 32,
+            "Pressed": "__generated\\icon_theme_images_av_volume_off_32_32_FF0000.svg.png",
+            "Released": "__generated\\icon_theme_images_av_volume_up_32_32_FFFFFF.svg.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "infoText",
+            "X": 71,
+            "Y": 211,
+            "Width": 143,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "PRESETSINFO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "langText",
+            "X": 15,
+            "Y": 235,
+            "Width": 28,
+            "Height": 24,
+            "TextId": "LANG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "volumeMenu",
+            "X": 400,
+            "Width": 80,
+            "Height": 272,
+            "FileNameBackground": "right_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "right_slide_menu_button.png",
+            "FileNameButtonReleased": "right_slide_menu_button.png",
+            "ButtonY": 110,
+            "State": "Collapsed",
+            "ExpandDirection": "West",
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 30,
+            "ExpandedStateTimeout": 10000,
+            "Components": [
+              {
+                "Type": "Slider",
+                "Name": "volume",
+                "X": 41,
+                "Y": 24,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_round_light.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "InitValue": 50
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "mute",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "volumeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "muteToggled"
+            }
+          },
+          {
+            "InteractionName": "effectsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effectsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "volume",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "volume"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "volumeChanged"
+            }
+          },
+          {
+            "InteractionName": "toggleLanguage",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "language"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleLanguage"
+            }
+          },
+          {
+            "InteractionName": "takeMeHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "homePage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "homeScreen"
+            }
+          },
+          {
+            "InteractionName": "showInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfo"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "fadeInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showInfo"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 3000,
+              "AnimationDelay": 1000,
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "hideInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeInfo"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "restoreInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "info"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "wavegenScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "wavegenPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen0"
+            }
+          },
+          {
+            "InteractionName": "settingsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "settings"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen3"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Screen3",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "MIDIstatus",
+            "X": 409,
+            "Y": 11,
+            "Width": 24,
+            "Height": 24,
+            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "info",
+            "X": 45,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "X": 6,
+                "Y": 7,
+                "IconReleased": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_info_20_20_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "language",
+            "X": 13,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 32,
+                "Height": 32,
+                "ColorPressed": {
+                  "Red": 64,
+                  "Green": 69,
+                  "Blue": 71
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "settings",
+            "X": 433,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_settings_32_32_264F2C.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_settings_32_32_264F2C.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "presetsPage",
+            "X": 393,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_editor_insert_drive_file_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "effectsPage",
+            "X": 351,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_image_music_note_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "wavegenPage",
+            "X": 312,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_device_graphic_eq_32_32_FFFFFF.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_device_graphic_eq_32_32_FFFFFF.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "homePage",
+            "X": 271,
+            "Y": 231,
+            "Width": 32,
+            "Height": 32,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "IconButtonStyle",
+                "IconReleased": "__generated\\icon_theme_images_action_home_filled_32_32_FFFFFF.svg.png",
+                "IconPressed": "__generated\\icon_theme_images_action_home_filled_32_32_FFFFFF.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "volumeButton",
+            "X": 433,
+            "Y": 7,
+            "Width": 32,
+            "Height": 32,
+            "Pressed": "__generated\\icon_theme_images_av_volume_off_32_32_FF0000.svg.png",
+            "Released": "__generated\\icon_theme_images_av_volume_up_32_32_FFFFFF.svg.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "infoText",
+            "X": 71,
+            "Y": 211,
+            "Width": 89,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "SETTINGSINFO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "langText",
+            "X": 15,
+            "Y": 235,
+            "Width": 28,
+            "Height": 24,
+            "TextId": "LANG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "SlideMenu",
+            "Name": "volumeMenu",
+            "X": 400,
+            "Width": 80,
+            "Height": 272,
+            "FileNameBackground": "right_slide_menu_background.png",
+            "UseButton": true,
+            "FileNameButtonPressed": "right_slide_menu_button.png",
+            "FileNameButtonReleased": "right_slide_menu_button.png",
+            "ButtonY": 110,
+            "State": "Collapsed",
+            "ExpandDirection": "West",
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "AnimationDuration": 300,
+            "VisiblePixelsWhenCollapsed": 30,
+            "ExpandedStateTimeout": 10000,
+            "Components": [
+              {
+                "Type": "Slider",
+                "Name": "volume",
+                "X": 41,
+                "Y": 24,
+                "Width": 24,
+                "Height": 224,
+                "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_round_light.png",
+                "BackgroundX": 9,
+                "BackgroundY": 12,
+                "IndicatorMax": 200,
+                "ValueMax": 100,
+                "InitValue": 50
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "mute",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "volumeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "muteToggled"
+            }
+          },
+          {
+            "InteractionName": "effectsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "effectsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "volume",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "volume"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "volumeChanged"
+            }
+          },
+          {
+            "InteractionName": "toggleLanguage",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "language"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleLanguage"
+            }
+          },
+          {
+            "InteractionName": "takeMeHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "homePage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "homeScreen"
+            }
+          },
+          {
+            "InteractionName": "showInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfo"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "fadeInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "showInfo"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 3000,
+              "AnimationDelay": 1000,
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "hideInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeInfo"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "restoreInfo",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "info"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "infoText"
+            }
+          },
+          {
+            "InteractionName": "wavegenScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "wavegenPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen0"
+            }
+          },
+          {
+            "InteractionName": "presetsScreen",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "presetsPage"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
           }
         ]
       }
@@ -45,7 +3508,7 @@
       "Height": 272
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "Screen1",
+    "StartupScreenName": "homeScreen",
     "SelectedStartupLanguage": "GB",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",

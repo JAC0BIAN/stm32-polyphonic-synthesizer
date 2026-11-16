@@ -239,16 +239,17 @@ void synth_set_osc2(Synth *s, uint16_t enabled, WaveType wave, float semitones, 
 void update_synth_gain(Synth *s) {
     float mod = (float)s->active_voices;
     if (mod < 1.0f) mod = 1.0f;
-    s->target_gain = s->master_gain / sqrtf(mod);
+    float m = s->mute ? 0.0f : 1.0f;
+    s->target_gain = s->master_gain * s->volume * m / sqrtf(mod);
 }
 
 void synth_init(Synth *s, Voice *v){
 	float *delay_buf = (float *)SDRAM_BASE;
 
-	s->lowpass    = 1u; 	//flag for LPF
+	s->lowpass    = 0u; 	//flag for LPF
 	s->highpass   = 0u; 	//flag for HPF
 	s->chorus_on  = 0u; 	//flag for chorus effect
-	s->flanger_on = 1u; 	//flag for flanger effect
+	s->flanger_on = 0u; 	//flag for flanger effect
 	s->phaser_on  = 0u; 	//flag for phaser effect
 	s->delay_on	  = 0u; 	//flag for delay effect
 	s->reverb_on  = 0u; 	//flag for reverb effect
@@ -257,7 +258,8 @@ void synth_init(Synth *s, Voice *v){
 	s->compressor_on = 0u;
 
     s -> sample_rate = SAMPLE_RATE_HZ;
-    s -> master_gain = 0.1f;
+    s -> master_gain = 0.2f;
+    s -> volume      = 1.0f;
     s -> gain_inc = 0.0005f;
 	s -> active_voices = 0u;
     v -> num_harmonics = 0u;
@@ -269,10 +271,10 @@ void synth_init(Synth *s, Voice *v){
     //s->env.sustain   = 0.70f;
     //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
 
-    s->env.attack_t  = 2.00f;
-    s->env.decay_t   = 0.50f;
-    s->env.sustain   = 1.00f;
-    s->env.release_t = 2.00f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+    s->env.attack_t  = 0.05f;
+    s->env.decay_t   = 0.60f;
+    s->env.sustain   = 0.20f;
+    s->env.release_t = 0.20f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
 
     s->pitch_bend_ratio = 1.0f;
     s->pitch_bend_range = 12.0f;
@@ -289,6 +291,9 @@ void synth_init(Synth *s, Voice *v){
     for (uint32_t i = 0; i < MAX_VOICES; i++){
     	voice_reset(&v[i]);
     }
+
+    s -> volume = 0.5f;
+    s -> mute   = 0u;
 
     update_synth_gain(s);
     s -> current_gain = s -> target_gain;
