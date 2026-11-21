@@ -23,7 +23,6 @@ public:
 
     virtual void selectBasic() override;
     virtual void selectAdditive() override;
-    virtual void selectSub() override;
 
     virtual void selectSine() override;
     virtual void selectSaw() override;
@@ -42,9 +41,27 @@ public:
     virtual void osc2DetuneChanged(int value) override;
     virtual void osc2LevelChanged(int value) override;
     virtual void harmonicsChanged(int value) override;
+
+    virtual void lpfToggled() override;
+    virtual void hpfToggled() override;
+
+    virtual void attackChanged(int value) override;
+    virtual void decayChanged(int value) override;
+    virtual void sustainChanged(int value) override;
+    virtual void releaseChanged(int value) override;
+
+    virtual void envSlidersToggled() override;
+    virtual void envLeft() override;
 protected:
     bool midiShown = false;
+
+    bool    envDirty = false;
+    uint8_t envTick  = 0;
+
     void refreshOscUi();
+    void updateSliderLabels();
+    void updateEnvGraph();
+    void updateAdsrLabels();
 };
 
 #endif // SCREEN0VIEW_HPP

@@ -7,11 +7,13 @@
 #include <math.h>
 #include "dds.h"
 
+#ifdef AUDIO_CAPTURE_DEBUG
 #define CAP_LEN 48000u
-volatile int16_t cap_buf[CAP_LEN];     // albo wskaźnik w SDRAM
+volatile int16_t  cap_buf[CAP_LEN];
 volatile uint32_t cap_pos = 0;
-volatile uint8_t  cap_enable = 0;      // ustaw w debuggerze lub przyciskiem
+volatile uint8_t  cap_enable = 0;
 volatile uint8_t  cap_done = 0;
+#endif
 
 static void voice_reset(Voice *v){
 	// Clear unused voice
@@ -266,15 +268,10 @@ void synth_init(Synth *s, Voice *v){
     v -> midi_note = 69u;
     v -> f0_hz = 420.0f;
 
-    //s->env.attack_t  = 2.01f;
-    //s->env.decay_t   = 0.10f;
-    //s->env.sustain   = 0.70f;
-    //s->env.release_t = 0.30f; //INITIAL ADSR PRESETS
-
-    s->env.attack_t  = 0.05f;
-    s->env.decay_t   = 0.60f;
-    s->env.sustain   = 0.20f;
-    s->env.release_t = 0.20f; //ADSR preset to showcase Subtractive synthesis (plucked string imitation)
+    s->env.attack_t  = 0.40f;
+    s->env.decay_t   = 0.50f;
+    s->env.sustain   = 0.50f;
+    s->env.release_t = 0.45f;
 
     s->pitch_bend_ratio = 1.0f;
     s->pitch_bend_range = 12.0f;
@@ -584,10 +581,12 @@ void synth_generate_block_i16(Synth *s, Voice *voices, int16_t *out, size_t fram
         out[n] = float_to_int16(sample);
         s->current_gain = gain;
 
-        if (cap_enable && !cap_done) {
-        	cap_buf[cap_pos++] = out[n];
-        	if (cap_pos >= CAP_LEN) { cap_done = 1; cap_enable = 0; }
-        }
+		#ifdef AUDIO_CAPTURE_DEBUG
+				if (cap_enable && !cap_done) {
+					cap_buf[cap_pos++] = out[n];
+					if (cap_pos >= CAP_LEN) { cap_done = 1; cap_enable = 0; }
+				}
+		#endif
     }
 
 }

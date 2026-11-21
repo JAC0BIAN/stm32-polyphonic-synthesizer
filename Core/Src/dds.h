@@ -2,7 +2,7 @@
  * dds.h
  *
  *  Created on: Aug 22, 2026
- *      Author: FUJITSU
+ *      Author: JAC0BIAN
  */
 
 #ifndef SRC_DDS_H_

@@ -13,7 +13,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+// --------------------------------- EFFECTS --------------------------------------
 typedef enum {
     AUDIO_FX_LPF = 0,
     AUDIO_FX_HPF,
@@ -28,13 +28,13 @@ typedef enum {
     AUDIO_FX_COUNT
 } AudioFx;
 
-// Same order as SynthType / WaveType in synth.h (checked by _Static_assert in the .c file)
 typedef enum { AUDIO_SYNTH_BASIC = 0, AUDIO_SYNTH_ADD, AUDIO_SYNTH_SUB } AudioSynthType;
 typedef enum { AUDIO_WAVE_SINE = 0, AUDIO_WAVE_SAW, AUDIO_WAVE_SQUARE,
                AUDIO_WAVE_TRIANGLE, AUDIO_WAVE_TRAPEZ } AudioWave;
 
 void    audio_set_effect(AudioFx fx, uint8_t on);
-uint8_t audio_get_effect(AudioFx fx);          // to initialise toggle buttons from the GUI
+uint8_t audio_get_effect(AudioFx fx);
+// ------------------------------------------------------------------------------
 
 void    audio_set_synth_type(AudioSynthType t);
 void    audio_set_wave(AudioWave w);
@@ -61,6 +61,17 @@ float          audio_get_osc2_semitones(void);
 float          audio_get_osc2_detune(void);
 float          audio_get_osc2_level(void);
 
+// ----------------------------- ENVELOPE ---------------------------------------
+void  audio_set_attack(float seconds);
+void  audio_set_decay(float seconds);
+void  audio_set_sustain(float level);
+void  audio_set_release(float seconds);
+
+float audio_get_attack(void);
+float audio_get_decay(void);
+float audio_get_sustain(void);
+float audio_get_release(void);
+// ------------------------------------------------------------------------------
 #ifdef __cplusplus
 }
 #endif

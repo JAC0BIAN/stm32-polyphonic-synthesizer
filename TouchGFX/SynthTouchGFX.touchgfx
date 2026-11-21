@@ -402,29 +402,124 @@
       },
       {
         "Name": "Screen0",
+        "CanvasBufferSize": 7200,
         "Components": [
-          {
-            "Type": "TextArea",
-            "Name": "textArea1_4",
-            "X": 89,
-            "Y": 189,
-            "Width": 50,
-            "Height": 24,
-            "TextId": "TRAP",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
           {
             "Type": "Image",
             "Name": "image1",
             "Width": 480,
             "Height": 272,
             "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "lpfButton",
+            "X": 84,
+            "Y": 229,
+            "Width": 60,
+            "Height": 30,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "TextButtonStyle",
+                "Y": 2,
+                "TextId": "__SingleUse_PKO6",
+                "TextRotation": "0",
+                "ColorReleased": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "ColorPressed": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                }
+              },
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 60,
+                "Height": 30,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 2,
+                "ColorReleased": {
+                  "Red": 90,
+                  "Green": 90,
+                  "Blue": 90
+                },
+                "ColorPressed": {
+                  "Green": 160,
+                  "Blue": 80
+                },
+                "ColorBorderReleased": {
+                  "Red": 200,
+                  "Green": 200,
+                  "Blue": 200
+                },
+                "ColorBorderPressed": {
+                  "Red": 200,
+                  "Green": 200,
+                  "Blue": 200
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "hpfButton",
+            "X": 153,
+            "Y": 229,
+            "Width": 60,
+            "Height": 30,
+            "ButtonTrigger": {
+              "Type": "ToggleButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "TextButtonStyle",
+                "Y": 2,
+                "TextId": "__SingleUse_XG6T",
+                "TextRotation": "0",
+                "ColorReleased": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "ColorPressed": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                }
+              },
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 60,
+                "Height": 30,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 2,
+                "ColorReleased": {
+                  "Red": 90,
+                  "Green": 90,
+                  "Blue": 90
+                },
+                "ColorPressed": {
+                  "Green": 160,
+                  "Blue": 80
+                },
+                "ColorBorderReleased": {
+                  "Red": 200,
+                  "Green": 200,
+                  "Blue": 200
+                },
+                "ColorBorderPressed": {
+                  "Red": 200,
+                  "Green": 200,
+                  "Blue": 200
+                }
+              }
+            ]
           },
           {
             "Type": "FlexButton",
@@ -581,23 +676,6 @@
           },
           {
             "Type": "TextArea",
-            "Name": "infoText",
-            "X": 71,
-            "Y": 211,
-            "Width": 225,
-            "Height": 24,
-            "Visible": false,
-            "TextId": "WAVEGENINFO",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
             "Name": "langText",
             "X": 15,
             "Y": 235,
@@ -650,125 +728,9 @@
             ]
           },
           {
-            "Type": "ScalableImage",
-            "Name": "MIDIstatus",
-            "X": 409,
-            "Y": 11,
-            "Width": 24,
-            "Height": 24,
-            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
-            "ScalingAlgorithm": "Nearest-neighbor"
-          },
-          {
-            "Type": "FlexButton",
-            "Name": "subButton",
-            "X": 153,
-            "Y": 190,
-            "Width": 60,
-            "Height": 30,
-            "ButtonTrigger": {
-              "Type": "ClickButtonTrigger"
-            },
-            "ButtonStyles": [
-              {
-                "Type": "TextButtonStyle",
-                "Y": 2,
-                "TextId": "__SingleUse_QQJM",
-                "TextRotation": "0",
-                "ColorReleased": {
-                  "Red": 255,
-                  "Green": 255,
-                  "Blue": 255
-                },
-                "ColorPressed": {
-                  "Red": 255,
-                  "Green": 255,
-                  "Blue": 255
-                }
-              },
-              {
-                "Type": "BoxWithBorderButtonStyle",
-                "Width": 60,
-                "Height": 30,
-                "LockToFlexButtonSize": true,
-                "BorderSize": 2,
-                "ColorReleased": {
-                  "Green": 102,
-                  "Blue": 153
-                },
-                "ColorPressed": {
-                  "Green": 153,
-                  "Blue": 204
-                },
-                "ColorBorderReleased": {
-                  "Green": 51,
-                  "Blue": 102
-                },
-                "ColorBorderPressed": {
-                  "Red": 51,
-                  "Green": 102,
-                  "Blue": 153
-                }
-              }
-            ]
-          },
-          {
-            "Type": "FlexButton",
-            "Name": "additiveButton",
-            "X": 83,
-            "Y": 190,
-            "Width": 60,
-            "Height": 30,
-            "ButtonTrigger": {
-              "Type": "ClickButtonTrigger"
-            },
-            "ButtonStyles": [
-              {
-                "Type": "TextButtonStyle",
-                "Y": 2,
-                "TextId": "__SingleUse_BDKY",
-                "TextRotation": "0",
-                "ColorReleased": {
-                  "Red": 255,
-                  "Green": 255,
-                  "Blue": 255
-                },
-                "ColorPressed": {
-                  "Red": 255,
-                  "Green": 255,
-                  "Blue": 255
-                }
-              },
-              {
-                "Type": "BoxWithBorderButtonStyle",
-                "Width": 60,
-                "Height": 30,
-                "LockToFlexButtonSize": true,
-                "BorderSize": 2,
-                "ColorReleased": {
-                  "Green": 102,
-                  "Blue": 153
-                },
-                "ColorPressed": {
-                  "Green": 153,
-                  "Blue": 204
-                },
-                "ColorBorderReleased": {
-                  "Green": 51,
-                  "Blue": 102
-                },
-                "ColorBorderPressed": {
-                  "Red": 51,
-                  "Green": 102,
-                  "Blue": 153
-                }
-              }
-            ]
-          },
-          {
             "Type": "FlexButton",
             "Name": "basicButton",
-            "X": 13,
+            "X": 84,
             "Y": 190,
             "Width": 60,
             "Height": 30,
@@ -777,11 +739,20 @@
             },
             "ButtonStyles": [
               {
-                "Type": "IconButtonStyle",
-                "X": 18,
-                "Y": 3,
-                "IconReleased": "__generated\\icon_theme_images_image_edit_25_25_E8F6FB.svg.png",
-                "IconPressed": "__generated\\icon_theme_images_image_edit_25_25_E8F6FB.svg.png"
+                "Type": "TextButtonStyle",
+                "Y": 2,
+                "TextId": "SUB",
+                "TextRotation": "0",
+                "ColorReleased": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "ColorPressed": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                }
               },
               {
                 "Type": "BoxWithBorderButtonStyle",
@@ -811,11 +782,407 @@
           },
           {
             "Type": "Container",
+            "Name": "envelope",
+            "X": 13,
+            "Y": 7,
+            "Width": 420,
+            "Height": 222,
+            "Visible": false,
+            "Components": [
+              {
+                "Type": "BoxWithBorder",
+                "Name": "envbg",
+                "Width": 200,
+                "Height": 179,
+                "Color": {
+                  "Red": 135,
+                  "Green": 135,
+                  "Blue": 135
+                },
+                "Alpha": 90
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "envToggleButton",
+                "X": 159,
+                "Y": 142,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ToggleButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "left_1",
+                "X": 121,
+                "Y": 142,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "Y": 1,
+                    "IconReleased": "__generated\\icon_theme_images_hardware_keyboard_arrow_left_32_32_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_done_32_32_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "StaticGraph",
+                "Name": "envGraph",
+                "X": 11,
+                "Y": 34,
+                "Width": 180,
+                "Height": 101,
+                "DataSeed": -2006054823,
+                "NumberOfValues": 100,
+                "MaxX": 1000.0,
+                "PrecisionX": "1",
+                "MaxY": 100.0,
+                "PrecisionY": "1",
+                "XAxisScale": 1.0,
+                "GraphDrawers": [
+                  {
+                    "Type": "LineDrawer",
+                    "LineWidth": 2,
+                    "FileNameImage": "",
+                    "Color": {
+                      "Red": 20,
+                      "Green": 151,
+                      "Blue": 197
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "TextArea",
+                "Name": "envelopeTxt",
+                "X": 48,
+                "Y": 4,
+                "Width": 107,
+                "Height": 24,
+                "TextId": "env",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "Container",
+                "Name": "envSliders",
+                "X": 212,
+                "Width": 208,
+                "Height": 213,
+                "Components": [
+                  {
+                    "Type": "BoxWithBorder",
+                    "Name": "envSlidersbg",
+                    "Width": 208,
+                    "Height": 213,
+                    "Color": {
+                      "Red": 135,
+                      "Green": 135,
+                      "Blue": 135
+                    },
+                    "Alpha": 90
+                  },
+                  {
+                    "Type": "Slider",
+                    "Name": "releaseSlider",
+                    "X": 156,
+                    "Y": -7,
+                    "Width": 24,
+                    "Height": 212,
+                    "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                    "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                    "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                    "BackgroundX": 9,
+                    "BackgroundY": 12,
+                    "IndicatorMax": 187,
+                    "IndicatorMin": 13,
+                    "ValueMax": 100,
+                    "ValueMin": 1,
+                    "InitValue": 10,
+                    "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+                  },
+                  {
+                    "Type": "Slider",
+                    "Name": "sustainSlider",
+                    "X": 107,
+                    "Y": -7,
+                    "Width": 24,
+                    "Height": 212,
+                    "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                    "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                    "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                    "BackgroundX": 9,
+                    "BackgroundY": 12,
+                    "IndicatorMax": 187,
+                    "IndicatorMin": 13,
+                    "ValueMax": 100,
+                    "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+                  },
+                  {
+                    "Type": "Slider",
+                    "Name": "decaySlider",
+                    "X": 54,
+                    "Y": -7,
+                    "Width": 24,
+                    "Height": 212,
+                    "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                    "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                    "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                    "BackgroundX": 9,
+                    "BackgroundY": 12,
+                    "IndicatorMax": 187,
+                    "IndicatorMin": 13,
+                    "ValueMax": 100,
+                    "ValueMin": 1,
+                    "InitValue": 10,
+                    "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+                  },
+                  {
+                    "Type": "Slider",
+                    "Name": "attackSlider",
+                    "X": 3,
+                    "Y": -7,
+                    "Width": 24,
+                    "Height": 212,
+                    "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
+                    "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
+                    "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
+                    "BackgroundX": 9,
+                    "BackgroundY": 12,
+                    "IndicatorMax": 187,
+                    "IndicatorMin": 13,
+                    "ValueMax": 100,
+                    "ValueMin": 1,
+                    "InitValue": 10,
+                    "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "A",
+                    "X": 31,
+                    "Y": 32,
+                    "Width": 14,
+                    "Height": 24,
+                    "TextId": "A",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "D",
+                    "X": 82,
+                    "Y": 32,
+                    "Width": 15,
+                    "Height": 24,
+                    "TextId": "D",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "S",
+                    "X": 133,
+                    "Y": 32,
+                    "Width": 14,
+                    "Height": 24,
+                    "TextId": "S",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "R",
+                    "X": 184,
+                    "Y": 32,
+                    "Width": 14,
+                    "Height": 24,
+                    "TextId": "R",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "attackValue",
+                    "X": 27,
+                    "Y": 183,
+                    "Width": 24,
+                    "Height": 12,
+                    "TextId": "__SingleUse_UPUR",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "TextId": "attack",
+                      "UseBuffer": true,
+                      "BufferSize": 8
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "decayValue",
+                    "X": 79,
+                    "Y": 183,
+                    "Width": 24,
+                    "Height": 12,
+                    "TextId": "__SingleUse_F5QH",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "TextId": "decay",
+                      "UseBuffer": true,
+                      "BufferSize": 8
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "sustainValue",
+                    "X": 133,
+                    "Y": 183,
+                    "Width": 18,
+                    "Height": 12,
+                    "TextId": "__SingleUse_7G6Q",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "TextId": "sustain",
+                      "UseBuffer": true,
+                      "BufferSize": 8
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "releaseValue",
+                    "X": 180,
+                    "Y": 183,
+                    "Width": 24,
+                    "Height": 12,
+                    "TextId": "__SingleUse_2ZKQ",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "TextId": "release",
+                      "UseBuffer": true,
+                      "BufferSize": 8
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Type": "Container",
             "Name": "osc2",
             "X": 13,
             "Y": 7,
             "Width": 200,
-            "Height": 179,
+            "Height": 215,
             "Visible": false,
             "Components": [
               {
@@ -849,8 +1216,8 @@
               {
                 "Type": "ToggleButton",
                 "Name": "osc2Button",
-                "X": 9,
-                "Y": 141,
+                "X": 2,
+                "Y": 181,
                 "Width": 62,
                 "Height": 34,
                 "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
@@ -858,8 +1225,52 @@
               },
               {
                 "Type": "FlexButton",
-                "Name": "left",
+                "Name": "right_1",
                 "X": 159,
+                "Y": 142,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 1,
+                    "Y": 1,
+                    "IconReleased": "__generated\\icon_theme_images_hardware_keyboard_arrow_right_32_32_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_hardware_keyboard_arrow_right_32_32_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "left",
+                "X": 121,
                 "Y": 142,
                 "Width": 32,
                 "Height": 32,
@@ -902,9 +1313,9 @@
               {
                 "Type": "FlexButton",
                 "Name": "osc2TriangleButton",
-                "X": 77,
-                "Y": 68,
-                "Width": 60,
+                "X": 88,
+                "Y": 74,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -928,7 +1339,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -956,8 +1367,8 @@
                 "Type": "FlexButton",
                 "Name": "osc2TrapezButton",
                 "X": 10,
-                "Y": 105,
-                "Width": 60,
+                "Y": 114,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -981,7 +1392,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1009,8 +1420,8 @@
                 "Type": "FlexButton",
                 "Name": "osc2SquareButton",
                 "X": 10,
-                "Y": 68,
-                "Width": 60,
+                "Y": 74,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1034,7 +1445,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1061,9 +1472,9 @@
               {
                 "Type": "FlexButton",
                 "Name": "osc2SawButton",
-                "X": 77,
+                "X": 88,
                 "Y": 32,
-                "Width": 60,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1087,7 +1498,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1116,7 +1527,7 @@
                 "Name": "osc2SineButton",
                 "X": 10,
                 "Y": 32,
-                "Width": 60,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1140,7 +1551,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1251,7 +1662,7 @@
                 "Name": "sineButton",
                 "X": 10,
                 "Y": 32,
-                "Width": 60,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1275,7 +1686,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1302,9 +1713,9 @@
               {
                 "Type": "FlexButton",
                 "Name": "sawButton",
-                "X": 77,
+                "X": 88,
                 "Y": 32,
-                "Width": 60,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1328,7 +1739,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1356,8 +1767,8 @@
                 "Type": "FlexButton",
                 "Name": "squareButton",
                 "X": 10,
-                "Y": 68,
-                "Width": 60,
+                "Y": 74,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1381,7 +1792,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1408,9 +1819,9 @@
               {
                 "Type": "FlexButton",
                 "Name": "triangleButton",
-                "X": 77,
-                "Y": 68,
-                "Width": 60,
+                "X": 88,
+                "Y": 74,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1434,7 +1845,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1462,8 +1873,8 @@
                 "Type": "FlexButton",
                 "Name": "trapezButton",
                 "X": 10,
-                "Y": 105,
-                "Width": 60,
+                "Y": 114,
+                "Width": 70,
                 "Height": 30,
                 "ButtonTrigger": {
                   "Type": "ClickButtonTrigger"
@@ -1487,7 +1898,7 @@
                   },
                   {
                     "Type": "BoxWithBorderButtonStyle",
-                    "Width": 60,
+                    "Width": 70,
                     "Height": 30,
                     "LockToFlexButtonSize": true,
                     "BorderSize": 2,
@@ -1518,13 +1929,13 @@
             "Name": "subSliders",
             "X": 225,
             "Y": 7,
-            "Width": 158,
+            "Width": 208,
             "Height": 213,
             "Components": [
               {
                 "Type": "BoxWithBorder",
                 "Name": "oscbg",
-                "Width": 158,
+                "Width": 208,
                 "Height": 213,
                 "Color": {
                   "Red": 135,
@@ -1534,55 +1945,178 @@
                 "Alpha": 90
               },
               {
+                "Type": "TextArea",
+                "Name": "osc2LevelValue",
+                "X": 168,
+                "Y": 182,
+                "Width": 39,
+                "Height": 24,
+                "TextId": "__SingleUse_4U08",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "Wildcard1": {
+                  "TextId": "osc2Level",
+                  "UseBuffer": true,
+                  "BufferSize": 8
+                }
+              },
+              {
+                "Type": "TextArea",
+                "Name": "level",
+                "X": 169,
+                "Y": 4,
+                "Width": 15,
+                "Height": 60,
+                "TextId": "levelTxt",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "WideTextAction": 4
+              },
+              {
                 "Type": "Slider",
                 "Name": "osc2LevelSlider",
-                "X": 126,
+                "X": 142,
                 "Y": -6,
                 "Width": 24,
-                "Height": 224,
+                "Height": 212,
                 "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
                 "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
                 "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
                 "BackgroundX": 9,
                 "BackgroundY": 12,
-                "IndicatorMax": 200,
+                "IndicatorMax": 187,
+                "IndicatorMin": 13,
                 "ValueMax": 100,
                 "InitValue": 50,
                 "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
               },
               {
+                "Type": "TextArea",
+                "Name": "osc2DetuneValue",
+                "X": 90,
+                "Y": 182,
+                "Width": 48,
+                "Height": 24,
+                "TextId": "__SingleUse_1PAA",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "Wildcard1": {
+                  "TextId": "osc2Detune",
+                  "UseBuffer": true,
+                  "BufferSize": 8
+                }
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detune",
+                "X": 97,
+                "Y": 4,
+                "Width": 8,
+                "Height": 72,
+                "TextId": "detune",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "WideTextAction": 4
+              },
+              {
                 "Type": "Slider",
                 "Name": "osc2DetuneSlider",
-                "X": 67,
+                "X": 66,
                 "Y": -6,
                 "Width": 24,
-                "Height": 224,
+                "Height": 212,
                 "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
                 "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
                 "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
                 "BackgroundX": 9,
                 "BackgroundY": 12,
-                "IndicatorMax": 200,
+                "IndicatorMax": 187,
+                "IndicatorMin": 13,
                 "ValueMax": 100,
                 "ValueMin": -100,
                 "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
               },
               {
+                "Type": "TextArea",
+                "Name": "osc2SemitonesValue",
+                "X": 27,
+                "Y": 182,
+                "Width": 35,
+                "Height": 24,
+                "TextId": "__SingleUse_1NTC",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "Wildcard1": {
+                  "TextId": "osc2Semitones",
+                  "UseBuffer": true,
+                  "BufferSize": 8
+                }
+              },
+              {
+                "Type": "TextArea",
+                "Name": "semitones",
+                "X": 31,
+                "Y": 4,
+                "Width": 8,
+                "Height": 108,
+                "TextId": "semitones",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "WideTextAction": 4
+              },
+              {
                 "Type": "Slider",
                 "Name": "osc2SemitonesSlider",
-                "X": 15,
+                "X": 3,
                 "Y": -6,
                 "Width": 24,
-                "Height": 224,
+                "Height": 212,
                 "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
                 "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
                 "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
                 "BackgroundX": 9,
                 "BackgroundY": 12,
-                "IndicatorMax": 200,
+                "IndicatorMax": 187,
+                "IndicatorMin": 13,
                 "ValueMax": 24,
-                "ValueMin": -24,
-                "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
+                "ValueMin": -24
+              },
+              {
+                "Type": "Box",
+                "Name": "osc2Dim",
+                "Width": 208,
+                "Height": 213,
+                "Alpha": 150
               }
             ]
           },
@@ -1608,23 +2142,153 @@
                 "Alpha": 90
               },
               {
+                "Type": "TextArea",
+                "Name": "harmonicsValue",
+                "X": 113,
+                "Y": 182,
+                "Width": 26,
+                "Height": 24,
+                "TextId": "__SingleUse_VMZC",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "Wildcard1": {
+                  "TextId": "harmonics",
+                  "UseBuffer": true,
+                  "BufferSize": 8
+                }
+              },
+              {
+                "Type": "TextArea",
+                "Name": "harmonics",
+                "X": 97,
+                "Y": 4,
+                "Width": 8,
+                "Height": 108,
+                "TextId": "harmonicsTxt",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true,
+                "WideTextAction": 4
+              },
+              {
                 "Type": "Slider",
                 "Name": "harmonicsSlider",
-                "X": 67,
-                "Y": -6,
+                "X": 66,
+                "Y": -7,
                 "Width": 24,
-                "Height": 224,
+                "Height": 212,
                 "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_track_small.png",
                 "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_filler_small.png",
                 "Indicator": "__generated\\alternate_theme_images_widgets_slider_vertical_thin_rounded_dark.png",
                 "BackgroundX": 9,
                 "BackgroundY": 12,
-                "IndicatorMax": 200,
+                "IndicatorMax": 187,
+                "IndicatorMin": 13,
                 "ValueMax": 16,
+                "ValueMin": 1,
                 "InitValue": 4,
                 "Preset": "alternate_theme\\presets\\slider\\vertical\\thin\\small_rounded_dark.json"
               }
             ]
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "MIDIstatus",
+            "X": 409,
+            "Y": 11,
+            "Width": 24,
+            "Height": 24,
+            "Filename": "__generated\\icon_theme_images_device_usb_50_50_FFFFFF.svg.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "additiveButton",
+            "X": 153,
+            "Y": 190,
+            "Width": 60,
+            "Height": 30,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "TextButtonStyle",
+                "Y": 2,
+                "TextId": "ADD",
+                "TextRotation": "0",
+                "ColorReleased": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "ColorPressed": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                }
+              },
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 60,
+                "Height": 30,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 2,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Box",
+            "Name": "InfoBox",
+            "X": 61,
+            "Y": 211,
+            "Width": 242,
+            "Height": 24,
+            "Visible": false,
+            "Alpha": 200
+          },
+          {
+            "Type": "TextArea",
+            "Name": "infoText",
+            "X": 71,
+            "Y": 211,
+            "Width": 225,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "WAVEGENINFO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -1784,17 +2448,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "selectAdditive"
-            }
-          },
-          {
-            "InteractionName": "selectSub",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "subButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "selectSub"
             }
           },
           {
@@ -2007,49 +2660,190 @@
             }
           },
           {
-            "InteractionName": "hideSubSliders",
+            "InteractionName": "osc2hideADSR",
             "Trigger": {
-              "Type": "TriggerInteractionCompleted",
-              "InteractionToTriggerOn": "showAddSliders"
+              "Type": "TriggerClicked",
+              "TriggerComponent": "right_1"
             },
             "Action": {
               "Type": "ActionHide",
-              "ActionComponent": "subSliders"
+              "ActionComponent": "osc2"
             }
           },
           {
-            "InteractionName": "showAddSliders",
-            "HasCompletedTrigger": true,
+            "InteractionName": "showADSR",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "additiveButton"
+              "TriggerComponent": "right_1"
             },
             "Action": {
               "Type": "ActionShow",
-              "ActionComponent": "addSliders"
+              "ActionComponent": "envelope"
             }
           },
           {
-            "InteractionName": "showSubSliders",
-            "HasCompletedTrigger": true,
+            "InteractionName": "hideADSR",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "basicButton"
-            },
-            "Action": {
-              "Type": "ActionShow",
-              "ActionComponent": "subSliders"
-            }
-          },
-          {
-            "InteractionName": "hideAddSliders",
-            "Trigger": {
-              "Type": "TriggerInteractionCompleted",
-              "InteractionToTriggerOn": "showSubSliders"
+              "TriggerComponent": "left_1"
             },
             "Action": {
               "Type": "ActionHide",
-              "ActionComponent": "addSliders"
+              "ActionComponent": "envelope"
+            }
+          },
+          {
+            "InteractionName": "showOsc2ADSR",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "left_1"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "osc2"
+            }
+          },
+          {
+            "InteractionName": "LPF",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "lpfButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "lpfToggled"
+            }
+          },
+          {
+            "InteractionName": "HPF",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "hpfButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "hpfToggled"
+            }
+          },
+          {
+            "InteractionName": "restoreInfoBox",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "info"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "InfoBox"
+            }
+          },
+          {
+            "InteractionName": "showInfoBox",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfoBox"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "InfoBox"
+            }
+          },
+          {
+            "InteractionName": "fadeInfoBox",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "restoreInfoBox"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 3000,
+              "AnimationDelay": 1000,
+              "ActionComponent": "InfoBox"
+            }
+          },
+          {
+            "InteractionName": "hideInfoBox",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeInfoBox"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "InfoBox"
+            }
+          },
+          {
+            "InteractionName": "attack",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "attackSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "attackChanged"
+            }
+          },
+          {
+            "InteractionName": "decay",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "decaySlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "decayChanged"
+            }
+          },
+          {
+            "InteractionName": "sustain",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "sustainSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "sustainChanged"
+            }
+          },
+          {
+            "InteractionName": "release",
+            "Trigger": {
+              "Type": "TriggerSliderValueChanged",
+              "TriggerComponent": "releaseSlider"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "releaseChanged"
+            }
+          },
+          {
+            "InteractionName": "envSliders",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "envToggleButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "envSlidersToggled"
+            }
+          },
+          {
+            "InteractionName": "hideEnvSliders",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "left_1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "envLeft"
             }
           }
         ]
@@ -2063,214 +2857,6 @@
             "Width": 480,
             "Height": 272,
             "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "overdriveText",
-            "X": 279,
-            "Y": 32,
-            "Width": 121,
-            "Height": 24,
-            "TextId": "OVERDRIVE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "distortionText",
-            "X": 279,
-            "Y": 78,
-            "Width": 130,
-            "Height": 24,
-            "TextId": "DISTORTION",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "compressorText",
-            "X": 279,
-            "Y": 126,
-            "Width": 144,
-            "Height": 24,
-            "TextId": "COMPRESSOR",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "phaserText",
-            "X": 279,
-            "Y": 169,
-            "Width": 82,
-            "Height": 24,
-            "TextId": "PHASER",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "phaserButton",
-            "X": 209,
-            "Y": 164,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "flangerButton",
-            "X": 17,
-            "Y": 164,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "chorusButton",
-            "X": 17,
-            "Y": 119,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "reverbButton",
-            "X": 17,
-            "Y": 25,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "overdriveButton",
-            "X": 209,
-            "Y": 25,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "distortionButton",
-            "X": 209,
-            "Y": 71,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "compressorButton",
-            "X": 209,
-            "Y": 119,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "delayButton",
-            "X": 17,
-            "Y": 71,
-            "Width": 62,
-            "Height": 34,
-            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
-            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "reverbText",
-            "X": 86,
-            "Y": 32,
-            "Width": 82,
-            "Height": 24,
-            "TextId": "REVERB",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "delayText",
-            "X": 86,
-            "Y": 78,
-            "Width": 64,
-            "Height": 24,
-            "TextId": "DELAY",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "chorusText",
-            "X": 86,
-            "Y": 126,
-            "Width": 88,
-            "Height": 24,
-            "TextId": "CHORUS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "flangerText",
-            "X": 86,
-            "Y": 171,
-            "Width": 95,
-            "Height": 24,
-            "TextId": "FLANGER",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
           },
           {
             "Type": "FlexButton",
@@ -2465,6 +3051,598 @@
                 "Type": "IconButtonStyle",
                 "IconReleased": "__generated\\icon_theme_images_action_home_filled_32_32_E8F6FB.svg.png",
                 "IconPressed": "__generated\\icon_theme_images_action_home_filled_32_32_E8F6FB.svg.png"
+              }
+            ]
+          },
+          {
+            "Type": "ScrollableContainer",
+            "Name": "effectsContainer",
+            "X": 16,
+            "Y": 17,
+            "Width": 271,
+            "Height": 193,
+            "VerticalScrollEnabled": true,
+            "ScrollbarsVisible": true,
+            "ScrollbarsVisibleOnPressed": true,
+            "ScrollbarsColor": {
+              "Red": 48,
+              "Green": 48,
+              "Blue": 48
+            },
+            "ScrollbarsAlpha": 255,
+            "Components": [
+              {
+                "Type": "Box",
+                "Name": "bg",
+                "X": -1,
+                "Width": 272,
+                "Height": 364,
+                "Color": {
+                  "Red": 135,
+                  "Green": 135,
+                  "Blue": 135
+                },
+                "Alpha": 90
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editCompressor",
+                "X": 227,
+                "Y": 324,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editDistortion",
+                "X": 227,
+                "Y": 282,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editOverdrive",
+                "X": 227,
+                "Y": 239,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editFlanger",
+                "X": 227,
+                "Y": 150,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editPhaser",
+                "X": 227,
+                "Y": 194,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editChorus",
+                "X": 227,
+                "Y": 105,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "TextArea",
+                "Name": "overdriveText",
+                "X": 73,
+                "Y": 243,
+                "Width": 121,
+                "Height": 24,
+                "TextId": "OVERDRIVE",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "distortionText",
+                "X": 73,
+                "Y": 286,
+                "Width": 130,
+                "Height": 24,
+                "TextId": "DISTORTION",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "compressorText",
+                "X": 73,
+                "Y": 328,
+                "Width": 144,
+                "Height": 24,
+                "TextId": "COMPRESSOR",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "phaserText",
+                "X": 73,
+                "Y": 198,
+                "Width": 82,
+                "Height": 24,
+                "TextId": "PHASER",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "phaserButton",
+                "X": 4,
+                "Y": 193,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "flangerButton",
+                "X": 4,
+                "Y": 147,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "chorusButton",
+                "X": 4,
+                "Y": 102,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "reverbButton",
+                "X": 4,
+                "Y": 8,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "overdriveButton",
+                "X": 2,
+                "Y": 238,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "distortionButton",
+                "X": 2,
+                "Y": 281,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "compressorButton",
+                "X": 4,
+                "Y": 323,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "ToggleButton",
+                "Name": "delayButton",
+                "X": 4,
+                "Y": 54,
+                "Width": 62,
+                "Height": 34,
+                "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_active.png",
+                "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+              },
+              {
+                "Type": "TextArea",
+                "Name": "reverbText",
+                "X": 73,
+                "Y": 15,
+                "Width": 82,
+                "Height": 24,
+                "TextId": "REVERB",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "delayText",
+                "X": 73,
+                "Y": 61,
+                "Width": 64,
+                "Height": 24,
+                "TextId": "DELAY",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "chorusText",
+                "X": 73,
+                "Y": 109,
+                "Width": 88,
+                "Height": 24,
+                "TextId": "CHORUS",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "flangerText",
+                "X": 73,
+                "Y": 154,
+                "Width": 95,
+                "Height": 24,
+                "TextId": "FLANGER",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editReverb",
+                "X": 227,
+                "Y": 11,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "editDelay",
+                "X": 227,
+                "Y": 57,
+                "Width": 32,
+                "Height": 32,
+                "ButtonTrigger": {
+                  "Type": "ClickButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "IconButtonStyle",
+                    "X": 2,
+                    "Y": 2,
+                    "IconReleased": "__generated\\icon_theme_images_editor_mode_edit_30_30_E8F6FB.svg.png",
+                    "IconPressed": "__generated\\icon_theme_images_action_edit_off_30_30_E8F6FB.svg.png"
+                  },
+                  {
+                    "Type": "BoxWithBorderButtonStyle",
+                    "Width": 32,
+                    "Height": 32,
+                    "LockToFlexButtonSize": true,
+                    "BorderSize": 2,
+                    "ColorReleased": {
+                      "Green": 102,
+                      "Blue": 153
+                    },
+                    "ColorPressed": {
+                      "Green": 153,
+                      "Blue": 204
+                    },
+                    "ColorBorderReleased": {
+                      "Green": 51,
+                      "Blue": 102
+                    },
+                    "ColorBorderPressed": {
+                      "Red": 51,
+                      "Green": 102,
+                      "Blue": 153
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2739,7 +3917,7 @@
         "Components": [
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "background",
             "Width": 480,
             "Height": 272,
             "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_wavy_lines.png"

@@ -6,6 +6,122 @@
   </Languages>
   <Texts>
     <TextGroup Id="Unsorted">
+      <Text Id="A" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">A</Translation>
+        <Translation Language="PL">A</Translation>
+      </Text>
+      <Text Id="R" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">R</Translation>
+        <Translation Language="PL">R</Translation>
+      </Text>
+      <Text Id="D" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">D</Translation>
+        <Translation Language="PL">D</Translation>
+      </Text>
+      <Text Id="S" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">S</Translation>
+        <Translation Language="PL">S</Translation>
+      </Text>
+      <Text Id="release" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">1000</Translation>
+        <Translation Language="PL">1000</Translation>
+      </Text>
+      <Text Id="sustain" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">100</Translation>
+        <Translation Language="PL">100</Translation>
+      </Text>
+      <Text Id="decay" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">1000</Translation>
+        <Translation Language="PL">1000</Translation>
+      </Text>
+      <Text Id="__SingleUse_2ZKQ" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_7G6Q" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_F5QH" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="attack" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">1000</Translation>
+        <Translation Language="PL">1000</Translation>
+      </Text>
+      <Text Id="__SingleUse_UPUR" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="levelTxt" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB" Alignment="Center"> L &#10; E &#10; V &#10; E &#10; L </Translation>
+        <Translation Language="PL" Alignment="Center">P&#10;O&#10;Z&#10;I&#10;O&#10;M</Translation>
+      </Text>
+      <Text Id="harmonicsTxt" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB" Alignment="Center">H&#10;A&#10;R&#10;M&#10;O&#10;N&#10;I&#10;C&#10;S</Translation>
+        <Translation Language="PL" Alignment="Center">H&#10;A&#10;R&#10;M&#10;O&#10;N&#10;I&#10;C&#10;Z&#10;N&#10;E</Translation>
+      </Text>
+      <Text Id="detune" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB" Alignment="Center">D&#10;E&#10;T&#10;U&#10;N&#10;E</Translation>
+        <Translation Language="PL" Alignment="Center">O&#10;D&#10;S&#10;T&#10;R&#10;O&#10;J&#10;E&#10;N&#10;I&#10;E</Translation>
+      </Text>
+      <Text Id="semitones" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB" Alignment="Center">S&#10;E&#10;M&#10;I&#10;T&#10;O&#10;N&#10;E&#10;S</Translation>
+        <Translation Language="PL" Alignment="Center">P&#10;Ó&#10;Ł&#10;T&#10;O&#10;N&#10;Y</Translation>
+      </Text>
+      <Text Id="harmonics" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">16</Translation>
+        <Translation Language="PL">16</Translation>
+      </Text>
+      <Text Id="osc2Semitones" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">-24</Translation>
+        <Translation Language="PL">-24</Translation>
+      </Text>
+      <Text Id="osc2Level" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">100</Translation>
+        <Translation Language="PL">100</Translation>
+      </Text>
+      <Text Id="osc2Detune" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">-100</Translation>
+        <Translation Language="PL">-100</Translation>
+      </Text>
+      <Text Id="__SingleUse_VMZC" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_4U08" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_1PAA" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_1NTC" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="osc2SemitonesValue" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="PL">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="ADD" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">ADD</Translation>
+        <Translation Language="PL">ADD</Translation>
+      </Text>
+      <Text Id="__SingleUse_XG6T" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">HPF</Translation>
+        <Translation Language="PL">HPF</Translation>
+      </Text>
+      <Text Id="__SingleUse_PKO6" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">LPF</Translation>
+        <Translation Language="PL">LPF</Translation>
+      </Text>
+      <Text Id="env" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB" Alignment="Center">ENVELOPE</Translation>
+        <Translation Language="PL" Alignment="Center">OBWIEDNIA</Translation>
+      </Text>
       <Text Id="__SingleUse_QMV5" Alignment="Center" TypographyId="Small">
         <Translation Language="GB">TRAPEZ</Translation>
         <Translation Language="PL">TRAPEZ</Translation>
@@ -46,11 +162,11 @@
         <Translation Language="GB">SINE</Translation>
         <Translation Language="PL">SINUS</Translation>
       </Text>
-      <Text Id="OSC2" Alignment="Left" TypographyId="Default">
+      <Text Id="OSC2" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">OSCILLATOR 2</Translation>
         <Translation Language="PL">OSCYLATOR 2</Translation>
       </Text>
-      <Text Id="OSC1" Alignment="Left" TypographyId="Default">
+      <Text Id="OSC1" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">OSCILLATOR 1</Translation>
         <Translation Language="PL">OSCYLATOR 1</Translation>
       </Text>
@@ -78,13 +194,9 @@
         <Translation Language="GB">SINE</Translation>
         <Translation Language="PL">SINUS</Translation>
       </Text>
-      <Text Id="__SingleUse_QQJM" Alignment="Center" TypographyId="Default">
+      <Text Id="SUB" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">SUB</Translation>
         <Translation Language="PL">SUB</Translation>
-      </Text>
-      <Text Id="__SingleUse_BDKY" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">ADD</Translation>
-        <Translation Language="PL">ADD</Translation>
       </Text>
       <Text Id="SETTINGSINFO" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">Settings.</Translation>
@@ -119,7 +231,7 @@
         <Translation Language="PL">KOMPRESOR</Translation>
       </Text>
       <Text Id="DISTORTION" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">DISTROTION</Translation>
+        <Translation Language="GB">DISTORTION</Translation>
         <Translation Language="PL">DISTORTION</Translation>
       </Text>
       <Text Id="OVERDRIVE" Alignment="Center" TypographyId="Default">
@@ -149,8 +261,8 @@
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789-" />
     <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789-" />
   </Typographies>
 </TextDatabase>

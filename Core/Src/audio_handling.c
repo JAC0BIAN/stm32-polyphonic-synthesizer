@@ -70,11 +70,27 @@ void audio_set_harmonics(uint8_t n) {
     patch_harmonics = n;
 }
 
+static float clamp_time(float t) { return (t < 0.001f) ? 0.001f : t; }
+
+void audio_set_attack(float t)  { synth.env.attack_t  = clamp_time(t); }
+void audio_set_decay(float t)   { synth.env.decay_t   = clamp_time(t); }
+void audio_set_release(float t) { synth.env.release_t = clamp_time(t); }
+void audio_set_sustain(float l) {
+    if (l < 0.0f) l = 0.0f;
+    if (l > 1.0f) l = 1.0f;
+    synth.env.sustain = l;
+}
+
+float audio_get_attack(void)  { return synth.env.attack_t; }
+float audio_get_decay(void)   { return synth.env.decay_t; }
+float audio_get_sustain(void) { return synth.env.sustain; }
+float audio_get_release(void) { return synth.env.release_t; }
+
 static struct {
     uint16_t en;
     WaveType wave;
     float    semi, detune, level;
-} osc2_cfg = { 0u, SAW, -12.0f, 7.0f, 0.8f };
+} osc2_cfg = { 0u, SAW, 0.0f, 0.0f, 0.5f };
 
 static volatile uint8_t osc2_dirty = 0;
 

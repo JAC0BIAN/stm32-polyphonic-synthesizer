@@ -10,9 +10,9 @@
 
 void overdrive_init(Overdrive *ov){
 	ov -> lpf_z = 0;
-	ov -> gain = (int32_t)12000;
+	ov -> gain = (int32_t)7200;
 	ov -> level = (int32_t)2000;		// Not more than 32767
-	int32_t cutoff_freq = 8000;					// for lpf
+	int32_t cutoff_freq = 6000;					// for lpf
 
 	if(cutoff_freq > 20000u) cutoff_freq = 20000u;
 	uint32_t a = (205887u * cutoff_freq)/(uint32_t)SAMPLE_RATE_HZ;
